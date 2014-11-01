@@ -75,7 +75,8 @@
 			$datos = $usuarioBD->login($usuario, $contrasenaSH);
 			if($datos!=false){
 				$_SESSION["nombre"] = $datos;
-				$this->mostrarVista("Si se logueo");
+				$plantilla = $this->leerPlantilla("aplicacion/vista/cerrarSesion.html");
+				$this->mostrarVista($plantilla);
 			}else{
 				$this->inicio();
 			}
