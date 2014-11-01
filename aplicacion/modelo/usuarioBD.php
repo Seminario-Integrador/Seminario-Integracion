@@ -13,20 +13,24 @@
 		public function login($nombre, $contrasena)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consulta("SELECT nombre FROM usuario WHERE nombre");
+			$aux=$this->consultar("SELECT nombre FROM usuario WHERE nombre='".$nombre."' AND contrasenaSH1='".$contraseña."'");
+			$this->desconectar();
+			$cont=0;
+			$nombre="";
 
-			/*
-			nombre varchar(55) NOT NULL,
-			correo varchar(60) NOT NULL,
-			contrasenaSH1 varchar(40) NOT NULL,
-			codigoUsuario varchar(8) NOT NULL,
-			descripcion varchar (140),
-			puntaje	int NOT NULL,
-			nivel int NOT NULL,
-			subnivel int NOT NULL,*/
+			while($fila=mysqli_fetch_array($aux)){
+				$nombre=$fila[0];
+				$cont++;
+			}
+
+			if($cont==1){
+				return $nombre;
+			}else{
+				return false;
+			}
 		}
 	}
 
-	//retornar array  posicion (nombre) o false
+	
 	
 ?>
