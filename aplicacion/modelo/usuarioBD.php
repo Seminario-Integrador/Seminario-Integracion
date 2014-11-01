@@ -69,9 +69,7 @@
 			}
 		}
 
-		public function 
+		
 	}
-
-	
 	
 ?>
