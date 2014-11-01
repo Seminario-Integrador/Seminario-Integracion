@@ -60,7 +60,7 @@
 			$contrasenaSH = $this->encriptarContrasena($contrasena);
 			$usuarioBD = new usuarioBD();
 			$usuarioBD->registrar($nombre, $codigo, $email, $contrasenaSH);
-			$this->login($nombre, $contrasenaSH);
+			$this->login($nombre, $contrasena);
 		}
 
 		/**
@@ -71,7 +71,14 @@
 		public function login($usuario, $contrasena)
 		{
 			$contrasenaSH = $this->encriptarContrasena($contrasena);
-			echo "Funciono";
+			$usuarioBD = new usuarioBD();
+			$datos = $usuarioBD->login($usuario, $contrasenaSH);
+			if($datos!=false){
+				$_SESSION["nombre"] = $datos;
+				$mostrarVista("Si se logueo");
+			}else{
+				$this->inicio();
+			}
 		}
 
 		/**
