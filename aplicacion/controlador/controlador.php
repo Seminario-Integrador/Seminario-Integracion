@@ -1,5 +1,5 @@
 <?php
-
+	include "aplicacion/modelo/usuarioBD.php";
 	/**
 	* Clase encargada del control principal del juego. Recibe llamados desde el index.php
 	* Esta clase será extendida por las demas clases del controlador
@@ -50,12 +50,17 @@
 
 		/**
 		*	Registra un nuevo usuario en la base de datos (esto se realiza desde el modelo)
-		*	
+		*	@param $nombre - Nombre del usuario
+		* 	@param $codigo - codigo del usuario (El codigo en divisist)
+		*	@param $email - Correo electronico del usuario (para validación y cambio de contraseña)
+		*	@param $contrasena - Contraseña elegida por el usuario
 		*/
 		public function registro($nombre, $codigo, $email, $contrasena)
 		{
-			$contrasena = $this->encriptarContrasena($contrasena);
-			$usuarioBD = new usuarioBD($nombre, $codigo, $email, $contrasena);
+			$contrasenaSH = $this->encriptarContrasena($contrasena);
+			$usuarioBD = new usuarioBD();
+			$usuarioBD->registrar($nombre, $codigo, $email, $contrasenaSH);
+			$this->login($nombre, $contrasenaSH);
 		}
 
 		/**
@@ -63,11 +68,10 @@
 		*	@param $usuario - Nombre de usuario a verificar
 		*	@param $contrasena - Contrasena del usuario a verificar
 		*/
-
 		public function login($usuario, $contrasena)
 		{
-			$contrasena = $this->encriptarContrasena($contrasena);
-
+			$contrasenaSH = $this->encriptarContrasena($contrasena);
+			echo "Funciono";
 		}
 
 		/**

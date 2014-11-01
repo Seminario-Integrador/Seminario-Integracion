@@ -78,17 +78,19 @@
 </head>
 <body>
 REGISTRO
-<form>
+<form action="index.php" method="POST">
 	<input type="text" placeholder="Nombre de Usuario" name="usuario">
 	<input type="number" placeholder="Codigo" name="codigo">
 	<input type="email" placeholder="Email" name="email">
 	<input type="password" placeholder="*****" name="contrasena">
+	<input type="hidden" name="tipo" value="registro">
 	<input type="submit" value="Registrar">
 </form>
 LOGIN
-<form>
+<form action="index.php" method="POST">
 	<input type="text" placeholder="Nombre de Usuario" name="usuario">
 	<input type="password" placeholder="*****" name="contrasena">
+	<input type="hidden" name="tipo" value="login">
 	<input type="submit" value="Iniciar Sesión">
 </form>
 <div id="fullpage">
