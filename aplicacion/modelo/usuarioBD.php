@@ -59,7 +59,7 @@
 				foreach($fila as $dato){
 					array_push($datos, $dato);
 				}
-				cont++;
+				$cont++;
 			}
 
 			if($cont==1){
@@ -68,6 +68,8 @@
 				return false;
 			}
 		}
+
+		public function 
 	}
 
 	

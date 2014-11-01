@@ -24,12 +24,14 @@
 			nombre varchar(55) NOT NULL,
 			correo varchar(60) NOT NULL,
 			contrasenaSH1 varchar(40) NOT NULL,
-			codigoUsuario varchar(8) NOT NULL,
+			codigoUsuario varchar(8),
 			descripcion varchar (140),
 			puntaje	int NOT NULL,
 			nivel int NOT NULL,
 			subnivel int NOT NULL,
-			PRIMARY KEY (codigoUsuario)
+			fotoPerfil varchar(140),
+			fotoPortada int,
+			PRIMARY KEY (nombre)
 		)")){
 		echo "Se ha creado la tabla Usuario exitosamente<br>";
 	}
