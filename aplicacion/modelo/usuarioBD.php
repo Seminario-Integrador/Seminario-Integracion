@@ -18,7 +18,9 @@
 
 		/**
 		*	Método que se encarga de crear la consulta para loguear un usuario en la Aplicación
-		*	@param $nombre - Nombre
+		*	@param $nombre - Username del usuario a loguear
+		*	@param $contrasena -Contraseña encriptada del usuario a loguear
+		*	@return El nombre del usuario si este se conecto de manera correcta, de lo contrario retorna false
 		*/
 		public function login($nombre, $contrasena)
 		{
@@ -35,6 +37,33 @@
 
 			if($cont==1){
 				return $nombre;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		*	Método que se encarga de consultar los datos de un usuario
+		*	@param $nombre - Username del usuario 
+		*	@return Un array con todos los datos del usuario si la consulta se realizo de manera correcta, de lo contrario un boolean
+		*/
+		public function obtenerDatos($nombre)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT * FROM usuario WHERE nombre='".$nombre."'");
+			$this->desconectar();
+			$cont=0;
+			$datos=array();
+
+			while($fila=mysqli_fetch_array($aux)){
+				foreach($fila as $dato){
+					array_push($datos, $dato);
+				}
+				cont++;
+			}
+
+			if($cont==1){
+				return $datos;
 			}else{
 				return false;
 			}
