@@ -54,7 +54,7 @@
 		*/
 		public function registro($nombre, $codigo, $email, $contrasena)
 		{
-			$contrasena = this->encriptarContrasena($contrasena);
+			$contrasena = $this->encriptarContrasena($contrasena);
 			$usuarioBD = new usuarioBD($nombre, $codigo, $email, $contrasena);
 		}
 
@@ -66,7 +66,7 @@
 
 		public function login($usuario, $contrasena)
 		{
-			$contrasena = this->encriptarContrasena($contrasena);
+			$contrasena = $this->encriptarContrasena($contrasena);
 
 		}
 
