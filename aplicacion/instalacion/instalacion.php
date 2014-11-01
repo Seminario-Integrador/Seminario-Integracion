@@ -32,7 +32,7 @@
 			subnivel int NOT NULL,
 			fotoPerfil varchar(140) NOT NULL,
 			fotoPortada int, NOT NULL,
-			PRIMARY KEY (nombre)
+			PRIMARY KEY (username)
 		)")){
 		echo "Se ha creado la tabla Usuario exitosamente<br>";
 	}
@@ -40,9 +40,9 @@
 	if(mysqli_query($conexion, "CREATE TABLE medalla(
 			logro varchar(55) NOT NULL,
 			tipo varchar(55) NOT NULL,
-			codigoUsuario varchar(8) NOT NULL,
+			username varchar(20) NOT NULL,
 			PRIMARY KEY (logro),
-			FOREIGN KEY(codigoUsuario) REFERENCES usuario(codigoUsuario)
+			FOREIGN KEY(username) REFERENCES usuario(username)
 			ON UPDATE CASCADE
 			ON DELETE CASCADE
 		)")){
@@ -52,9 +52,9 @@
 	if(mysqli_query($conexion, "CREATE TABLE curso(
 			nombreCurso varchar(30) NOT NULL,	
 			codigoDocente varchar(8),
-			codigoUsuario varchar(8),
-			PRIMARY KEY (nombreCurso, codigoUsuario),
-			FOREIGN KEY(codigoUsuario) REFERENCES usuario(codigoUsuario)
+			username varchar(20) NOT NULL,
+			PRIMARY KEY (nombreCurso, username),
+			FOREIGN KEY(username) REFERENCES usuario(username)
 			ON UPDATE CASCADE
 			ON DELETE CASCADE,
 			FOREIGN KEY(codigoDocente) REFERENCES docente(codigoDocente)

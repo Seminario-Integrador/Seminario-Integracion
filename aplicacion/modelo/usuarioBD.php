@@ -69,10 +69,10 @@
 			}
 		}
 
-		public function actualizarDatos($username, $contrasena, $descripcion, $rutaImagen, $portada)
+		public function actualizarDatos($username, $nombre, $contrasena, $descripcion, $rutaImagen, $portada)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("UPDATE usuario SET contrasenaSH1='".$contrasena."', descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada." WHERE username='".$username."'");
+			$aux=$this->consultar("UPDATE usuario SET nombre   contrasenaSH1='".$contrasena."', descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada." WHERE username='".$username."'");
 			$this->desconectar();
 		}
 
