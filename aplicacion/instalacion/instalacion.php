@@ -31,7 +31,7 @@
 			nivel int NOT NULL,
 			subnivel int NOT NULL,
 			fotoPerfil varchar(140) NOT NULL,
-			fotoPortada int, NOT NULL,
+			fotoPortada int NOT NULL,
 			PRIMARY KEY (username)
 		)")){
 		echo "Se ha creado la tabla Usuario exitosamente<br>";
