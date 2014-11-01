@@ -65,12 +65,12 @@
 		*	@param $email - Correo electronico del usuario (para validación y cambio de contraseña)
 		*	@param $contrasena - Contraseña elegida por el usuario
 		*/
-		public function registro($nombre, $codigo, $email, $contrasena)
+		public function registro($nickname, $nombre, $codigo, $email, $contrasena)
 		{
 			$contrasenaSH = $this->encriptarContrasena($contrasena);
 			$usuarioBD = new usuarioBD();
-			$usuarioBD->registrar($nombre, $codigo, $email, $contrasenaSH);
-			$this->login($nombre, $contrasena);
+			$usuarioBD->registrar($nickname, $nombre, $codigo, $email, $contrasenaSH);
+			$this->login($nickname, $contrasena);
 		}
 
 		/**
