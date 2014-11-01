@@ -16,6 +16,16 @@
 			$inicio = $this->leerPlantilla("estatico/index.html");
 			$this->mostrarVista($inicio);
 		}
+		/**
+		*	Muestra el inicio cuando no el usuario esta logueado
+		*/
+		public function inicioValidado()
+		{
+			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
+			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
+			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
+			$this->mostrarVista($plantilla);
+		}
 
 		/**
 		* Metodo que carga un archivo de la vista
@@ -75,8 +85,7 @@
 			$datos = $usuarioBD->login($usuario, $contrasenaSH);
 			if($datos!=false){
 				$_SESSION["nombre"] = $datos;
-				$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
-				$this->mostrarVista($plantilla);
+				$this->inicioValidado();
 			}else{
 				$this->inicio();
 			}
