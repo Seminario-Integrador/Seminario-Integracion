@@ -3,16 +3,17 @@
 
 	class UsuarioBD extends Modelo{
 
-		public function registrar($nombre, $codigo, $email, $contraseña)
+		public function registrar($nombre, $codigo, $email, $contrasena)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$this->consulta("INSERT INTO usuario VALUES('".$usuario."','".$email."','".$contraseña."','".$codigo."','','0','1','0')");
+			$this->consultar("INSERT INTO usuario VALUES('".$usuario."','".$email."','".$contrasena."','".$codigo."','','0','1','0')");
 			$this->desconectar();
 		}
 
-		public function login($value='')
+		public function login($nombre, $contrasena)
 		{
-			# code...
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consulta("SELECT ");
 		}
 	}
 
