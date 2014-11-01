@@ -75,7 +75,7 @@
 			$datos = $usuarioBD->login($usuario, $contrasenaSH);
 			if($datos!=false){
 				$_SESSION["nombre"] = $datos;
-				$mostrarVista("Si se logueo");
+				$this->mostrarVista("Si se logueo");
 			}else{
 				$this->inicio();
 			}
