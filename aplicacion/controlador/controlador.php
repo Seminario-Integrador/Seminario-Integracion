@@ -76,7 +76,6 @@
 			if($datos!=false){
 				$_SESSION["nombre"] = $datos;
 				$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
-				$plantilla .= $this->leerPlantilla("aplicacion/vista/cerrarSesion.html");
 				$this->mostrarVista($plantilla);
 			}else{
 				$this->inicio();

@@ -9,7 +9,7 @@
 	<div class="container" id="container">
 		<div class="left" id="left">
 			<div class="superior">
-				<img src="img/perfil.png">
+				<img src="estatico/img/perfil.png">
 				<h2>Username</h2>
 				<div class="cuadre"></div>
 			</div>
@@ -42,12 +42,18 @@
 					</div>
 					<p class="campoP">Guia</p>
 				</div>
-				<div class="campoMenu">
-					<div class="img">
-						<span class="icon-exit"></span>
+				<a href="" onClick="cerrarSesion()">
+					<div class="campoMenu">
+						<div class="img">
+							<span class="icon-exit"></span>
+						</div>
+						<p class="campoP">Cerrar Sesión</p>
+						<form class="oculto" name="cerrarS" action="index.php" method="POST">
+							<input type="hidden" name="tipo" value="cerrar">
+							<input type="submit" value="Cerrar Sesion">
+						</form>
 					</div>
-					<p class="campoP">Cerrar Sesión</p>
-				</div>
+				</a>
 			</div>
 			<div class="cuadre"></div>
 		</div>

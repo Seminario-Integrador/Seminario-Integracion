@@ -498,6 +498,9 @@ input[type="text"], input[type="number"]{
 	text-align: center;
 	margin: 1rem;
 }
+.oculto{
+	display: none;
+}
 footer{
 	clear: both;
 	padding: .6rem;

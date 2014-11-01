@@ -29,3 +29,8 @@ function desplegar () {
 }
 
 left.addEventListener("click", desplegar);
+
+
+function cerrarSesion () {
+	document.cerrarS.submit();
+}
