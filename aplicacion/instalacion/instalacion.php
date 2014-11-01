@@ -21,7 +21,8 @@
 	}
 
 	if(mysqli_query($conexion, "CREATE TABLE usuario(
-			nombre varchar(55) NOT NULL,
+			nombre varchar(90) NOT NULL,
+			username varchar(20) NOT NULL,
 			correo varchar(60) NOT NULL,
 			contrasenaSH1 varchar(40) NOT NULL,
 			codigoUsuario varchar(8),
@@ -29,8 +30,8 @@
 			puntaje	int NOT NULL,
 			nivel int NOT NULL,
 			subnivel int NOT NULL,
-			fotoPerfil varchar(140),
-			fotoPortada int,
+			fotoPerfil varchar(140) NOT NULL,
+			fotoPortada int, NOT NULL,
 			PRIMARY KEY (nombre)
 		)")){
 		echo "Se ha creado la tabla Usuario exitosamente<br>";

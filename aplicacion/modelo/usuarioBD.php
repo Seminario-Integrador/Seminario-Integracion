@@ -9,10 +9,10 @@
 		*	@param $codigo - Codigo del usuario a registrar
 		*	@param $email - Email del usuario a registrar
 		*/
-		public function registrar($nombre, $codigo, $email, $contrasena)
+		public function registrar($username, $nombre, $codigo, $email, $contrasena)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$this->consultar("INSERT INTO usuario VALUES('".$nombre."','".$email."','".$contrasena."','".$codigo."','','0','1','0')");
+			$this->consultar("INSERT INTO usuario VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."','','0','1','0','aqui iria la ruta', '1')");
 			$this->desconectar();
 		}
 
@@ -22,10 +22,10 @@
 		*	@param $contrasena -Contraseña encriptada del usuario a loguear
 		*	@return El nombre del usuario si este se conecto de manera correcta, de lo contrario retorna false
 		*/
-		public function login($nombre, $contrasena)
+		public function login($username, $contrasena)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("SELECT nombre FROM usuario WHERE nombre='".$nombre."' AND contrasenaSH1='".$contrasena."'");
+			$aux=$this->consultar("SELECT username FROM usuario WHERE username='".$username."' AND contrasenaSH1='".$contrasena."'");
 			$this->desconectar();
 			$cont=0;
 			$nombre="";
@@ -47,10 +47,10 @@
 		*	@param $nombre - Username del usuario 
 		*	@return Un array con todos los datos del usuario si la consulta se realizo de manera correcta, de lo contrario un boolean
 		*/
-		public function obtenerDatos($nombre)
+		public function obtenerDatos($username)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("SELECT * FROM usuario WHERE nombre='".$nombre."'");
+			$aux=$this->consultar("SELECT * FROM usuario WHERE $username='".$username."'");
 			$this->desconectar();
 			$cont=0;
 			$datos=array();
@@ -67,6 +67,13 @@
 			}else{
 				return false;
 			}
+		}
+
+		public function actualizarDatos($username, $contrasena, $descripcion, $rutaImagen, $portada)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE usuario SET contrasenaSH1='".$contrasena."', descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada." WHERE username='".$username."'");
+			$this->desconectar();
 		}
 
 		
