@@ -583,6 +583,9 @@ input[type="text"], input[type="number"]{
 .oculto{
 	display: none;
 }
+#cerrarSesion{
+	cursor: pointer;
+}
 footer{
 	clear: both;
 	padding: .6rem;

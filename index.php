@@ -9,9 +9,10 @@
 				session_destroy();
 				header('location:index.php');
 			}
+		}else{
+			$alan->inicioValidado();
 		}
-	}
-	if(isset($_POST["tipo"])){
+	}else if(isset($_POST["tipo"])){
 		if($_POST["tipo"]=="registro"){
 			$alan->registro($_POST["usuario"], $_POST["nombre"] ,$_POST["codigo"], $_POST["email"], $_POST["contrasena"], $_POST["curso"]);
 		}else if($_POST["tipo"]=="login"){

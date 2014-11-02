@@ -1,6 +1,7 @@
 var activo = false;
 var left = document.getElementById('left');
 var right = document.getElementById('right');
+var sesion = document.getElementById("cerrarSesion");
 function desplegar () {
 	if(activo){
 		if(window.innerWidth>=1200){
@@ -53,6 +54,10 @@ function ocultar () {
 		}
 	}
 }
+function cerrarSesion() {
+	document.cerrarS.submit();
+}
 left.addEventListener("mouseover", mostrar);
 left.addEventListener("mouseout", ocultar);
 left.addEventListener("click", desplegar);
+sesion.addEventListener("click", cerrarSesion);

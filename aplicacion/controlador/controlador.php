@@ -25,6 +25,7 @@
 		{
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
 			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
+			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["nombre"]);
 			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
 			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioJuego.html");
 			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
