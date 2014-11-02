@@ -1,5 +1,5 @@
 <?php
-	require "aplicacion/modelo/modelo.php";
+	require_once "aplicacion/modelo/modelo.php";
 
 	class CursoBD extends Modelo{
 
@@ -16,7 +16,7 @@
 		}
 
 		
-		public function listarCursos(){}
+		public function listarCursos()
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("SELECT nombreCurso FROM curso");

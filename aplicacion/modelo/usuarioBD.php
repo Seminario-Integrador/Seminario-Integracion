@@ -1,5 +1,5 @@
 <?php
-	require "aplicacion/modelo/modelo.php";
+	require_once "aplicacion/modelo/modelo.php";
 
 	class UsuarioBD extends Modelo{
 
