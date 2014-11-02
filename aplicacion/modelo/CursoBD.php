@@ -15,7 +15,10 @@
 			$this->desconectar();
 		}
 
-		
+		/**
+		*	Método que permite listar todos los cursos existentes
+		*	@return un array con el nombre de los cursos existentes o un false en caso de que no hallan cursos registrados
+		*/
 		public function listarCursos(){}
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -33,17 +36,16 @@
 			}
 		}
 
-		//ARREGLAR ESTO!!!! 
+		 
 		/**
-		*	Método que se encarga de actualizar los datos de un docente
+		*	Método que permite actualizar el docente que dirige un curso
 		*	@param $username - Username del docente 
-		*	@param $nombre - Nuevo nombre de docente
-		*	@param $contraseña - Nueva contraseña del docente
+		*	@param $nombre - Nombre del curso que se actualizara
 		*/
-		public function actualizarDatos($username, $nombre, $contrasena)
+		public function actualizarDatos($username, $nombreCurso)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("UPDATE docente SET nombre='".$nombre."', contrasenaSH1='".$contrasena."' WHERE username='".$username."'");
+			$aux=$this->consultar("UPDATE curso SET usernameD='".$username."' WHERE nombreCurso='".$nombreCurso."'");
 			$this->desconectar();
 		}
 

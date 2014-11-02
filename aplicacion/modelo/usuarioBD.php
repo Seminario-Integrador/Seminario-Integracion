@@ -77,15 +77,75 @@
 		*	@param $username - Username del usuario 
 		*	@param $nombre - Nuevo nombre de usuario
 		*	@param $contraseña - Nueva contraseña del usuario
+		*	@param $curso - Nuevo curso al que pertenece el usuario
 		*	@param $descripción - Nueva descripción del usuario 
 		*	@param $rutaImagen - Nueva imagen de perfil
 		*	@param $portada - Nuevo idntificador de portada
 		*/
-		public function actualizarDatos($username, $nombre, $contrasena, $descripcion, $rutaImagen, $portada)
+		public function actualizarDatos($username, $nombre, $contrasena, $curso, $descripcion, $rutaImagen, $portada)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."', contrasenaSH1='".$contrasena."', descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada."' WHERE username='".$username."'");
+			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."', contrasenaSH1='".$contrasena."', nombreCurso='".$curso."' descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada."' WHERE username='".$username."'");
 			$this->desconectar();
+		}
+
+		/**
+		*	Método que se encarga de registrar las medallas que halla ganado un usuario
+		*	@param $username - Username del usuario 
+		*	@param $logro - Logro de la nueva medalla que gano el usuario
+		*/
+		public function registrarMedalla($username, $logro)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$this->consultar("INSERT INTO usuario-medalla VALUES('".$username."','".$logro."')");
+			$this->desconectar();
+		}
+
+		/**
+		*	Método que lista todas las medallas que puede ganar un usuario
+		*	@return Una matriz donde cada fila es una medalla(logro, tipo), en caso de no haber medallas retorna false
+		*/
+		public function listarMedallas()
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT * FROM medalla");
+			$this->desconectar();
+			$datos=array();
+
+			while($fila=mysqli_fetch_array($aux)){
+				foreach($fila as $dato){
+					array_push($datos, $dato);
+				}
+			}
+
+			if(count($datos)>0){
+				return $datos;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		*	Método que lista todas las medallas que tiene un usuario
+		*	@param $username - Nombre del usuario
+		*	@return Un array donde cada posición es una medalla obtenida por el usuario, en caso de no haber medallas retorna false
+		*/
+		public function listarMedallasUsuario($username)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT logro FROM usuario-medalla WHERE username='".$username."'");
+			$this->desconectar();
+			$datos=array();
+
+			while($fila=mysqli_fetch_array($aux)){
+				array_push($datos, $fila[0]);
+			}
+
+			if(count($datos)>0){
+				return $datos;
+			}else{
+				return false;
+			}
 		}
 
 		

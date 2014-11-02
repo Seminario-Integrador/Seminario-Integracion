@@ -52,14 +52,24 @@
 		echo "Se ha creado la tabla Usuario exitosamente<br>";
 	}
 
+	if(mysqli_query($conexion, "CREATE TABLE usuario-medalla(
+			username varchar(20) NOT NULL,
+			logro varchar(55) NOT NULL,
+			PRIMARY KEY (username, logro),
+			FOREIGN KEY(username) REFERENCES usuario(username)
+			ON UPDATE CASCADE
+			ON DELETE CASCADE,
+			FOREIGN KEY(logro) REFERENCES medalla(logro)
+			ON UPDATE CASCADE
+			ON DELETE CASCADE
+		)")){
+		echo "Se ha creado la tabla Usuario-Medalla exitosamente<br>";
+	}						 
+
 	if(mysqli_query($conexion, "CREATE TABLE medalla(
 			logro varchar(55) NOT NULL,
 			tipo varchar(55) NOT NULL,
-			username varchar(20) NOT NULL,
 			PRIMARY KEY (logro),
-			FOREIGN KEY(username) REFERENCES usuario(username)
-			ON UPDATE CASCADE
-			ON DELETE CASCADE
 		)")){
 		echo "Se ha creado la tabla Medalla exitosamente<br>";
 	}
