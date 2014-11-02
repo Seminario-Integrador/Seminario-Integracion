@@ -8,7 +8,6 @@
 	* @author Melissa Delgado - Gerson Lázaro
 	*/
 	class Controlador{
-
 		/**
 		* Metodo que toma el archivo estatico de la pagina inicial y lo carga 
 		*/
@@ -119,9 +118,10 @@
 		}
 		public function crearSelect($nombre, $arrayOpciones)
 		{
-			$select = $_select;
+			$kit = new Assets();
+			$select = $kit->_select;
 			$select = $this->reemplazar($select, "{{nombre}}", $nombre);
-			$valores = $_valores;
+			$valores = $kit->_optionSelect;
 			$contenido = "";
 			if($nombre!=false){
 				foreach ($arrayOpciones as $valor) {
