@@ -5,9 +5,11 @@
 
 		/**
 		*	Método que se encarga de crear la consulta para guardar un nuevo usuario en la Base de Datos.
+		*	@param $username - Username del usuario a registrar
 		*	@param $nombre - Nombre del usuario a registrar
 		*	@param $codigo - Codigo del usuario a registrar
 		*	@param $email - Email del usuario a registrar
+		*	@param $contraseña - Contraseña del usuario a registrar
 		*/
 		public function registrar($username, $nombre, $codigo, $email, $contrasena)
 		{
@@ -18,7 +20,7 @@
 
 		/**
 		*	Método que se encarga de crear la consulta para loguear un usuario en la Aplicación
-		*	@param $nombre - Username del usuario a loguear
+		*	@param $username - Username del usuario a loguear
 		*	@param $contrasena -Contraseña encriptada del usuario a loguear
 		*	@return El nombre del usuario si este se conecto de manera correcta, de lo contrario retorna false
 		*/
@@ -44,7 +46,7 @@
 
 		/**
 		*	Método que se encarga de consultar los datos de un usuario
-		*	@param $nombre - Username del usuario 
+		*	@param $username - Username del usuario 
 		*	@return Un array con todos los datos del usuario si la consulta se realizo de manera correcta, de lo contrario un boolean
 		*/
 		public function obtenerDatos($username)
@@ -69,10 +71,19 @@
 			}
 		}
 
+		/**
+		*	Método que se encarga de actualizar los datos de un usuario
+		*	@param $username - Username del usuario 
+		*	@param $nombre - Nuevo nombre de usuario
+		*	@param $contraseña - Nueva contraseña del usuario
+		*	@param $descripción - Nueva descripción del usuario 
+		*	@param $rutaImagen - Nueva imagen de perfil
+		*	@param $portada - Nuevo idntificador de portada
+		*/
 		public function actualizarDatos($username, $nombre, $contrasena, $descripcion, $rutaImagen, $portada)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."', contrasenaSH1='".$contrasena."', descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada." WHERE username='".$username."'");
+			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."', contrasenaSH1='".$contrasena."', descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada."' WHERE username='".$username."'");
 			$this->desconectar();
 		}
 

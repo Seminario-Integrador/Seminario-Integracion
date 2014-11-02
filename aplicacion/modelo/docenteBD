@@ -1,0 +1,89 @@
+<?php
+	require "aplicacion/modelo/modelo.php";
+
+	class UsuarioBD extends Modelo{
+
+		/**
+		*	Método que se encarga de crear la consulta para guardar un nuevo docente en la Base de Datos.
+		*	@param $username - Username del docente a registrar
+		*	@param $nombre - Nombre del docente a registrar
+		*	@param $codigo - Codigo del docente a registrar
+		*	@param $email - Email del docente a registrar
+		*	@param $contraseña - Contraseña del docente a registrar
+		*/
+		public function registrar($username, $nombre, $codigo, $email, $contrasena)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$this->consultar("INSERT INTO docente VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."'");
+			$this->desconectar();
+		}
+
+		/**
+		*	Método que se encarga de crear la consulta para loguear un docente en la Aplicación
+		*	@param $username - Username del docente a loguear
+		*	@param $contrasena -Contraseña encriptada del docente a loguear
+		*	@return El nombre del docente si este se conecto de manera correcta, de lo contrario retorna false
+		*/
+		public function login($username, $contrasena)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT username FROM docente WHERE username='".$username."' AND contrasenaSH1='".$contrasena."'");
+			$this->desconectar();
+			$cont=0;
+			$nombre="";
+
+			while($fila=mysqli_fetch_array($aux)){
+				$nombre=$fila[0];
+				$cont++;
+			}
+
+			if($cont==1){
+				return $nombre;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		*	Método que se encarga de consultar los datos de un docente
+		*	@param $username - Username del docente 
+		*	@return Un array con todos los datos del docente si la consulta se realizo de manera correcta, de lo contrario un boolean
+		*/
+		public function obtenerDatos($username)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT * FROM docente WHERE $username='".$username."'");
+			$this->desconectar();
+			$cont=0;
+			$datos=array();
+
+			while($fila=mysqli_fetch_array($aux)){
+				foreach($fila as $dato){
+					array_push($datos, $dato);
+				}
+				$cont++;
+			}
+
+			if($cont==1){
+				return $datos;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		*	Método que se encarga de actualizar los datos de un docente
+		*	@param $username - Username del docente 
+		*	@param $nombre - Nuevo nombre de docente
+		*	@param $contraseña - Nueva contraseña del docente
+		*/
+		public function actualizarDatos($username, $nombre, $contrasena)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE docente SET nombre='".$nombre."', contrasenaSH1='".$contrasena."' WHERE username='".$username."'");
+			$this->desconectar();
+		}
+
+	}
+	
+?>
