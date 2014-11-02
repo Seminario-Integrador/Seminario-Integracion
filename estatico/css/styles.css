@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?xevw7p');
-	src:url('../fonts/icomoon.eot?#iefixxevw7p') format('embedded-opentype'),
-		url('../fonts/icomoon.woff?xevw7p') format('woff'),
-		url('../fonts/icomoon.ttf?xevw7p') format('truetype'),
-		url('../fonts/icomoon.svg?xevw7p#icomoon') format('svg');
+	src:url('../fonts/icomoon.eot?-cwxkpk');
+	src:url('../fonts/icomoon.eot?#iefix-cwxkpk') format('embedded-opentype'),
+		url('../fonts/icomoon.woff?-cwxkpk') format('woff'),
+		url('../fonts/icomoon.ttf?-cwxkpk') format('truetype'),
+		url('../fonts/icomoon.svg?-cwxkpk#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -52,6 +52,12 @@
 }
 .icon-search:before {
 	content: "\e606";
+}
+.icon-lock:before {
+	content: "\e62a";
+}
+.icon-unlocked:before {
+	content: "\e62b";
 }
 .icon-wrench:before {
 	content: "\e628";
@@ -149,6 +155,7 @@
 .icon-twitter2:before {
 	content: "\e624";
 }
+
 span{
 	text-decoration: none;
 }
@@ -251,10 +258,10 @@ hr{
 	background-color: #ecf0f1;
 	transition: all .3s ease;
 }
-.right .superior{
+.right .superior, .superiorIndex{
 	background-color: #FFF;
 }
-.superior{
+.superior, .superiorIndex{
 	width: 100%;
 	height: 7rem;
 	box-sizing: border-box;
@@ -278,7 +285,7 @@ hr{
 	position: absolute;
 
 }
-.right .superior{
+.right .superior, .superiorIndex{
 	border-bottom: 1px solid #DDD;
 }
 .buscar{
@@ -497,6 +504,66 @@ input[type="text"], input[type="number"]{
 	background-color: #ecf0f1;
 	text-align: center;
 	margin: 1rem;
+}
+.guias{
+	margin-top: 4rem;
+	margin-bottom: 4rem;
+	text-align: center;
+}
+.guias .cuatroColumnas{
+	height: 8rem;
+	margin: 3rem 2% auto 2%;
+	text-align: center;
+	padding-top: 2.2rem;
+}
+.guias a{
+	color: #222;
+	text-decoration: none;
+}
+.guias span{
+	font-size: 100%!Important;
+	margin-top: auto;
+	border-radius: 0;
+	left: auto;
+	margin-left: auto;
+	border: none;
+	background-color: inherit;
+	color: inherit;
+	padding: inherit;
+	position: inherit;
+}
+.guiaDesbloqueada{
+	background-color: #3498db;
+	color: #FFF;
+	border-color: #FFF;
+}
+.guiaBloqueada{
+	background-color: #7f8c8d;
+	color: #bdc3c7;
+}
+.guiaIndividual{
+	width: 90%;
+	background-color: #FFF;
+	margin: 4rem auto;
+	position: relative;
+	padding: 3rem;
+	text-align: center;
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box;	
+}
+.direccionActiva{
+	background-color: #3498db;
+	color: #FFF;
+	text-decoration: none;
+	float: left;
+	padding: 1rem;
+}
+.direccionInactiva{
+	background-color: #7f8c8d;
+	color: #bdc3c7;
+	float: right;
+	padding: 1rem;
 }
 .oculto{
 	display: none;
