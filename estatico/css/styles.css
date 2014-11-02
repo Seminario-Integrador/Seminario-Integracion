@@ -565,6 +565,10 @@ input[type="text"], input[type="number"]{
 	float: right;
 	padding: 1rem;
 }
+.logo{
+	float: left;
+	margin: 0 0 0 40%;
+}
 .oculto{
 	display: none;
 }

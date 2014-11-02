@@ -231,14 +231,19 @@ p{
 	padding: 0 0 5px 0;
 }
 
-
-
-/* Demos Menu
- * --------------------------------------- */
- #demosMenu{
-	position:fixed;
-	bottom: 10px;
-	right:10px;
-	z-index: 999;
- }
+.menu{
+	background: none;
+	position: fixed;
+	top: 0;
+	bottom: 70px;
+	width: 70%;
+	margin: 0 auto;
+	z-index: 10;
+}
+.menu .der{
+	
+}
+.menu .izq{
+	
+}
 
