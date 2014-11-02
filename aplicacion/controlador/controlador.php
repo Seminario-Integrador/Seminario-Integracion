@@ -24,6 +24,10 @@
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
 			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
 			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
+			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioJuego.html");
+			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
+			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
 			$this->mostrarVista($plantilla);
 		}
 
