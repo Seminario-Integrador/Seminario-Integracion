@@ -11,11 +11,26 @@
 		public function registrar($nombreCurso, $username)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$this->consultar("INSERT INTO curso VALUES('".$nombreCurso."','".$username."'");
+			$this->consultar("INSERT INTO curso VALUES('".$nombreCurso."','".$username."')");
 			$this->desconectar();
+		}
 
-			/*nombreCurso varchar(30) NOT NULL,	
-			username varchar(20) NOT NULL,*/
+		
+		public function listarCursos(){}
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT nombreCurso FROM curso");
+			$this->desconectar();
+			$cursos=array();
+			while($fila=mysqli_fetch_array($aux)){
+				array_push($cursos, $fila[0]);
+			}
+
+			if(count($cursos)>0){
+				return $cursos;
+			}else{
+				return false;
+			}
 		}
 
 		//ARREGLAR ESTO!!!! 
