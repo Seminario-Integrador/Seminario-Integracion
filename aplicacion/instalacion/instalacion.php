@@ -50,9 +50,16 @@
 			ON DELETE SET NULL
 		)")){
 		echo "Se ha creado la tabla Usuario exitosamente<br>";
-	}
+	}					 
 
-	if(mysqli_query($conexion, "CREATE TABLE usuario-medalla(
+	if(mysqli_query($conexion, "CREATE TABLE medalla(
+			logro varchar(55) NOT NULL,
+			tipo varchar(55) NOT NULL,
+			PRIMARY KEY (logro)
+		)")){
+		echo "Se ha creado la tabla Medalla exitosamente<br>";
+	}
+	if(mysqli_query($conexion, "CREATE TABLE usuarioMedalla(
 			username varchar(20) NOT NULL,
 			logro varchar(55) NOT NULL,
 			PRIMARY KEY (username, logro),
@@ -64,13 +71,5 @@
 			ON DELETE CASCADE
 		)")){
 		echo "Se ha creado la tabla Usuario-Medalla exitosamente<br>";
-	}						 
-
-	if(mysqli_query($conexion, "CREATE TABLE medalla(
-			logro varchar(55) NOT NULL,
-			tipo varchar(55) NOT NULL,
-			PRIMARY KEY (logro),
-		)")){
-		echo "Se ha creado la tabla Medalla exitosamente<br>";
-	}
+	}	
 ?>
