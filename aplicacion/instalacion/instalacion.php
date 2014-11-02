@@ -13,9 +13,11 @@
 
 	if(mysqli_query($conexion, "CREATE TABLE docente(
 			nombre varchar(55) NOT NULL,
+			usernameD varchar(20) NOT NULL,
+			correo varchar(60) NOT NULL,
 			contrasenaSH1 varchar(40) NOT NULL,
 			codigoDocente varchar(8) NOT NULL,
-			PRIMARY KEY (codigoDocente)
+			PRIMARY KEY (usernameD)
 		)")){
 		echo "Se ha creado la tabla Docente exitosamente<br>";
 	}
@@ -51,13 +53,13 @@
 
 	if(mysqli_query($conexion, "CREATE TABLE curso(
 			nombreCurso varchar(30) NOT NULL,	
-			codigoDocente varchar(8),
+			usernameD varchar(20) NOT NULL,
 			username varchar(20) NOT NULL,
 			PRIMARY KEY (nombreCurso, username),
 			FOREIGN KEY(username) REFERENCES usuario(username)
 			ON UPDATE CASCADE
 			ON DELETE CASCADE,
-			FOREIGN KEY(codigoDocente) REFERENCES docente(codigoDocente)
+			FOREIGN KEY(usernameD) REFERENCES docente(usernameD)
 			ON UPDATE CASCADE
 			ON DELETE CASCADE
 		)")){
