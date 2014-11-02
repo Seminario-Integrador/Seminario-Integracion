@@ -1,19 +1,21 @@
 <?php
 	include "aplicacion/modelo/usuarioBD.php";
+	include "aplicacion/modelo/CursoBD.php";
+	include "aplicacion/vista/assets.php";
 	/**
 	* Clase encargada del control principal del juego. Recibe llamados desde el index.php
 	* Esta clase será extendida por las demas clases del controlador
 	* @author Melissa Delgado - Gerson Lázaro
 	*/
 	class Controlador{
-
 		/**
 		* Metodo que toma el archivo estatico de la pagina inicial y lo carga 
 		*/
 		public function inicio()
 		{
 			//REEMPLAZAR
-			$inicio = $this->leerPlantilla("estatico/index.html");
+			$inicio = $this->leerPlantilla("aplicacion/vista/splash.html");
+			$inicio = $this->reemplazar($inicio, "{{selectCursos}}", $this->leerCursos());
 			$this->mostrarVista($inicio);
 		}
 		/**
@@ -69,11 +71,11 @@
 		*	@param $email - Correo electronico del usuario (para validación y cambio de contraseña)
 		*	@param $contrasena - Contraseña elegida por el usuario
 		*/
-		public function registro($nickname, $nombre, $codigo, $email, $contrasena)
+		public function registro($nickname, $nombre, $codigo, $email, $contrasena, $curso)
 		{
 			$contrasenaSH = $this->encriptarContrasena($contrasena);
 			$usuarioBD = new usuarioBD();
-			$usuarioBD->registrar($nickname, $nombre, $codigo, $email, $contrasenaSH);
+			$usuarioBD->registrar($nickname, $nombre, $codigo, $email, $contrasenaSH, $curso);
 			$this->login($nickname, $contrasena);
 		}
 
@@ -105,6 +107,30 @@
 		public function encriptarContrasena($password)
 		{
 			return sha1($password);
+		}
+
+		public function leerCursos()
+		{
+			$cursos = new CursoBD();
+			$valores = $cursos->listarCursos();
+			$select = $this->crearSelect("curso", $valores);
+			return $select;
+		}
+		public function crearSelect($nombre, $arrayOpciones)
+		{
+			$kit = new Assets();
+			$select = $kit->_select;
+			$select = $this->reemplazar($select, "{{nombre}}", $nombre);
+			$valores = $kit->_optionSelect;
+			$contenido = "";
+			if($nombre!=false){
+				foreach ($arrayOpciones as $valor) {
+					$contenido .= $this->reemplazar($valores, "{{valor}}", $valor);
+				}
+			}else{
+				$contenido .= $this->reemplazar($valores, "{{valor}}", "");
+			}
+			return $this->reemplazar($select, "{{valores}}", $contenido);
 		}
 	}
 ?>

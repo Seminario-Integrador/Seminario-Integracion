@@ -1,5 +1,5 @@
 <?php
-	require "aplicacion/modelo/modelo.php";
+	require_once "aplicacion/modelo/modelo.php";
 
 	class CursoBD extends Modelo{
 
@@ -15,11 +15,16 @@
 			$this->desconectar();
 		}
 
+<<<<<<< HEAD
 		/**
 		*	Método que permite listar todos los cursos existentes
 		*	@return un array con el nombre de los cursos existentes o un false en caso de que no hallan cursos registrados
 		*/
 		public function listarCursos(){}
+=======
+		
+		public function listarCursos()
+>>>>>>> origin/master
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("SELECT nombreCurso FROM curso");
