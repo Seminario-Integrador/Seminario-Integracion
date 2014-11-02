@@ -21,20 +21,33 @@
 		)")){
 		echo "Se ha creado la tabla Docente exitosamente<br>";
 	}
-
+	if(mysqli_query($conexion, "CREATE TABLE curso(
+			nombreCurso varchar(30) NOT NULL,	
+			usernameD varchar(20) NOT NULL,
+			PRIMARY KEY (nombreCurso),
+			FOREIGN KEY(usernameD) REFERENCES docente(usernameD)
+			ON UPDATE CASCADE
+			ON DELETE CASCADE
+		)")){
+		echo "Se ha creado la tabla Curso exitosamente<br>";
+	}
 	if(mysqli_query($conexion, "CREATE TABLE usuario(
 			nombre varchar(90) NOT NULL,
 			username varchar(20) NOT NULL,
 			correo varchar(60) NOT NULL,
 			contrasenaSH1 varchar(40) NOT NULL,
 			codigoUsuario varchar(8),
+			nombreCurso varchar(30),
 			descripcion varchar (140),
 			puntaje	int NOT NULL,
 			nivel int NOT NULL,
 			subnivel int NOT NULL,
 			fotoPerfil varchar(140) NOT NULL,
 			fotoPortada int NOT NULL,
-			PRIMARY KEY (username)
+			PRIMARY KEY (username), 
+			FOREIGN KEY (nombreCurso) REFERENCES curso(nombreCurso)
+			ON UPDATE SET NULL
+			ON DELETE SET NULL
 		)")){
 		echo "Se ha creado la tabla Usuario exitosamente<br>";
 	}
@@ -49,20 +62,5 @@
 			ON DELETE CASCADE
 		)")){
 		echo "Se ha creado la tabla Medalla exitosamente<br>";
-	}
-
-	if(mysqli_query($conexion, "CREATE TABLE curso(
-			nombreCurso varchar(30) NOT NULL,	
-			usernameD varchar(20) NOT NULL,
-			username varchar(20) NOT NULL,
-			PRIMARY KEY (nombreCurso, username),
-			FOREIGN KEY(username) REFERENCES usuario(username)
-			ON UPDATE CASCADE
-			ON DELETE CASCADE,
-			FOREIGN KEY(usernameD) REFERENCES docente(usernameD)
-			ON UPDATE CASCADE
-			ON DELETE CASCADE
-		)")){
-		echo "Se ha creado la tabla Curso exitosamente<br>";
 	}
 ?>
