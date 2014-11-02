@@ -119,11 +119,11 @@
 		public function crearSelect($nombre, $arrayOpciones)
 		{
 			$kit = new Assets();
-			$select = $kit->_select;
+			$select = $kit->getSelect();
 			$select = $this->reemplazar($select, "{{nombre}}", $nombre);
-			$valores = $kit->_optionSelect;
+			$valores = $kit->getOptionSelect();
 			$contenido = "";
-			if($nombre!=false){
+			if($arrayOpciones!=false){
 				foreach ($arrayOpciones as $valor) {
 					$contenido .= $this->reemplazar($valores, "{{valor}}", $valor);
 				}

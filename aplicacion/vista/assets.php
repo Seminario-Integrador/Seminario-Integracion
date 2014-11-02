@@ -5,15 +5,20 @@
 	*/
 	class Assets
 	{
-		public $_select;
-		public $_optionSelect;
+		private $select;
+		private $optionSelect;
 		
-		public function assets()
+		function __construct()
 		{
-			$_select = '<select name="{{nombre}}">
-					{{valores}}
-				</select>';
-			$_optionSelect = '<option value="{{valor}}">{{valor}}</option>';
+			$this->select = '<select name="{{nombre}}">{{valores}}</select>';
+			$this->optionSelect = '<option value="{{valor}}">{{valor}}</option>';
+		}
+		public function getSelect(){
+			return $this->select;
+		}
+		public function getOptionSelect()
+		{
+			return $this->optionSelect;
 		}
 	}
 	
