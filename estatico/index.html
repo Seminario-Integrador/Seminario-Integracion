@@ -1,59 +1,122 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<title>Continuous Scroll - fullPage.js</title>
-	<link rel="stylesheet" type="text/css" href="estatico/css/fullPage.css" />
-	<link rel="stylesheet" type="text/css" href="estatico/css/inicio.css" />
-
-	<!--[if IE]>
-		<script type="text/javascript">
-			 var console = { log: function() {} };
-		</script>
-	<![endif]-->
-
-	<script src="estatico/js/jquery.js"></script>
-	<script src="estatico/js/jquery-ui.js"></script>
-
-	<script type="text/javascript" src="estatico/js/fullPage.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#fullpage').fullpage({
-			  sectionsColor: ['#3498db', '#e67e22', '#1abc9c', 'whitesmoke', '#ccddff'],
-			  continuousVertical: true
-			});
-		});
-	</script>
-
+	<meta charset="utf-8">
+	<title>Alan y el reino de Eniac</title>
+	<link rel="stylesheet" type="text/css" href="estatico/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="estatico/css/inicio.css">
 </head>
 <body>
-	<div class="menu">
-		<div class="izq">
-			<img src="estatico/img/logo.png">
+	<div class="container" id="container">
+		<div class="superior">
+			<div class="logo">
+				<img src="estatico/img/logo.png">
+			</div>
+			<div class="botones">
+				<ul>
+					<li>
+						<div class="login" id="login">
+							<p>Inicia Sesión</p>
+						</div>
+					</li> 
+					<li>
+						<div class="registro" id="registro">
+							<p>Registrate</p>
+						</div>
+					</li> 
+				</ul>
+			</div>
 		</div>
-		<div class="der">
-			<h3>¡Que comience el juego!</h3>
+		<div class="portada">
+			<img src="estatico/img/portada-inicio.png">
 		</div>
-	</div>
-<div id="fullpage">
-	<div class="section " id="section0">
-		<h1>fullPage.js</h1>
-		<p>Continuous Scrolling Enabled</p>
-		<img src="imgs/fullPage.png" alt="fullPage" />
-	</div>
-	<div class="section" id="section1">
-		<div class="intro">
-			<h1>Around the world scrolling</h1>
-			<p>Go to the first section and scroll up or to the last one and scroll down to see how it works.</p>
+		<div class="contenido">
+			<h1>Alan y el Reino de Eniac</h1>
+			<hr>
+			<p>¡Aprender a crear software jugando!</p>
+			<div class="datosJuego">
+				<div class="cuatroColumnas">
+					<span class="icon-shield"></span>
+					<div>
+						<p>Aprende mientras te diviertes.</p>
+						<div class="cuadre"></div>
+					</div>
+				</div>
+				<div class="cuatroColumnas">
+					<span class="icon-stats"></span>
+					<div>
+						<p>Compara tus avances con los demas. ¡Intenta superarlos!</p>
+						<div class="cuadre"></div>
+					</div>
+				</div>
+				<div class="cuatroColumnas">
+					<span class="icon-dashboard"></span>
+					<div>
+						<p>Consigue la mayor cantidad de puntos para subir en el ranking</p>
+						<div class="cuadre"></div>
+					</div>
+				</div>
+				<div class="cuatroColumnas">
+					<span class="icon-bars"></span>
+					<div>
+						<p>¿Puedes llegar hasta el final? Registrate. ¡Que empiece el juego!</p>
+						<div class="cuadre"></div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="section" id="section2">
-		<div class="intro">
-			<h1>Scroll Down</h1>
-			<p>And it will animate down to the first section</p>
+		<div class="galeria">
+			<h1>Galeria ¿Fotos o video?</h1>
+			<hr>
+			<div class="portada">
+				<img src="estatico/img/portada-inicio.png">
+			</div>
 		</div>
-	</div>
-</div>
 
+		<footer>
+			<h3>Universidad Francisco de Paula Santander</h3>
+			<h4>Gerson Lázaro - Melissa Delgado</h4>
+			<h4>2014</h4>
+		</footer>
+	</div>
+	<div class="registrar" id="registrar">
+		<div class="espacio">
+			<div class="cerrar">
+				<span id="cerrarReg" class="icon-cancel-circle"></span>
+			</div>
+			<h2>Registrar</h2>
+			<form action="index.php" method="POST">
+				<div><label>Nickname:</label>
+				<input type="text" placeholder="Nickname" name="usuario" required></div>
+				<div><label>Nombre:</label>
+				<input type="text" placeholder="Nombre" name="nombre" required></div>
+				<div><label>Codigo:</label>
+				<input type="number" placeholder="Codigo" name="codigo" required></div>
+				<div><label>Email:</label>
+				<input type="email" placeholder="Email" name="email" required></div>
+				<div><label>Contraseña:</label>
+				<input type="password" placeholder="*****" name="contrasena" required></div>
+				<input type="hidden" name="tipo" value="registro">
+				<div><input type="submit" value="Registrar"></div>
+			</form>
+		</div>
+	</div>
+	<div class="loguear" id="iniciar">
+		<div class="espacio">
+			<div class="cerrar">
+				<span id="cerrarLog" class="icon-cancel-circle"></span>
+			</div>
+			<h2>Iniciar Sesión</h2>
+			<form action="index.php" method="POST">
+				<div><label> Nickname:</label>
+				<input type="text" placeholder="Nickname" name="usuario" required></div>
+				<div><label>Contraseña:</label>
+				<input type="password" placeholder="*****" name="contrasena" required></div>
+				<input type="hidden" name="tipo" value="registro">
+				<div><input type="submit" value="IniciarSesion"></div>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="estatico/js/index.js"></script>
 </body>
 </html>
