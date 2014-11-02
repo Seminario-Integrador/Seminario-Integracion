@@ -10,11 +10,12 @@
 		*	@param $codigo - Codigo del usuario a registrar
 		*	@param $email - Email del usuario a registrar
 		*	@param $contraseña - Contraseña del usuario a registrar
+		*	@param $curso - Curso al que pertenece el usuario a registrar
 		*/
-		public function registrar($username, $nombre, $codigo, $email, $contrasena)
+		public function registrar($username, $nombre, $codigo, $email, $contrasena, $curso)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$this->consultar("INSERT INTO usuario VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."','','0','1','0','aqui iria la ruta', '1')");
+			$this->consultar("INSERT INTO usuario VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."',".$curso."','','0','1','0','aqui iria la ruta', '1')");
 			$this->desconectar();
 		}
 

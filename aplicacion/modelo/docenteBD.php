@@ -84,6 +84,31 @@
 			$this->desconectar();
 		}
 
+		/**
+		*	Método que se encarga de listar el codigo, nivel y puntaje de todos los estudiantes que pertenezcan al grupo que dirige el docente
+		*	@param $username - Username del docente
+		*	@return Una matriz con los datos de los estudiantes, o un boolean en caso de que no halla estudiantes.
+		*/
+		public function listarEstudiantes($username)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT codigoUsario e, nivel e, subnivel e, puntaje e FROM usuario e, curso c WHERE c.username='".$username."' AND e.nombreCurso=c.nombreCurso");
+			$this->desconectar();
+			$cont=0;
+			$datos=array();
+
+			while($fila=mysqli_fetch_array($aux)){
+				array_push($datos, $fila);
+				$cont++;
+			}
+
+			if($cont>0){
+				return $datos;
+			}else{
+				return false;
+			}
+		}
+
 	}
 	
 ?>
