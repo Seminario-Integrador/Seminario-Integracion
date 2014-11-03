@@ -134,14 +134,10 @@
 			$datos=array();
 
 			while($fila=mysqli_fetch_array($aux)){
-				array_push($datos, $fila[0]);
+				array_push($datos, $fila);
 			}
 
-			if(count($datos)>0){
-				return $datos;
-			}else{
-				return false;
-			}
+			return $datos;
 		}
 
 		
