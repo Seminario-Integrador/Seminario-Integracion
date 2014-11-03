@@ -105,7 +105,7 @@
 
 		/**
 		*	Método que lista todas las medallas que puede ganar un usuario
-		*	@return Una matriz donde cada fila es una medalla(logro, tipo), en caso de no haber medallas retorna false
+		*	@return Una matriz donde cada fila es una medalla(logro, tipo)
 		*/
 		public function listarMedallas()
 		{
@@ -115,16 +115,10 @@
 			$datos=array();
 
 			while($fila=mysqli_fetch_array($aux)){
-				foreach($fila as $dato){
-					array_push($datos, $dato);
-				}
+				$datos = fila;
 			}
 
-			if(count($datos)>0){
-				return $datos;
-			}else{
-				return false;
-			}
+			return $datos;
 		}
 
 		/**

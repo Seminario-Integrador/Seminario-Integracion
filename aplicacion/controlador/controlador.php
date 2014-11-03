@@ -190,6 +190,15 @@
 			$barraDer = $this->reemplazar($barraDer, "{{puntos}}", $array["puntaje"]);
 			$barraDer = $this->reemplazar($barraDer, "{{nivel}}", $array["nivel"]);
 			$barraDer = $this->reemplazar($barraDer, "{{subnivel}}", $array["subnivel"]);
+			$medalla = $this->leerPlantilla("aplicacion/vista/medalla.html");
+			$medallas = "";
+			$usuario = new usuarioBD();
+			$aux="";
+			$usuarioMedallas = $usuario->listarMedallasUsuario($nombre);
+			foreach ($usuarioMedallas as $valor) {
+				$aux = $this->reemplazar($medalla,{{}})
+				$medallas .= $this->reemplazar($medalla,)
+			}
 			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
 			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
 			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
