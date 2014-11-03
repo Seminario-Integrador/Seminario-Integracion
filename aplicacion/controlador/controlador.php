@@ -26,6 +26,7 @@
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
 			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
 			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["nombre"]);
+			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", $_SESSION["fotoPerfil"]);
 			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
 			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioJuego.html");
 			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
@@ -92,6 +93,7 @@
 			$datos = $usuarioBD->login($usuario, $contrasenaSH);
 			if($datos!=false){
 				$_SESSION["nombre"] = $datos;
+				$this->cargarPerfil($datos);
 				$this->inicioValidado();
 			}else{
 				$this->inicio();
@@ -132,6 +134,14 @@
 				$contenido .= $this->reemplazar($valores, "{{valor}}", "");
 			}
 			return $this->reemplazar($select, "{{valores}}", $contenido);
+		}
+		public function cargarPerfil($nombre)
+		{
+			$usuario = new usuarioBD();
+			$datos = $usuario->obtenerDatos($nombre);
+			echo $datos[0]." ".$datos[1]." ".$datos[2]." ".$datos[3]." ".$datos[4]." ".$datos[5]." ".$datos[6]." ".$datos[7]." ".$datos[8]." ".$datos[9]." ".$datos[10]." ".$datos[11]." ";
+			$_SESSION["fotoPerfil"] = $datos[10];
+			$_SESSION["portada"] = $datos[11];
 		}
 	}
 ?>

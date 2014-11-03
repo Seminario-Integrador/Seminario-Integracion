@@ -57,15 +57,13 @@
 		public function obtenerDatos($username)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("SELECT * FROM usuario WHERE $username='".$username."'");
+			$aux=$this->consultar("SELECT * FROM usuario WHERE username='".$username."'");
 			$this->desconectar();
 			$cont=0;
 			$datos=array();
 
 			while($fila=mysqli_fetch_array($aux)){
-				foreach($fila as $dato){
-					array_push($datos, $dato);
-				}
+				$datos = $fila;
 				$cont++;
 			}
 
