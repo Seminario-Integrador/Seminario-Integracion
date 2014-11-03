@@ -196,8 +196,8 @@
 			$aux="";
 			$usuarioMedallas = $usuario->listarMedallasUsuario($nombre);
 			foreach ($usuarioMedallas as $valor) {
-				$aux = $this->reemplazar($medalla,"{{tipo}}", $valor[0]);
-				$medallas .= $this->reemplazar($aux,"{{logro}}", $valor[1]);
+				$aux = $this->reemplazar($medalla,"{{logro}}", $valor[0]);
+				$medallas .= $this->reemplazar($aux,"{{tipo}}", $valor[1]);
 			}
 			$barraDer = $this->reemplazar($barraDer, "{{medallas}}", $medallas);
 			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");

@@ -129,7 +129,7 @@
 		public function listarMedallasUsuario($username)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("SELECT logro FROM usuarioMedalla WHERE username='".$username."'");
+			$aux=$this->consultar("SELECT medalla.logro, medalla.tipo FROM medalla, usuarioMedalla WHERE usuarioMedalla.username='".$username."' AND medalla.logro = usuarioMedalla.logro");
 			$this->desconectar();
 			$datos=array();
 
