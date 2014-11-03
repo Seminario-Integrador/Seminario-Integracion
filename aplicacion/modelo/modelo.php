@@ -37,7 +37,7 @@
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("SELECT username, nivel, puntaje FROM usuario ORDER BY puntaje LIMIT 10");
-			$10->desconectar();
+			$this->desconectar();
 
 			$datos=array();
 			while($fila=mysqli_fetch_array($aux)){
