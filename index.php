@@ -13,8 +13,10 @@
 			if($alan->validarPerfil($_GET["perfil"])){
 				$alan->mostrarPerfil($_GET["perfil"]);
 			}else{
-
+				header('location:index.php');
 			}
+		}else if(isset($_GET["ranking"])){
+			$alan->mostrarRanking();
 		}
 		else{
 			$alan->inicioValidado();

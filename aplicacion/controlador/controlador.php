@@ -171,6 +171,38 @@
 				return true;
 			}
 		}
+
+		public function mostrarRanking()
+		{
+			$ranking = new Modelo();
+			$array = $ranking->obtenerRanking();
+			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
+			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
+			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["username"]);
+			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", $_SESSION["fotoPerfil"]);
+			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
+			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioRanking.html");
+			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
+			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$posicion = $this->leerPlantilla("aplicacion/vista/personaRanking.html");
+			$posiciones = "";
+			$aux;
+			$cont=1;
+			foreach ($array as $valor) {
+				$aux = $this->reemplazar($posicion, "{{posicion}}",$cont);
+				$aux = $this->reemplazar($aux, "{{username}}",$valor[0]);
+				$aux = $this->reemplazar($aux, "{{nivel}}",$valor[1]);
+				$posiciones .= $this->reemplazar($aux, "{{puntaje}}",$valor[2]);
+				$cont++;
+			}
+			$barraDer = $this->reemplazar($barraDer, "{{tabla}}", $posiciones);
+			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
+			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
+			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
+			$this->mostrarVista($plantilla);
+
+		}
+
 		public function mostrarPerfil($nombre)
 		{
 			$array = $this->leerPerfil($nombre);
