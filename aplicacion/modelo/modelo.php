@@ -36,7 +36,7 @@
 		public function obtenerRanking()
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("SELECT username, nivel, puntaje FROM usuario ORDER BY puntaje LIMIT 10");
+			$aux=$this->consultar("SELECT username, nivel, puntaje FROM usuario ORDER BY puntaje DESC LIMIT 10");
 			$this->desconectar();
 
 			$datos=array();
