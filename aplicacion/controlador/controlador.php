@@ -25,13 +25,15 @@
 		{
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
 			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
-			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["nombre"]);
+			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["username"]);
 			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", $_SESSION["fotoPerfil"]);
 			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
 			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioJuego.html");
 			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
 			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
 			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
+			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
 			$this->mostrarVista($plantilla);
 		}
 
@@ -94,6 +96,7 @@
 			if($datos!=false){
 				$_SESSION["nombre"] = $datos;
 				$this->cargarPerfil($datos);
+				header('Location: index.php');
 				$this->inicioValidado();
 			}else{
 				$this->inicio();
@@ -139,9 +142,58 @@
 		{
 			$usuario = new usuarioBD();
 			$datos = $usuario->obtenerDatos($nombre);
-			echo $datos[0]." ".$datos[1]." ".$datos[2]." ".$datos[3]." ".$datos[4]." ".$datos[5]." ".$datos[6]." ".$datos[7]." ".$datos[8]." ".$datos[9]." ".$datos[10]." ".$datos[11]." ";
+			$_SESSION["username"] = $datos[1];
 			$_SESSION["fotoPerfil"] = $datos[10];
-			$_SESSION["portada"] = $datos[11];
+		}
+		public function leerPerfil($nombre)
+		{
+			$usuario = new usuarioBD();
+			$datos = $usuario->obtenerDatos($nombre);
+			$array = [
+    			"nombre" => $datos[0],
+    			"username" => $datos[1],
+    			"descripcion" => $datos[6],
+    			"fotoPerfil" => $datos[10],
+    			"portada" => $datos[11],
+    			"puntaje" => $datos[7],
+    			"nivel" => $datos[8],
+    			"subnivel" => $datos[9],
+			];
+			return $array;
+		}
+		public function validarPerfil($nombre)
+		{
+			$usuario = new usuarioBD();
+			$valor = $usuario->obtenerDatos($nombre);
+			if($valor==false){
+				return $valor;
+			}else{
+				return true;
+			}
+		}
+		public function mostrarPerfil($nombre)
+		{
+			$array = $this->leerPerfil($nombre);
+			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
+			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
+			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["nombre"]);
+			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", $_SESSION["fotoPerfil"]);
+			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
+			$barraDer = $this->leerPlantilla("aplicacion/vista/perfil.html");
+			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
+			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$barraDer = $this->reemplazar($barraDer, "{{fotoPerfil}}", $array["fotoPerfil"]);
+			$barraDer = $this->reemplazar($barraDer, "{{fotoPortada}}", $array["portada"]);
+			$barraDer = $this->reemplazar($barraDer, "{{nombreUsuario}}", $array["nombre"]);
+			$barraDer = $this->reemplazar($barraDer, "{{nickname}}", $array["username"]);
+			$barraDer = $this->reemplazar($barraDer, "{{descripcion}}", $array["descripcion"]);
+			$barraDer = $this->reemplazar($barraDer, "{{puntos}}", $array["puntaje"]);
+			$barraDer = $this->reemplazar($barraDer, "{{nivel}}", $array["nivel"]);
+			$barraDer = $this->reemplazar($barraDer, "{{subnivel}}", $array["subnivel"]);
+			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
+			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
+			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
+			$this->mostrarVista($plantilla);
 		}
 	}
 ?>

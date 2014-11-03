@@ -9,7 +9,14 @@
 				session_destroy();
 				header('location:index.php');
 			}
-		}else{
+		}else if(isset($_GET["perfil"])){
+			if($alan->validarPerfil($_GET["perfil"])){
+				$alan->mostrarPerfil($_GET["perfil"]);
+			}else{
+
+			}
+		}
+		else{
 			$alan->inicioValidado();
 		}
 	}else if(isset($_POST["tipo"])){
