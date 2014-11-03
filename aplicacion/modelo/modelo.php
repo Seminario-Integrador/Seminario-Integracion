@@ -32,6 +32,20 @@
 		{
 			return mysqli_query($this->conexion,$sql);
 		}
+
+		public function obtenerRanking()
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT username, nivel, puntaje FROM usuario LIMIT 10 ORDER BY puntaje");
+			$this->desconectar();
+
+			$datos=array();
+			while($fila=mysqli_fetch_array($aux)){
+				array_push($datos, $fila);
+			}
+
+			return $datos;
+		}
 		
 	}
 ?>
