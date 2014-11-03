@@ -115,7 +115,7 @@
 			$datos=array();
 
 			while($fila=mysqli_fetch_array($aux)){
-				$datos = fila;
+				array_push($datos, $fila);
 			}
 
 			return $datos;
