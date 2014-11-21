@@ -31,6 +31,7 @@
 		)")){
 		echo "Se ha creado la tabla Curso exitosamente<br>";
 	}
+
 	if(mysqli_query($conexion, "CREATE TABLE usuario(
 			nombre varchar(90) NOT NULL,
 			username varchar(20) NOT NULL,
@@ -51,7 +52,6 @@
 		)")){
 		echo "Se ha creado la tabla Usuario exitosamente<br>";
 	}					 
-
 	if(mysqli_query($conexion, "CREATE TABLE medalla(
 			logro varchar(55) NOT NULL,
 			tipo varchar(55) NOT NULL,

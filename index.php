@@ -12,6 +12,8 @@
 		}else if(isset($_GET["perfil"])){
 			if($_GET["perfil"]=="ranking"){
 				$alan->mostrarRanking();
+			}else if($_GET["perfil"]=="editar"){
+				$alan->editarPerfil();
 			}else if($alan->validarPerfil($_GET["perfil"])){
 				$alan->mostrarPerfil($_GET["perfil"]);
 			}else{
