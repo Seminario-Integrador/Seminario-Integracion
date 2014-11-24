@@ -73,7 +73,31 @@
 				return false;
 			}
 		}
-
+		public function actualizarNombre($username,$nombre)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."' WHERE username='".$username."'");
+			$this->desconectar();
+		}
+		public function actualizarDescripcion($username,$descripcion)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE usuario SET descripcion='".$descripcion."' WHERE username='".$username."'");
+			$this->desconectar();
+		}
+		public function actualizarImagen($username,$rutaImagen)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE usuario SET fotoPerfil='".$rutaImagen."' WHERE username='".$username."'");
+			$this->desconectar();
+		}
+		public function actualizarPortada($username,$portada)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE usuario SET fotoPortada='".$portada."' WHERE username='".$username."'");
+			$this->desconectar();
+		}
+		
 		/**
 		*	Método que se encarga de actualizar los datos de un usuario
 		*	@param $username - Username del usuario 
@@ -84,10 +108,10 @@
 		*	@param $rutaImagen - Nueva imagen de perfil
 		*	@param $portada - Nuevo idntificador de portada
 		*/
-		public function actualizarDatos($username, $nombre, $contrasena, $curso, $descripcion, $rutaImagen, $portada)
+		public function actualizarDatos($username, $nombre, $descripcion, $rutaImagen, $portada)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."', contrasenaSH1='".$contrasena."', nombreCurso='".$curso."' descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada."' WHERE username='".$username."'");
+			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."',  descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada."' WHERE username='".$username."'");
 			$this->desconectar();
 		}
 

@@ -258,9 +258,39 @@
 			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
 			$this->mostrarVista($plantilla);
 		}
-		public function editarPerfil()
+		public function editarPerfil($imagen,$username,$nombre,$descripcion,$portada)
 		{
-			
+			$usuarioBD = new usuarioBD();
+			if($imagen!=""){
+				$usuarioBD->actualizarImagen($username,$imagen);
+				$_SESSION["fotoPerfil"] = $imagen;
+			}
+			if($nombre!=""){
+				$usuarioBD->actualizarNombre($username,$nombre);
+			}
+			if($descripcion!=""){
+				$usuarioBD->actualizarDescripcion($username,$descripcion);
+			}
+			if($portada!="" && $portada!="0"){
+				$usuarioBD->actualizarPortada($username,$portada);
+			}
+		}
+		public function procesarImagen($imagen)
+		{
+			$nombre = $_FILES['imagen']['name'];
+			if($nombre!=""){
+				if(!file_exists("estatico/img/perfil/".$nombre)){
+					move_uploaded_file($_FILES['imagen']['tmp_name'],"estatico/img/perfil/".$nombre);
+				}else{
+					$cont=1;
+					while(file_exists("estatico/img/perfil/"."[".$cont."]".$nombre)){
+						$cont++;
+					}
+					move_uploaded_file($_FILES['imagen']['tmp_name'],"estatico/img/perfil/"."[".$cont."]".$nombre);
+					$nombre =  "[".$cont."]".$_FILES['imagen']['name'];
+				}
+			}
+			return $nombre;
 		}
 	}
 ?>

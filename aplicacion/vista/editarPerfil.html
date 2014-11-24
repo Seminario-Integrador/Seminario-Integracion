@@ -2,15 +2,14 @@
 	{{superior}}
 	<div class="editar">
 		<form method="POST" action="index.php"  enctype="multipart/form-data">
-			<img src="estatico/img/perfil/{{fotoPerfil}}">
+			<img class="editarPerfilImagen" src="estatico/img/perfil/{{fotoPerfil}}">
 			<p>Elegir nueva foto</p><input type="file" name="imagen" accept="image/*">
-			<p>Cambiar username</p>
-			<input type="text" placeholder="{{username}}" name="username">
 			<p>Cambiar nombre</p>
 			<input type="text" placeholder="{{nombre}}" name="nombre">
 			<p>Cambiar descripción</p>
 			<input type="text" placeholder="{{descripcion}}" name="descripcion">
 			<p>Elegir foto de portada</p>
+			<input id="check0" type="radio" name="portada" value="0" checked style="display:none">
 			<input id="check1" type="radio" name="portada" value="1"><img onclick="document.getElementById('check1').checked=true" src="estatico/img/portadas/1p.jpg">
 			<input id="check2" type="radio" name="portada" value="2"><img onclick="document.getElementById('check2').checked=true" id="port2" src="estatico/img/portadas/2p.jpg">
 			<input id="check3" type="radio" name="portada" value="3"><img onclick="document.getElementById('check3').checked=true" id="port3" src="estatico/img/portadas/3p.jpg">

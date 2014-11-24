@@ -9,7 +9,9 @@
 				session_destroy();
 				header('location:index.php');
 			}else if($_POST["tipo"]=="edicion"){
-				$alan->editarPerfil($_POST["imagen"],$_POST["username"],$_POST["nombre"],$_POST["descripcion"],$_POST["portada"]);
+				$nombre = $alan->procesarImagen($_FILES['imagen']['tmp_name']);
+				$alan->editarPerfil($nombre,$_SESSION["username"],$_POST["nombre"],$_POST["descripcion"],$_POST["portada"]);
+				$alan->inicioValidado();
 			}
 		}else if(isset($_GET["perfil"])){
 			if($_GET["perfil"]=="ranking"){
