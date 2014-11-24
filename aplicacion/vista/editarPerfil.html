@@ -1,0 +1,23 @@
+<div class="right" id="right">
+	{{superior}}
+	<div class="editar">
+		<form method="POST" action="index.php">
+			<img src="estatico/img/perfil/{{fotoPerfil}}">
+			<p>Elegir nueva foto</p><input type="file" name="imagen">
+			<p>Cambiar username</p>
+			<input type="text" placeholder="{{username}}" name="username">
+			<p>Cambiar nombre</p>
+			<input type="text" placeholder="{{nombre}}" name="nombre">
+			<p>Cambiar descripción</p>
+			<input type="text" placeholder="{{descripcion}}" name="descripcion">
+			<p>Elegir foto de portada</p>
+			<img src="estatico/img/port1.jpg">
+			<img src="estatico/img/port2.jpg">
+			<img src="estatico/img/port3.jpg">
+			<br>
+			<input type="hidden" name="tipo" value="edicion">
+			<input type="submit" value="Guardar">
+
+		</form>
+	</div>
+</div>

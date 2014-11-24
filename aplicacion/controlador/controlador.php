@@ -208,7 +208,7 @@
 			$array = $this->leerPerfil($nombre);
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
 			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
-			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["nombre"]);
+			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["username"]);
 			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", $_SESSION["fotoPerfil"]);
 			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
 			$barraDer = $this->leerPlantilla("aplicacion/vista/perfil.html");
@@ -237,11 +237,26 @@
 			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
 			$this->mostrarVista($plantilla);
 		}
-		public function editarPerfil()
+
+		public function verEditar()
 		{
+			$array = $this->leerPerfil($_SESSION["username"]);
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
 			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
-
+			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["username"]);
+			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", $_SESSION["fotoPerfil"]);
+			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
+			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
+			$barraDer = $this->leerPlantilla("aplicacion/vista/editarPerfil.html");
+			$barraDer = $this->reemplazar($barraDer, "{{fotoPerfil}}", $_SESSION["fotoPerfil"]);
+			$barraDer = $this->reemplazar($barraDer, "{{username}}", $_SESSION["username"]);
+			$barraDer = $this->reemplazar($barraDer, "{{nombre}}", $array["nombre"]);
+			$barraDer = $this->reemplazar($barraDer, "{{descripcion}}", $array["descripcion"]);
+			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}",$barraDer);
+			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
+			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
+			$this->mostrarVista($plantilla);
 		}
 	}
 ?>

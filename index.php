@@ -8,12 +8,14 @@
 				$_SESSION["nombre"] = false;
 				session_destroy();
 				header('location:index.php');
+			}else if($_POST["tipo"=="edicion"]){
+				$alan->editarPerfil();
 			}
 		}else if(isset($_GET["perfil"])){
 			if($_GET["perfil"]=="ranking"){
 				$alan->mostrarRanking();
 			}else if($_GET["perfil"]=="editar"){
-				$alan->editarPerfil();
+				$alan->verEditar();
 			}else if($alan->validarPerfil($_GET["perfil"])){
 				$alan->mostrarPerfil($_GET["perfil"]);
 			}else{
