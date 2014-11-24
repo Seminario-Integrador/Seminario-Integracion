@@ -8,8 +8,8 @@
 				$_SESSION["nombre"] = false;
 				session_destroy();
 				header('location:index.php');
-			}else if($_POST["tipo"=="edicion"]){
-				$alan->editarPerfil();
+			}else if($_POST["tipo"]=="edicion"){
+				$alan->editarPerfil($_POST["imagen"],$_POST["username"],$_POST["nombre"],$_POST["descripcion"],$_POST["portada"]);
 			}
 		}else if(isset($_GET["perfil"])){
 			if($_GET["perfil"]=="ranking"){

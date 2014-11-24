@@ -1,9 +1,9 @@
 <div class="right" id="right">
 	{{superior}}
 	<div class="editar">
-		<form method="POST" action="index.php">
+		<form method="POST" action="index.php"  enctype="multipart/form-data">
 			<img src="estatico/img/perfil/{{fotoPerfil}}">
-			<p>Elegir nueva foto</p><input type="file" name="imagen">
+			<p>Elegir nueva foto</p><input type="file" name="imagen" accept="image/*">
 			<p>Cambiar username</p>
 			<input type="text" placeholder="{{username}}" name="username">
 			<p>Cambiar nombre</p>
@@ -11,9 +11,10 @@
 			<p>Cambiar descripción</p>
 			<input type="text" placeholder="{{descripcion}}" name="descripcion">
 			<p>Elegir foto de portada</p>
-			<img src="estatico/img/port1.jpg">
-			<img src="estatico/img/port2.jpg">
-			<img src="estatico/img/port3.jpg">
+			<input id="check1" type="radio" name="portada" value="1"><img onclick="document.getElementById('check1').checked=true" src="estatico/img/portadas/1p.jpg">
+			<input id="check2" type="radio" name="portada" value="2"><img onclick="document.getElementById('check2').checked=true" id="port2" src="estatico/img/portadas/2p.jpg">
+			<input id="check3" type="radio" name="portada" value="3"><img onclick="document.getElementById('check3').checked=true" id="port3" src="estatico/img/portadas/3p.jpg">
+			<input id="check4" type="radio" name="portada" value="4"><img onclick="document.getElementById('check4').checked=true" id="port4" src="estatico/img/portadas/4p.jpg">
 			<br>
 			<input type="hidden" name="tipo" value="edicion">
 			<input type="submit" value="Guardar">

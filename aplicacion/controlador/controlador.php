@@ -258,5 +258,9 @@
 			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
 			$this->mostrarVista($plantilla);
 		}
+		public function editarPerfil()
+		{
+			
+		}
 	}
 ?>
