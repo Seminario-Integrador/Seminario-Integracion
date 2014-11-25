@@ -1,8 +1,9 @@
 <div class="right" id="right">
 	{{superior}}
 	<div class="editar">
+		<img class="editarPerfilImagen" src="estatico/img/perfil/{{fotoPerfil}}">
 		<form method="POST" action="index.php"  enctype="multipart/form-data">
-			<img class="editarPerfilImagen" src="estatico/img/perfil/{{fotoPerfil}}">
+			
 			<p>Elegir nueva foto</p><input type="file" name="imagen" accept="image/*">
 			<p>Cambiar nombre</p>
 			<input type="text" placeholder="{{nombre}}" name="nombre">
@@ -17,7 +18,20 @@
 			<br>
 			<input type="hidden" name="tipo" value="edicion">
 			<input type="submit" value="Guardar">
-
+		</form>
+		<br>
+		<br>
+		<h3>Cambiar contraseña</h3>
+		<hr>
+		<form method="POST" action="index.php">
+			<p>Contraseña Actual</p>
+			<input type="password" placeholder="******" name="actual">
+			<p>Nueva contraseña</p>
+			<input type="password" placeholder="******" name="nueva">
+			<p>Repetir Contraseña</p>
+			<input type="password" placeholder="******" name="repetida"><br>
+			<input type="hidden" name="tipo" value="cambiarPass">
+			<input type="submit" value="Guardar">
 		</form>
 	</div>
 </div>

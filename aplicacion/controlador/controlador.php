@@ -18,6 +18,14 @@
 			$inicio = $this->reemplazar($inicio, "{{selectCursos}}", $this->leerCursos());
 			$this->mostrarVista($inicio);
 		}
+		public function inicioErrorLog()
+		{
+			//REEMPLAZAR
+			$inicio = $this->leerPlantilla("aplicacion/vista/splash.html");
+			$inicio = $this->reemplazar($inicio, "{{selectCursos}}", $this->leerCursos());
+			$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
+			$this->mostrarVista($inicio);
+		}
 		/**
 		*	Muestra el inicio cuando no el usuario esta logueado
 		*/
@@ -99,7 +107,7 @@
 				header('Location: index.php');
 				$this->inicioValidado();
 			}else{
-				$this->inicio();
+				$this->inicioErrorLog();
 			}
 		}
 
@@ -238,7 +246,7 @@
 			$this->mostrarVista($plantilla);
 		}
 
-		public function verEditar()
+		public function verEditarFun()
 		{
 			$array = $this->leerPerfil($_SESSION["username"]);
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
@@ -256,24 +264,61 @@
 			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}",$barraDer);
 			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
 			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
+			return $plantilla;
+		}
+		public function verEditar()
+		{
+			$plantilla = $this->verEditarFun();
 			$this->mostrarVista($plantilla);
+		}
+		public function alerta($plantilla, $titulo, $alerta)
+		{
+			return $plantilla."<script>alerta(\"".$titulo."\",\"".$alerta."\",3000);</script>";
 		}
 		public function editarPerfil($imagen,$username,$nombre,$descripcion,$portada)
 		{
 			$usuarioBD = new usuarioBD();
+			$salida = true;
 			if($imagen!=""){
-				$usuarioBD->actualizarImagen($username,$imagen);
+				$salida = $usuarioBD->actualizarImagen($username,$imagen);
 				$_SESSION["fotoPerfil"] = $imagen;
+				
 			}
 			if($nombre!=""){
-				$usuarioBD->actualizarNombre($username,$nombre);
+				if(!$usuarioBD->actualizarNombre($username,$nombre)){
+					$salida = false;
+				}
+
 			}
 			if($descripcion!=""){
-				$usuarioBD->actualizarDescripcion($username,$descripcion);
+				if(!$usuarioBD->actualizarDescripcion($username,$descripcion)){
+					$salida = false;
+				}
 			}
 			if($portada!="" && $portada!="0"){
-				$usuarioBD->actualizarPortada($username,$portada);
+				if(!$usuarioBD->actualizarPortada($username,$portada)){
+					$salida = false;
+				}
 			}
+			return $salida;
+		}
+		public function edicionCorrecta()
+		{
+			$plantilla = $this->verEditarFun();
+			$plantilla = $this->alerta($plantilla, "Edición Correcta", "Tus datos han sido guardados correctamente :)");
+			$this->mostrarVista($plantilla);
+		}
+		public function edicionIncorrecta()
+		{
+			$plantilla = $this->verEditarFun();
+			$plantilla = $this->alerta($plantilla, "Edición Incorrecta", "Por un error interno los datos no han podido guardarse :(");
+			$this->mostrarVista($plantilla);
+		}
+		public function passNoCoinciden()
+		{
+			$plantilla = $this->verEditarFun();
+			$plantilla = $this->alerta($plantilla, "Importante", "Las contraseñas no coinciden o tu contraseña actual es erronea. Intentalo de nuevo");
+			$this->mostrarVista($plantilla);
 		}
 		public function procesarImagen($imagen)
 		{
@@ -291,6 +336,26 @@
 				}
 			}
 			return $nombre;
+		}
+		public function cambiarPass($actual, $nueva, $repetida)
+		{
+			$_actual = sha1($actual);
+			$_nueva = sha1($nueva);
+			$_repetida = sha1($repetida);
+			if($_nueva!=$_repetida){
+				return "diferentes";
+			}else{
+				$usuarioBD = new usuarioBD();
+				if($usuarioBD->login($_SESSION["username"], $_actual)!=false){
+					if($usuarioBD->cambiarPassword($_SESSION["username"], $_actual, $_nueva)){
+						return "cambio";
+					}else{
+						return "error";
+					}
+				}else{
+					return "diferentes";
+				}
+			}
 		}
 	}
 ?>

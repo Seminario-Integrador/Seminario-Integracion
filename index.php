@@ -10,8 +10,20 @@
 				header('location:index.php');
 			}else if($_POST["tipo"]=="edicion"){
 				$nombre = $alan->procesarImagen($_FILES['imagen']['tmp_name']);
-				$alan->editarPerfil($nombre,$_SESSION["username"],$_POST["nombre"],$_POST["descripcion"],$_POST["portada"]);
-				$alan->inicioValidado();
+				if($alan->editarPerfil($nombre,$_SESSION["username"],$_POST["nombre"],$_POST["descripcion"],$_POST["portada"])){
+					$alan->edicionCorrecta();
+				}else{
+					$alan->edicionIncorrecta();
+				}
+			}else if($_POST["tipo"]== "cambiarPass"){
+				$aux = $alan->cambiarPass($_POST["actual"],$_POST["nueva"],$_POST["repetida"]);
+				if($aux=="diferentes"){
+					$alan->passNoCoinciden();
+				}else if($aux=="cambio"){
+					$alan->edicionCorrecta();
+				}else if($aux=="error"){
+					$alan->edicionIncorrecta();
+				}
 			}
 		}else if(isset($_GET["perfil"])){
 			if($_GET["perfil"]=="ranking"){

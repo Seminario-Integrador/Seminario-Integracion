@@ -117,10 +117,50 @@
 				<div><label>Contraseña:</label>
 				<input type="password" placeholder="*****" name="contrasena" required></div>
 				<input type="hidden" name="tipo" value="login">
+				<p>¿Olvistaste tu contraseña? <a href="#" id="recPass">Haz clic aqui</a> </p>
 				<div><input type="submit" value="Iniciar Sesion"></div>
 			</form>
 		</div>
 	</div>
+	<div class="pass" id="pass">
+		<div class="espacio">
+			<div class="cerrar">
+				<span id="cerrarPass" class="icon-cancel-circle"></span>
+			</div>
+			<h2>Iniciar Sesión</h2>
+			<form action="index.php" method="POST">
+				<div><label> Correo:</label>
+				<input type="email" placeholder="email" name="email" required></div>
+				<input type="hidden" name="tipo" value="recordarPass">
+				<div><input type="submit" value="Recuperar Contraseña"></div>
+			</form>
+		</div>
+	</div>
 	<script type="text/javascript" src="estatico/js/index.js"></script>
+	<script type="text/javascript">
+		function alerta () {
+
+			var content = "";
+			if(arguments.length >= 2){
+
+				content = "<h3>"+arguments[0]+"</h3><p>"+arguments[1]+"</p>";
+			}else{
+				content= "<p>"+arguments[0]+"</p>";
+			}
+			var div = document.createElement("div");
+			var claseDiv = "alerta ";
+			div.setAttribute("class", claseDiv);
+			div.innerHTML = content;
+			document.body.appendChild(div);
+			setTimeout(function() {
+				div.style.opacity = "0";
+				console.log("si");
+			}, arguments[2] || 10000);
+			setTimeout(function() {
+				document.body.removeChild(div);
+				console.log("aja");
+			}, arguments[2]+1000 ||  11000);
+		}
+	</script>
 </body>
 </html>

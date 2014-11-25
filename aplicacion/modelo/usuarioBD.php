@@ -78,24 +78,28 @@
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."' WHERE username='".$username."'");
 			$this->desconectar();
+			return $aux;
 		}
 		public function actualizarDescripcion($username,$descripcion)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("UPDATE usuario SET descripcion='".$descripcion."' WHERE username='".$username."'");
 			$this->desconectar();
+			return $aux;
 		}
 		public function actualizarImagen($username,$rutaImagen)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("UPDATE usuario SET fotoPerfil='".$rutaImagen."' WHERE username='".$username."'");
 			$this->desconectar();
+			return $aux;
 		}
 		public function actualizarPortada($username,$portada)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("UPDATE usuario SET fotoPortada='".$portada."' WHERE username='".$username."'");
 			$this->desconectar();
+			return $aux;
 		}
 		
 		/**
@@ -163,7 +167,13 @@
 
 			return $datos;
 		}
-
+		public function cambiarPassword($usuario, $actual, $nueva)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE usuario SET contrasenaSH1='".$nueva."' WHERE username='".$usuario."' AND contrasenaSH1='".$actual."'");
+			$this->desconectar();
+			return $aux;
+		}
 		
 	}
 	
