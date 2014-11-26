@@ -357,5 +357,59 @@
 				}
 			}
 		}
+		public function recordarPass($correo)
+		{
+			$modeloBD = new usuarioBD();
+			$user = $modeloBD->buscarCorreo($correo);
+			if($user!=false){
+				$link = $modeloBD->buscarps($correo);
+				$this->enviarVerificacion($correo, $user, $link);
+				return true;
+			}else{
+				return false;
+			}
+		}
+		public function enviarVerificacion($correo, $user, $enlace)
+		{	$link= "http://localhost/integrador/Seminario-Integracion/index.php?recuperar="+sha1($enlace);
+			$asunto = "Recuperar Contraseña - Alan y el reino de Eniac";
+			$mensaje = "Hola ".$user." ¿Como va todo? \n Enviamos este mensaje porque has solicitado cambiar tu contraseña en Alan y el reino 
+			de Eniac. Si realmente solicitaste este cambio haz clic en el siguiente link o copialo y pegalo en tu navegador. De lo contrario, elimina este mensaje. \n".$link."
+			\n Att. El equipo De Alan \n Gerson Lazaro-Melissa Delgado \n Ingenieria de Sistemas UFPS";
+			$headers = 'From: GersonLazaroC@gmail.com \r\n'. 
+			  'Reply-To: GersonLazaroC@gmail.com\r\n' . 
+			  'X-Mailer: PHP/' . phpversion();
+			$vari = mail($correo, $asunto, $mensaje, $headers);
+			if($vari){
+				echo "se envio";
+			}else{
+				echo "no se envio";
+			}
+
+		}
+		public function acuseCorreoEnviado()
+		{
+			$inicio = $this->leerPlantilla("aplicacion/vista/splash.html");
+			$inicio = $this->reemplazar($inicio, "{{selectCursos}}", $this->leerCursos());
+			$inicio = $this->alerta($inicio, "Revise su correo", "Se ha enviado un correo a su buzón con las instrucciones");
+			$this->mostrarVista($inicio);
+		}
+		public function acuseCorreoNoValido()
+		{
+			$inicio = $this->leerPlantilla("aplicacion/vista/splash.html");
+			$inicio = $this->reemplazar($inicio, "{{selectCursos}}", $this->leerCursos());
+			$inicio = $this->alerta($inicio, "Verifique sus datos", "El correo suministrado no se encuentra en nuestra base");
+			$this->mostrarVista($inicio);
+		}
+		function generarPassword (){
+		  $string = "";
+		  $posible = "0123456789bcdfghjkmnpqrstvwxyz";
+		  $i = 0;
+		  while ($i < 8) {
+		    $char = substr($posible, mt_rand(0, strlen($posible)-1), 1);
+		    $string .= $char;
+		    $i++;
+		  }
+		  return $string;
+		}
 	}
 ?>

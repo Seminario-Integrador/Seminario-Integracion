@@ -174,7 +174,20 @@
 			$this->desconectar();
 			return $aux;
 		}
-		
+		public function buscarCorreo($correo)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT nombre FROM usuario WHERE correo='".$correo."'");
+			$this->desconectar();
+			return mysqli_fetch_array($aux)[0];
+		}	
+		public function buscarps($correo)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT contrasenaSH1 FROM usuario WHERE correo='".$correo."'");
+			$this->desconectar();
+			return mysqli_fetch_array($aux)[0];
+		}	
 	}
 	
 ?>

@@ -44,6 +44,13 @@
 			$alan->registro($_POST["usuario"], $_POST["nombre"] ,$_POST["codigo"], $_POST["email"], $_POST["contrasena"], $_POST["curso"]);
 		}else if($_POST["tipo"]=="login"){
 			$alan->login($_POST["usuario"], $_POST["contrasena"]);
+		}else if($_POST["tipo"]=="recordarPass"){
+			$registro = $alan->recordarPass($_POST["email"]);
+			if($registro){
+				$alan->acuseCorreoEnviado();
+			}else{
+				$alan->acuseCorreoNoValido();
+			}
 		}
 	}else{
 		$alan->inicio();

@@ -9,6 +9,7 @@ var cerrarLog = document.getElementById("cerrarLog");
 var cerrarPass = document.getElementById("cerrarPass");
 
 function abrirPass () {
+	cerrarLogin();
 	divPass.style.display = "block";
 	setTimeout(function() {
 		divPass.style.opacity = "1";

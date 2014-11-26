@@ -35,7 +35,7 @@
 	if(mysqli_query($conexion, "CREATE TABLE usuario(
 			nombre varchar(90) NOT NULL,
 			username varchar(20) NOT NULL,
-			correo varchar(60) NOT NULL,
+			correo varchar(60) NOT NULL UNIQUE,
 			contrasenaSH1 varchar(40) NOT NULL,
 			codigoUsuario varchar(8),
 			nombreCurso varchar(30),
