@@ -261,6 +261,7 @@ hr{
 	padding-top: 0!Important;
 }
 .right{
+	overflow: hidden;
 	float: right;
 	width: 110rem;
 	position: relative;

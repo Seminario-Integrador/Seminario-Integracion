@@ -414,5 +414,11 @@
 		  }
 		  return $string;
 		}
+
+		public function obtenerJSON()
+		{
+			$usuario = new usuarioBD();
+			echo json_encode($usuario->getUsuario($_SESSION["username"]));
+		}
 	}
 ?>

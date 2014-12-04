@@ -35,6 +35,8 @@
 			}else{
 				header('location:index.php');
 			}
+		}else if(isset($_GET["JSON"]) && isset($_SESSION["username"])){
+			$alan->obtenerJSON();
 		}
 		else{
 			$alan->inicioValidado();
