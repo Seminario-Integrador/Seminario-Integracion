@@ -372,19 +372,22 @@
 		public function enviarVerificacion($correo, $user, $enlace)
 		{	$link= "http://localhost/integrador/Seminario-Integracion/index.php?recuperar="+sha1($enlace);
 			$asunto = "Recuperar Contraseña - Alan y el reino de Eniac";
-			$mensaje = "Hola ".$user." ¿Como va todo? \n Enviamos este mensaje porque has solicitado cambiar tu contraseña en Alan y el reino 
-			de Eniac. Si realmente solicitaste este cambio haz clic en el siguiente link o copialo y pegalo en tu navegador. De lo contrario, elimina este mensaje. \n".$link."
-			\n Att. El equipo De Alan \n Gerson Lazaro-Melissa Delgado \n Ingenieria de Sistemas UFPS";
-			$headers = 'From: GersonLazaroC@gmail.com \r\n'. 
-			  'Reply-To: GersonLazaroC@gmail.com\r\n' . 
-			  'X-Mailer: PHP/' . phpversion();
-			$vari = mail($correo, $asunto, $mensaje, $headers);
+			//$mensaje = "Hola ".$user." ¿Como va todo? \n Enviamos este mensaje porque has solicitado cambiar tu contraseña en Alan y el reino 
+			//de Eniac. Si realmente solicitaste este cambio haz clic en el siguiente link o copialo y pegalo en tu navegador. De lo contrario, elimina este mensaje. \n".$link."
+			//\n Att. El equipo De Alan \n Gerson Lazaro-Melissa Delgado \n Ingenieria de Sistemas UFPS";
+			$mensaje = "holiwis"; 
+			$vari = mail($correo, $asunto, $mensaje);
 			if($vari){
 				echo "se envio";
 			}else{
 				echo "no se envio";
 			}
 
+		}
+
+		public function enviarVerificacio($value='')
+		{
+			# code...
 		}
 		public function acuseCorreoEnviado()
 		{
@@ -402,7 +405,7 @@
 		}
 		function generarPassword (){
 		  $string = "";
-		  $posible = "0123456789bcdfghjkmnpqrstvwxyz";
+		  $posible = "0123456789abcdfghjkmnpqrstvwxyz";
 		  $i = 0;
 		  while ($i < 8) {
 		    $char = substr($posible, mt_rand(0, strlen($posible)-1), 1);
