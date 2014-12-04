@@ -1,5 +1,6 @@
 <?php
 	require_once "aplicacion/modelo/modelo.php";
+	//require_once "modelo.php";
 
 	class UsuarioBD extends Modelo{
 
@@ -73,6 +74,47 @@
 				return false;
 			}
 		}
+
+		public function actualizarNivel($username,$nivel)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE usuario SET nivel='".$nivel."' WHERE username='".$username."'");
+			$this->desconectar();
+		}
+
+		public function actualizarSubnivel($username,$subnivel)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE usuario SET subnivel='".$subnivel."' WHERE username='".$username."'");
+			$this->desconectar();
+		}
+
+		public function getNivel($username)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT nivel FROM usuario WHERE username='".$username."'");
+			$this->desconectar();
+			$nivel="";
+
+			while($fila=mysqli_fetch_array($aux)){
+				$nivel=$fila[0];
+			}
+			return $nivel;
+		}
+
+		public function getSubnivel($username)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT subnivel FROM usuario WHERE username='".$username."'");
+			$this->desconectar();
+			$subnivel="";
+
+			while($fila=mysqli_fetch_array($aux)){
+				$subnivel=$fila[0];
+			}
+			return $subnivel;
+		}
+
 		public function actualizarNombre($username,$nombre)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -139,6 +181,19 @@
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("SELECT * FROM medalla");
+			$this->desconectar();
+			$datos=array();
+
+			while($fila=mysqli_fetch_array($aux)){
+				array_push($datos, $fila);
+			}
+
+			return $datos;
+		}
+
+		public function getUsuario($username){
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT * FROM usuario WHERE username='".$username."'");
 			$this->desconectar();
 			$datos=array();
 
