@@ -2,7 +2,7 @@ var espacio;
 var tablero;
 var direccion;
 var valores;
-
+var pantalla = "inicio";
 leerJSON('http://localhost/integrador/Seminario-Integracion/index.php?JSON=1');
 var fondo= {
 	imagenURL: "estatico/img/juego/mapa.png",
@@ -14,9 +14,29 @@ var castillos= {
 	imagenActivoURL: "estatico/img/juego/castilloActivo75x70.png",
 	imagenActivoOK: false
 }
+var control = {
+	imagenInicialURL: "estatico/img/juego/iniciar.png",
+	imagenFinalURL:"estatico/img/juego/iniciar2.png"
+}
+var personaje = {
+	
+}
 var nivel1 = {
 	imagenURL: "estatico/img/juego/nivel1.png",
-	imagenOK: false
+	imagenOK: false,
+	letrero1A: "estatico/img/juego/letreroActivo1.png",
+	letrero2A: "estatico/img/juego/letreroActivo2.png",
+	letrero3A: "estatico/img/juego/letreroActivo3.png",
+	letrero4A: "estatico/img/juego/letreroActivo4.png",
+	letrero5A: "estatico/img/juego/letreroActivo5.png",
+	letrero1I: "estatico/img/juego/letreroInactivo1.png",
+	letrero2I: "estatico/img/juego/letreroInactivo2.png",
+	letrero3I: "estatico/img/juego/letreroInactivo3.png",
+	letrero4I: "estatico/img/juego/letreroInactivo4.png",
+	letrero5I: "estatico/img/juego/letreroInactivo5.png",
+	letreros: 0,
+	subnivel1URL: "estatico/img/juego/subnivel1-1.png",
+	subnivel1OK: false
 }
 var posicionCastillos= {
 	castillo1X: 230,
@@ -36,6 +56,11 @@ var posicionCastillos= {
 }
 var posicionXCastillos = [0, 230, 150, 210, 650, 600, 730, 1000];
 var posicionYCastillos = [0, 77, 250, 430, 75, 200, 320, 150]
+var inicioXNivel1 = [0,292,56,325,656];
+var inicioYNivel1 = [0,87,297,330,214];
+var finXNivel1 = [191,473,193,490,875];
+var finYNivel1 = [158,257,433,489,344];
+
 
 function inicio () {
 	espacio = document.getElementById("campo");
@@ -53,10 +78,11 @@ function inicio () {
 	nivel1.imagen = new Image();
 	nivel1.imagen.src = nivel1.imagenURL;
 	nivel1.imagen.onload = confirmarNivel1;
+	cargarNivel1();
 	clicPrincipal();
 }
+
 function obtenerCoordenadas () {
-	console.log("actualiza coordenadas");
 	espacioAux = espacio;
 	espacioX=0;
 	espacioY=0;
@@ -69,9 +95,6 @@ function obtenerCoordenadas () {
 function confirmarFondo(){
 	fondo.imagenOK=true;
 	dibujar();
-}
-function confirmarNivel1 () {
-	nivel1.imagenOK = true;
 }
 function confirmarCastilloActivo () {
 	castillos.imagenActivoOK = true;
@@ -151,27 +174,53 @@ function dibujarNivel (i) {
 		dibujarNivel1();
 	}
 }
-function dibujarNivel1 () {
-	if(nivel1.imagenOK){
-		tablero.drawImage(nivel1.imagen,0,0);
-	}else{
 
+function dibujarSubnivel (i) {
+	if(pantalla=="nivel1"){
+		if(i==0){
+			dibujarNivel1Subnivel1();
+		}
 	}
 }
+
 function clicPrincipal(){
 	espacio.addEventListener("click",function(e){
-		var x = e.clientX-espacioX;
-		var y = e.clientY-espacioY+document.body.scrollTop;
-		for(i=0;i<8;i++){
-			if(x>=posicionXCastillos[i] && x<=posicionXCastillos[i]+75){
-				if(y>=posicionYCastillos[i] && y<=posicionYCastillos[i]+70){
-					if(i<=valores["nivel"]){
-						dibujarNivel(i);
+		if(pantalla=="inicio"){
+			var x = e.clientX-espacioX;
+			var y = e.clientY-espacioY+document.body.scrollTop;
+			for(i=0;i<8;i++){
+				if(x>=posicionXCastillos[i] && x<=posicionXCastillos[i]+75){
+					if(y>=posicionYCastillos[i] && y<=posicionYCastillos[i]+70){
+						if(i<=valores["nivel"]){
+							pantalla = "nivel1";
+							dibujarNivel(i);
+						}
 					}
 				}
 			}
-		}
 
+		}else if(pantalla=="nivel1"){
+			var x = e.clientX-espacioX;
+			var y = e.clientY-espacioY+document.body.scrollTop;
+			for(i=0;i<5;i++){
+				if(x>=inicioXNivel1[i] && x<=finXNivel1[i]+75){
+					if(y>=inicioYNivel1[i] && y<=finYNivel1[i]+70){
+						if(i<=valores["subnivel"]){
+							dibujarSubnivel(i);
+							pantalla = "nivel1subnivel1";
+						}
+					}
+				}
+			}
+		}else if(pantalla=="nivel1subnivel1"){
+			var x = e.clientX-espacioX;
+			var y = e.clientY-espacioY+document.body.scrollTop;
+			if(x>=160 && x<= 240){
+				if(y>=440 && y<=600){
+					////AQUI VAMOS
+				}
+			}
+		}
 	});
 }
 function leerJSON (url) {
@@ -187,3 +236,107 @@ function leerJSON (url) {
 	setTimeout(inicio, 200);
 }
 
+
+
+
+
+//-----------------------------------------NIVEL 1-----------------------------------
+
+function confirmarNivel1 () {
+	nivel1.imagenOK = true;
+}
+
+function dibujarNivel1 () {
+	tablero.drawImage(nivel1.imagen,0,0);
+	if(nivel1.letreros==10){
+		if(valores["nivel"]==1){
+			if(valores["subnivel"]==0){
+				tablero.drawImage(nivel1.letrero1AImagen,160,110);
+				tablero.drawImage(nivel1.letrero2IImagen,300,200);
+				tablero.drawImage(nivel1.letrero3IImagen,200,310);
+				tablero.drawImage(nivel1.letrero4IImagen,400,330);
+				tablero.drawImage(nivel1.letrero5IImagen,670,290);
+			}else if(valores["subnivel"]==1){
+				tablero.drawImage(nivel1.letrero1AImagen,160,110);
+				tablero.drawImage(nivel1.letrero2AImagen,300,200);
+				tablero.drawImage(nivel1.letrero3IImagen,200,310);
+				tablero.drawImage(nivel1.letrero4IImagen,400,330);
+				tablero.drawImage(nivel1.letrero5IImagen,670,290);
+			}else if(valores["subnivel"]==2){
+				tablero.drawImage(nivel1.letrero1AImagen,160,110);
+				tablero.drawImage(nivel1.letrero2AImagen,300,200);
+				tablero.drawImage(nivel1.letrero3AImagen,200,310);
+				tablero.drawImage(nivel1.letrero4IImagen,400,330);
+				tablero.drawImage(nivel1.letrero5IImagen,670,290);
+			}else if(valores["subnivel"]==3){
+				tablero.drawImage(nivel1.letrero1AImagen,160,110);
+				tablero.drawImage(nivel1.letrero2AImagen,300,200);
+				tablero.drawImage(nivel1.letrero3AImagen,200,310);
+				tablero.drawImage(nivel1.letrero4AImagen,400,330);
+				tablero.drawImage(nivel1.letrero5IImagen,670,290);
+			}else if(valores["subnivel"]==4){
+				tablero.drawImage(nivel1.letrero1AImagen,160,110);
+				tablero.drawImage(nivel1.letrero2AImagen,300,200);
+				tablero.drawImage(nivel1.letrero3AImagen,200,310);
+				tablero.drawImage(nivel1.letrero4AImagen,400,330);
+				tablero.drawImage(nivel1.letrero5AImagen,670,290);
+			}
+		}else if(valores["nivel"]>1){
+			tablero.drawImage(nivel1.letrero1AImagen,160,110);
+			tablero.drawImage(nivel1.letrero2AImagen,300,200);
+			tablero.drawImage(nivel1.letrero3AImagen,200,310);
+			tablero.drawImage(nivel1.letrero4AImagen,400,330);
+			tablero.drawImage(nivel1.letrero5AImagen,670,290);
+		}
+	}
+}
+
+function cargarNivel1 () {
+	nivel1.letrero1AImagen = new Image();
+	nivel1.letrero1AImagen.src = nivel1.letrero1A;
+	nivel1.letrero1AImagen.onload = aumentarLetreros;
+	nivel1.letrero2AImagen = new Image();
+	nivel1.letrero2AImagen.src = nivel1.letrero2A;
+	nivel1.letrero2AImagen.onload = aumentarLetreros;
+	nivel1.letrero3AImagen = new Image();
+	nivel1.letrero3AImagen.src = nivel1.letrero3A;
+	nivel1.letrero3AImagen.onload = aumentarLetreros;
+	nivel1.letrero4AImagen = new Image();
+	nivel1.letrero4AImagen.src = nivel1.letrero4A;
+	nivel1.letrero4AImagen.onload = aumentarLetreros;
+	nivel1.letrero5AImagen = new Image();
+	nivel1.letrero5AImagen.src = nivel1.letrero5A;
+	nivel1.letrero5AImagen.onload = aumentarLetreros;
+	nivel1.letrero1IImagen = new Image();
+	nivel1.letrero1IImagen.src = nivel1.letrero1I;
+	nivel1.letrero1IImagen.onload = aumentarLetreros;
+	nivel1.letrero2IImagen = new Image();
+	nivel1.letrero2IImagen.src = nivel1.letrero2I;
+	nivel1.letrero2IImagen.onload = aumentarLetreros;
+	nivel1.letrero3IImagen = new Image();
+	nivel1.letrero3IImagen.src = nivel1.letrero3I;
+	nivel1.letrero3IImagen.onload = aumentarLetreros;
+	nivel1.letrero4IImagen = new Image();
+	nivel1.letrero4IImagen.src = nivel1.letrero4I;
+	nivel1.letrero4IImagen.onload = aumentarLetreros;
+	nivel1.letrero5IImagen = new Image();
+	nivel1.letrero5IImagen.src = nivel1.letrero5I;
+	nivel1.letrero5IImagen.onload = aumentarLetreros;
+	nivel1.subnivel1Imagen = new Image();
+	nivel1.subnivel1Imagen.src = nivel1.subnivel1URL;
+	control.imagenInicial = new Image();
+	control.imagenInicial.src = control.imagenInicialURL;
+	control.imagenFinal = new Image();
+	control.imagenFinal.src = control.imagenFinalURL;
+
+}
+function aumentarLetreros () {
+	nivel1.letreros++;
+}
+function dibujarNivel1Subnivel1 () {
+	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
+	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.font = "bold 22px sans-serif";
+	tablero.fillText("Instrucciones",50,50);
+	tablero.fillText("Jugar",200,460);
+}
