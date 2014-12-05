@@ -1,4 +1,4 @@
-
+var espacio;
 var tablero;
 var direccion;
 var valores;
@@ -12,11 +12,28 @@ var castillos= {
 	imagenDesactivoOK: false,
 	imagenActivoURL: "estatico/img/juego/castilloActivo75x70.png",
 	imagenActivoOK: false
-
 }
+var posicionCastillos= {
+	castillo1X: 230,
+	castillo1Y: 77,
+	castillo2X: 150,
+	castillo2Y: 250,
+	castillo3X: 210,
+	castillo3Y: 430,
+	castillo4X: 650,
+	castillo4Y: 75,
+	castillo5X: 600,
+	castillo5Y: 200,
+	castillo6X: 730,
+	castillo6Y: 320,
+	castillo7X: 1000,
+	castillo7Y: 150,
+}
+var posicionXCastillos = [0, 230, 150, 210, 650, 600, 730, 1000];
+var posicionYCastillos = [0, 77, 250, 430, 75, 200, 320, 150]
 
 function inicio () {
-	var espacio = document.getElementById("campo");
+	espacio = document.getElementById("campo");
 	tablero = espacio.getContext("2d");
 	fondo.imagen = new Image();
 	fondo.imagen.src = fondo.imagenURL;
@@ -27,6 +44,7 @@ function inicio () {
 	castillos.imagenActivo.src = castillos.imagenActivoURL;
 	castillos.imagenActivo.onload = confirmarCastilloActivo;
 	castillos.imagenDesactivo.onload = confirmarCastilloDesactivo; 
+	clicPrincipal();
 }
 
 function confirmarFondo(){
@@ -48,65 +66,71 @@ function dibujar(){
 	}
 	if(castillos.imagenDesactivoOK){
 		if(valores["nivel"]==1){
-			tablero.drawImage(castillos.imagenActivo, 230,77);
-			tablero.drawImage(castillos.imagenDesactivo, 150,250);
-			tablero.drawImage(castillos.imagenDesactivo, 210,430);
-			tablero.drawImage(castillos.imagenDesactivo, 650,75);
-			tablero.drawImage(castillos.imagenDesactivo, 600,200);
-			tablero.drawImage(castillos.imagenDesactivo, 730,320);
-			tablero.drawImage(castillos.imagenDesactivo, 1000,150);
+			tablero.drawImage(castillos.imagenActivo,  posicionCastillos.castillo1X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo2X, posicionCastillos.castillo2Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo3X, posicionCastillos.castillo3Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo4X, posicionCastillos.castillo4Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo5X, posicionCastillos.castillo5Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo6X, posicionCastillos.castillo6Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo7X, posicionCastillos.castillo7Y);
 		}else if(valores["nivel"]==2){
-			tablero.drawImage(castillos.imagenActivo, 230,77);
-			tablero.drawImage(castillos.imagenActivo, 150,250);
-			tablero.drawImage(castillos.imagenDesactivo, 210,430);
-			tablero.drawImage(castillos.imagenDesactivo, 650,75);
-			tablero.drawImage(castillos.imagenDesactivo, 600,200);
-			tablero.drawImage(castillos.imagenDesactivo, 730,320);
-			tablero.drawImage(castillos.imagenDesactivo, 1000,150);
+			tablero.drawImage(castillos.imagenActivo,  posicionCastillos.castillo1X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo,  posicionCastillos.castillo2X, posicionCastillos.castillo2Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo3X, posicionCastillos.castillo3Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo4X, posicionCastillos.castillo4Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo5X, posicionCastillos.castillo5Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo6X, posicionCastillos.castillo6Y);
+			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo7X, posicionCastillos.castillo7Y);
 		}else if(valores["nivel"]==3){
-			tablero.drawImage(castillos.imagenActivo, 230,77);
-			tablero.drawImage(castillos.imagenActivo, 150,250);
-			tablero.drawImage(castillos.imagenActivo, 210,430);
-			tablero.drawImage(castillos.imagenDesactivo, 650,75);
-			tablero.drawImage(castillos.imagenDesactivo, 600,200);
-			tablero.drawImage(castillos.imagenDesactivo, 730,320);
-			tablero.drawImage(castillos.imagenDesactivo, 1000,150);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo1X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo2X, posicionCastillos.castillo2Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo3X, posicionCastillos.castillo3Y);
+			tablero.drawImage(castillos.imagenDesactivo,posicionCastillos.castillo4X, posicionCastillos.castillo4Y);
+			tablero.drawImage(castillos.imagenDesactivo, posicionCastillos.castillo5X, posicionCastillos.castillo5Y);
+			tablero.drawImage(castillos.imagenDesactivo, posicionCastillos.castillo6X, posicionCastillos.castillo6Y);
+			tablero.drawImage(castillos.imagenDesactivo, posicionCastillos.castillo7X, posicionCastillos.castillo7Y);
 		}else if(valores["nivel"]==4){
-			tablero.drawImage(castillos.imagenActivo, 230,77);
-			tablero.drawImage(castillos.imagenActivo, 150,250);
-			tablero.drawImage(castillos.imagenActivo, 210,430);
-			tablero.drawImage(castillos.imagenActivo, 650,75);
-			tablero.drawImage(castillos.imagenDesactivo, 600,200);
-			tablero.drawImage(castillos.imagenDesactivo, 730,320);
-			tablero.drawImage(castillos.imagenDesactivo, 1000,150);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo1X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo2X, posicionCastillos.castillo2Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo3X, posicionCastillos.castillo3Y);
+			tablero.drawImage(castillos.imagenActivo,posicionCastillos.castillo4X, posicionCastillos.castillo4Y);
+			tablero.drawImage(castillos.imagenDesactivo, posicionCastillos.castillo5X, posicionCastillos.castillo5Y);
+			tablero.drawImage(castillos.imagenDesactivo, posicionCastillos.castillo6X, posicionCastillos.castillo6Y);
+			tablero.drawImage(castillos.imagenDesactivo, posicionCastillos.castillo7X, posicionCastillos.castillo7Y);
 		}else if(valores["nivel"]==5){
-			tablero.drawImage(castillos.imagenActivo, 230,77);
-			tablero.drawImage(castillos.imagenActivo, 150,250);
-			tablero.drawImage(castillos.imagenActivo, 210,430);
-			tablero.drawImage(castillos.imagenActivo, 650,75);
-			tablero.drawImage(castillos.imagenActivo, 600,200);
-			tablero.drawImage(castillos.imagenDesactivo, 730,320);
-			tablero.drawImage(castillos.imagenDesactivo, 1000,150);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo1X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo2X, posicionCastillos.castillo2Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo3X, posicionCastillos.castillo3Y);
+			tablero.drawImage(castillos.imagenActivo,posicionCastillos.castillo4X, posicionCastillos.castillo4Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo5X, posicionCastillos.castillo5Y);
+			tablero.drawImage(castillos.imagenDesactivo, posicionCastillos.castillo6X, posicionCastillos.castillo6Y);
+			tablero.drawImage(castillos.imagenDesactivo, posicionCastillos.castillo7X, posicionCastillos.castillo7Y);
 		}else if(valores["nivel"]==6){
-			tablero.drawImage(castillos.imagenActivo, 230,77);
-			tablero.drawImage(castillos.imagenActivo, 150,250);
-			tablero.drawImage(castillos.imagenActivo, 210,430);
-			tablero.drawImage(castillos.imagenActivo, 650,75);
-			tablero.drawImage(castillos.imagenActivo, 600,200);
-			tablero.drawImage(castillos.imagenActivo, 730,320);
-			tablero.drawImage(castillos.imagenDesactivo, 1000,150);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo1X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo2X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo3X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo,posicionCastillos.castillo4X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo5X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo6X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenDesactivo, posicionCastillos.castillo7X, posicionCastillos.castillo1Y);
 		}else if(valores["nivel"]==7){
-			tablero.drawImage(castillos.imagenActivo, 230,77);
-			tablero.drawImage(castillos.imagenActivo, 150,250);
-			tablero.drawImage(castillos.imagenActivo, 210,430);
-			tablero.drawImage(castillos.imagenActivo, 650,75);
-			tablero.drawImage(castillos.imagenActivo, 600,200);
-			tablero.drawImage(castillos.imagenActivo, 730,320);
-			tablero.drawImage(castillos.imagenActivo, 1000,150);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo1X, posicionCastillos.castillo1Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo2X, posicionCastillos.castillo2Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo3X, posicionCastillos.castillo3Y);
+			tablero.drawImage(castillos.imagenActivo,posicionCastillos.castillo4X, posicionCastillos.castillo4Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo5X, posicionCastillos.castillo5Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo6X, posicionCastillos.castillo6Y);
+			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo7X, posicionCastillos.castillo7Y);
 		}
 	}	
 }
-
+function clicPrincipal(){
+	espacio.addEventListener("click",function(e){
+		console.log(e.clientX-espacio.offsetLeft);
+		
+		
+	});
+}
 function leerJSON (url) {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
@@ -116,6 +140,7 @@ function leerJSON (url) {
 	}
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
+	
 	setTimeout(inicio, 200);
 }
 
