@@ -523,7 +523,9 @@ th:nth-child(2){
 .editar p{
 	margin-top: 3rem;
 }
-
+#campo{
+	cursor:url(../img/juego/cursor.png),auto;
+}
 input[type="submit"]{
 	height: 2.8rem;
 	background-color: #2c3e50;
