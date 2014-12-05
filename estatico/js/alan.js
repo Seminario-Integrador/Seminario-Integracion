@@ -26,6 +26,7 @@ function desplegar () {
 		}
 		
 	}
+	setTimeout(obtenerCoordenadas,300);
 	activo = !activo;
 }
 function mostrar () {

@@ -2,6 +2,7 @@ var espacio;
 var tablero;
 var direccion;
 var valores;
+
 leerJSON('http://localhost/integrador/Seminario-Integracion/index.php?JSON=1');
 var fondo= {
 	imagenURL: "estatico/img/juego/mapa.png",
@@ -35,6 +36,7 @@ var posicionYCastillos = [0, 77, 250, 430, 75, 200, 320, 150]
 function inicio () {
 	espacio = document.getElementById("campo");
 	tablero = espacio.getContext("2d");
+	obtenerCoordenadas();
 	fondo.imagen = new Image();
 	fondo.imagen.src = fondo.imagenURL;
 	fondo.imagen.onload = confirmarFondo;
@@ -43,10 +45,20 @@ function inicio () {
 	castillos.imagenDesactivo.src = castillos.imagenDesactivoURL;
 	castillos.imagenActivo.src = castillos.imagenActivoURL;
 	castillos.imagenActivo.onload = confirmarCastilloActivo;
-	castillos.imagenDesactivo.onload = confirmarCastilloDesactivo; 
+	castillos.imagenDesactivo.onload = confirmarCastilloDesactivo;
 	clicPrincipal();
 }
-
+function obtenerCoordenadas () {
+	console.log("actualiza coordenadas");
+	espacioAux = espacio;
+	espacioX=0;
+	espacioY=0;
+	while (espacioAux.offsetParent) {
+	    espacioX += espacioAux.offsetLeft;
+		espacioY += espacioAux.offsetTop;
+		espacioAux = espacioAux.offsetParent;
+	}
+}
 function confirmarFondo(){
 	fondo.imagenOK=true;
 	dibujar();
@@ -62,9 +74,9 @@ function confirmarCastilloDesactivo () {
 
 function dibujar(){
 	if(fondo.imagenOK){
-		tablero.drawImage(fondo.imagen, 0, 0);	
+		tablero.drawImage(fondo.imagen, 0, 0);
 	}
-	if(castillos.imagenDesactivoOK){
+	if(castillos.imagenDesactivoOK && castillos.imagenActivoOK){
 		if(valores["nivel"]==1){
 			tablero.drawImage(castillos.imagenActivo,  posicionCastillos.castillo1X, posicionCastillos.castillo1Y);
 			tablero.drawImage(castillos.imagenDesactivo,  posicionCastillos.castillo2X, posicionCastillos.castillo2Y);
@@ -122,13 +134,19 @@ function dibujar(){
 			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo6X, posicionCastillos.castillo6Y);
 			tablero.drawImage(castillos.imagenActivo, posicionCastillos.castillo7X, posicionCastillos.castillo7Y);
 		}
-	}	
+	}
 }
 function clicPrincipal(){
 	espacio.addEventListener("click",function(e){
-		console.log(e.clientX-espacio.offsetLeft);
-		
-		
+		console.log(e.clientX+" -" +espacioX);
+		//console.log(e.clientX-espacioX);
+		//console.log(e.clientY-espacioY);
+		if(e.clientX-espacioX>=230 && e.clientX-espacioX<= 305){
+			if(e.clientY-espacioY+document.body.scrollTop>=77 && e.clientY-espacioY+document.body.scrollTop<= 147){
+				console.log("clickeo");
+			}
+		}
+
 	});
 }
 function leerJSON (url) {
@@ -140,7 +158,7 @@ function leerJSON (url) {
 	}
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
-	
+
 	setTimeout(inicio, 200);
 }
 
