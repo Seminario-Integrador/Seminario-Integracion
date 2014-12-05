@@ -138,12 +138,13 @@ function dibujar(){
 }
 function clicPrincipal(){
 	espacio.addEventListener("click",function(e){
-		console.log(e.clientX+" -" +espacioX);
-		//console.log(e.clientX-espacioX);
-		//console.log(e.clientY-espacioY);
-		if(e.clientX-espacioX>=230 && e.clientX-espacioX<= 305){
-			if(e.clientY-espacioY+document.body.scrollTop>=77 && e.clientY-espacioY+document.body.scrollTop<= 147){
-				console.log("clickeo");
+		var x = e.clientX-espacioX;
+		var y = e.clientY-espacioY+document.body.scrollTop;
+		for(i=0;i<8;i++){
+			if(x>=posicionXCastillos[i] && x<=posicionXCastillos[i]+75){
+				if(y>=posicionYCastillos[i] && y<=posicionYCastillos[i]+70){
+					alert("castillo "+i);
+				}
 			}
 		}
 
