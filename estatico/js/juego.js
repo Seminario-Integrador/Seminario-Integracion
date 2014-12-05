@@ -14,6 +14,10 @@ var castillos= {
 	imagenActivoURL: "estatico/img/juego/castilloActivo75x70.png",
 	imagenActivoOK: false
 }
+var nivel1 = {
+	imagenURL: "estatico/img/juego/nivel1.png",
+	imagenOK: false
+}
 var posicionCastillos= {
 	castillo1X: 230,
 	castillo1Y: 77,
@@ -46,6 +50,9 @@ function inicio () {
 	castillos.imagenActivo.src = castillos.imagenActivoURL;
 	castillos.imagenActivo.onload = confirmarCastilloActivo;
 	castillos.imagenDesactivo.onload = confirmarCastilloDesactivo;
+	nivel1.imagen = new Image();
+	nivel1.imagen.src = nivel1.imagenURL;
+	nivel1.imagen.onload = confirmarNivel1;
 	clicPrincipal();
 }
 function obtenerCoordenadas () {
@@ -62,6 +69,9 @@ function obtenerCoordenadas () {
 function confirmarFondo(){
 	fondo.imagenOK=true;
 	dibujar();
+}
+function confirmarNivel1 () {
+	nivel1.imagenOK = true;
 }
 function confirmarCastilloActivo () {
 	castillos.imagenActivoOK = true;
@@ -136,6 +146,18 @@ function dibujar(){
 		}
 	}
 }
+function dibujarNivel (i) {
+	if(i==1){
+		dibujarNivel1();
+	}
+}
+function dibujarNivel1 () {
+	if(nivel1.imagenOK){
+		tablero.drawImage(nivel1.imagen,0,0);
+	}else{
+
+	}
+}
 function clicPrincipal(){
 	espacio.addEventListener("click",function(e){
 		var x = e.clientX-espacioX;
@@ -143,7 +165,9 @@ function clicPrincipal(){
 		for(i=0;i<8;i++){
 			if(x>=posicionXCastillos[i] && x<=posicionXCastillos[i]+75){
 				if(y>=posicionYCastillos[i] && y<=posicionYCastillos[i]+70){
-					alert("castillo "+i);
+					if(i<=valores["nivel"]){
+						dibujarNivel(i);
+					}
 				}
 			}
 		}
