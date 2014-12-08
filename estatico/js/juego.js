@@ -179,15 +179,22 @@ function dibujarSubnivel (i) {
 	if(pantalla=="nivel1"){
 		if(i==0){
 			dibujarNivel1Subnivel1();
+		}if(i==1){
+			dibujarNivel1Subnivel2();
 		}
+	}
+}
+function dibujarJuego () {
+	if(pantalla == "nivel1subnivel1"){
+		dibujarJuegoNivel1Subnivel1();
 	}
 }
 
 function clicPrincipal(){
 	espacio.addEventListener("click",function(e){
+		var x = e.clientX-espacioX;
+		var y = e.clientY-espacioY+document.body.scrollTop;
 		if(pantalla=="inicio"){
-			var x = e.clientX-espacioX;
-			var y = e.clientY-espacioY+document.body.scrollTop;
 			for(i=0;i<8;i++){
 				if(x>=posicionXCastillos[i] && x<=posicionXCastillos[i]+75){
 					if(y>=posicionYCastillos[i] && y<=posicionYCastillos[i]+70){
@@ -200,8 +207,6 @@ function clicPrincipal(){
 			}
 
 		}else if(pantalla=="nivel1"){
-			var x = e.clientX-espacioX;
-			var y = e.clientY-espacioY+document.body.scrollTop;
 			for(i=0;i<5;i++){
 				if(x>=inicioXNivel1[i] && x<=finXNivel1[i]+75){
 					if(y>=inicioYNivel1[i] && y<=finYNivel1[i]+70){
@@ -212,12 +217,11 @@ function clicPrincipal(){
 					}
 				}
 			}
-		}else if(pantalla=="nivel1subnivel1"){
-			var x = e.clientX-espacioX;
-			var y = e.clientY-espacioY+document.body.scrollTop;
+		}else if(pantalla=="nivel1subnivel1"){			
 			if(x>=160 && x<= 240){
 				if(y>=440 && y<=600){
-					////AQUI VAMOS
+					dibujarJuego(i);
+					pantalla = "nivel1subnivel1juego";
 				}
 			}
 		}
@@ -337,6 +341,18 @@ function dibujarNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.font = "bold 22px sans-serif";
-	tablero.fillText("Instrucciones",50,50);
+	tablero.fillText("¡Preparate para la lucha!",100,50);
+	tablero.fillText("Después de dos años de exilio",50,80);
+	tablero.fillText("por los malvados hechiceros",50,110);
+	tablero.fillText("vuelves al reino.",50,140);
+	tablero.fillText("Tu reto:",180,200);
+	tablero.fillText("Sigue el camino en linea recta",50,230);
+	tablero.fillText("para entrar al pueblo.",50,260);
 	tablero.fillText("Jugar",200,460);
+}
+
+function dibujarJuegoNivel1Subnivel1 () {
+	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
+	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.fillText("Enviar",200,460);
 }

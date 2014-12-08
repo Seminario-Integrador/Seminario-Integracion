@@ -17,9 +17,9 @@
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			if($curso==""){
-				$this->consultar("INSERT INTO usuario VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."',NULL,'','0','1','1','perfil.jpg', '1')");		
+				$this->consultar("INSERT INTO usuario VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."',NULL,'','0','1','0','perfil.jpg', '1')");		
 			}else{
-				$this->consultar("INSERT INTO usuario VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."','".$curso."','','0','1','1','perfil.jpg', '1')");	
+				$this->consultar("INSERT INTO usuario VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."','".$curso."','','0','1','0','perfil.jpg', '1')");	
 			}
 			$this->desconectar();
 		}
