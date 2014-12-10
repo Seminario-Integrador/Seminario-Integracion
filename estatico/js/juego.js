@@ -355,4 +355,11 @@ function dibujarJuegoNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.fillText("Enviar",200,460);
+	var toolbox = '<xml>';
+	toolbox += '  <block type="controls_if"></block>';
+	toolbox += '  <block type="controls_whileUntil"></block>';
+	toolbox += '</xml>';
+	desplegarBlock();
+	Blockly.inject(document.getElementById('blocklyDiv'),
+		{toolbox: toolbox});
 }

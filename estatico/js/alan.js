@@ -87,3 +87,16 @@ function alerta () {
 		console.log("aja");
 	}, arguments[2]+1000 ||  11000);
 }
+var block = document.getElementById("blocklyDiv");
+function desplegarBlock () {
+	block.style.display = "block";
+	setTimeout(function () {
+		block.style.opacity = "1";
+	},150);
+}
+function ocultarBlock () {
+	block.style.opacity=0;
+	setTimeout(function () {
+		block.style.display ="none";
+	},350);
+}

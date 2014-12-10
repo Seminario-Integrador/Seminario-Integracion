@@ -2,21 +2,13 @@
 	{{superior}}
 	<div class="portada">
 		<canvas id="campo" width="1100" height="500"></canvas>
-		<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+		<div id="blocklyDiv"></div>
 		<!--<audio autoplay loop>
 			<source src="estatico/audio/music.ogg"  type="audio/ogg">
 		</audio>-->
 		<script src="estatico/js/juego.js"></script>
 		<script src="estatico/js/blockly/blockly_compressed.js"></script>
 		<script src="estatico/js/blockly/blocks_compressed.js"></script>
-		<script src="estatico/js/blockly/msg/js/es.js"></script>
-		<script type="text/javascript">
-			  var toolbox = '<xml>';
-			  toolbox += '  <block type="controls_if"></block>';
-			  toolbox += '  <block type="controls_whileUntil"></block>';
-			  toolbox += '</xml>';
-			  Blockly.inject(document.getElementById('blocklyDiv'),
-			      {toolbox: toolbox});
-		</script>
+		<script src="estatico/js/blockly/msg/js/en.js"></script>
 	</div>
 </div>

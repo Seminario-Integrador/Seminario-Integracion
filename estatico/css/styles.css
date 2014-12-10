@@ -329,6 +329,9 @@ hr{
 .portada img{
 	width: 100%;
 }
+.portada{
+	position: relative;
+}
 .datos{
 	position: relative;
 	width: 100%;
@@ -642,6 +645,18 @@ footer h3, h4{
 	transition: all .3s ease;
 	border: 2px solid rgba(52, 73, 94,1);
 	background-color: rgba(52, 73, 94,.9);
+}
+
+#blocklyDiv{
+	position: absolute;
+	z-index: 4;
+	top: 21px;
+	width: 411px;
+	height: 383px;
+	left: 15px;
+	display: none;
+	opacity: 0;
+	transition: all .3s ease; 
 }
 @media(max-width: 767px) {
 	.container{
