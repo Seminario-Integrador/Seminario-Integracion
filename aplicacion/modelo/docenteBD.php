@@ -1,6 +1,22 @@
 <?php
+
+	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
+ 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
+ 	*             SAN JOSE DE CUCUTA-2014
+	 * ............................................
+ 	*/
+
 	require_once "aplicacion/modelo/modelo.php";
 
+	/**
+	* Clase encargada del manejo de los docentes en la base de datos. Recibe llamados desde el controlador.php
+	* Esta clase extiende de la clase modelo
+	* @author Gerson Yesid Lázaro Carrillo 1150972
+	* @author Angie Melissa Delgado León 1150990
+	*/
 	class UsuarioBD extends Modelo{
 
 		/**

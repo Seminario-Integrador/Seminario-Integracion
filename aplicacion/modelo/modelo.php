@@ -1,4 +1,20 @@
 <?php
+
+	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
+ 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
+ 	*             SAN JOSE DE CUCUTA-2014
+	 * ............................................
+ 	*/
+
+ 	/**
+	* Clase encargada del manejo de consultas a la base de datos. 
+	* Esta clase será extendida por las demas clases del modelo
+	* @author Gerson Yesid Lázaro Carrillo 1150972
+	* @author Angie Melissa Delgado León 1150990
+	*/
 	class Modelo{
 
 		private $conexion;

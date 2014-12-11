@@ -1,4 +1,14 @@
-<?php
+ <?php
+
+ 	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
+ 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
+ 	*             SAN JOSE DE CUCUTA-2014
+	 * ............................................
+ 	*/
+
 	session_start();
 	require "aplicacion/controlador/controlador.php";
 	$alan = new controlador();

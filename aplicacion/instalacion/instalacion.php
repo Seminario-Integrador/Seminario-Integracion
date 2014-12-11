@@ -1,4 +1,20 @@
 <?php
+
+	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
+ 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
+ 	*             SAN JOSE DE CUCUTA-2014
+	 * ............................................
+ 	*/
+
+ 	/**
+	* Archivo de instalación de la Base de Datos
+	* @author Gerson Yesid Lázaro Carrillo 1150972
+	* @author Angie Melissa Delgado León 1150990
+	*/
+
 	$conexion = mysqli_connect("localhost","root","") or die(("Error " . mysqli_error($conexion)));
 	$crearBase="CREATE DATABASE alangame";
 	$result = mysqli_query($conexion, $crearBase);

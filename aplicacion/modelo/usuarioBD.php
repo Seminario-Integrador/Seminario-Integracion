@@ -1,7 +1,23 @@
 <?php
+
+	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
+ 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
+ 	*             SAN JOSE DE CUCUTA-2014
+	 * ............................................
+ 	*/
+
 	require_once "aplicacion/modelo/modelo.php";
 	//require_once "modelo.php";
 
+	/**
+	* Clase encargada del manejo de los usuarios no docentes en la base de datos. Recibe llamados desde el controlador.php
+	* Esta clase extiende de la clase modelo
+	* @author Gerson Yesid Lázaro Carrillo 1150972
+	* @author Angie Melissa Delgado León 1150990
+	*/
 	class UsuarioBD extends Modelo{
 
 		/**
@@ -75,6 +91,11 @@
 			}
 		}
 
+		/**
+		*	Método que se encarga de actualizar el nivel de un usuario
+		*	@param $username - Username del usuario 
+		*	@param $nivel - Nuevo nivel
+		*/
 		public function actualizarNivel($username,$nivel)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -82,6 +103,11 @@
 			$this->desconectar();
 		}
 
+		/**
+		*	Método que se encarga de actualizar el subnivel de un usuario
+		*	@param $username - Username del usuario 
+		*	@param $subnivel - Nuevo subnivel
+		*/
 		public function actualizarSubnivel($username,$subnivel)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -89,6 +115,11 @@
 			$this->desconectar();
 		}
 
+		/**
+		*	Método que se encarga de obtener el nivel de un usuario
+		*	@param $username - Username del usuario 
+		*	@return Un string con el nivel del usuario si la consulta se realizo de manera correcta
+		*/
 		public function getNivel($username)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -102,6 +133,11 @@
 			return $nivel;
 		}
 
+		/**
+		*	Método que se encarga de obtener el subnivel de un usuario
+		*	@param $username - Username del usuario 
+		*	@return Un string con el subnivel del usuario si la consulta se realizo de manera correcta
+		*/
 		public function getSubnivel($username)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -115,6 +151,11 @@
 			return $subnivel;
 		}
 
+		/**
+		*	Método que se encarga de actualizar el nombre de un usuario
+		*	@param $username - Username del usuario 
+		*	@param $nombre - Nuevo nombre de usuario
+		*/
 		public function actualizarNombre($username,$nombre)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -122,6 +163,12 @@
 			$this->desconectar();
 			return $aux;
 		}
+
+		/**
+		*	Método que se encarga de actualizar la descripcion de un usuario
+		*	@param $username - Username del usuario 
+		*	@param $descripción - Nueva descripción del usuario 
+		*/
 		public function actualizarDescripcion($username,$descripcion)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -129,6 +176,12 @@
 			$this->desconectar();
 			return $aux;
 		}
+
+		/**
+		*	Método que se encarga de actualizar la imagen de perfil de un usuario
+		*	@param $username - Username del usuario 
+		*	@param $rutaImagen - Nueva imagen de perfil
+		*/
 		public function actualizarImagen($username,$rutaImagen)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -136,6 +189,12 @@
 			$this->desconectar();
 			return $aux;
 		}
+
+		/**
+		*	Método que se encarga de actualizar la imagen de portada de un usuario
+		*	@param $username - Username del usuario 
+		*	@param $portada - Nuevo idntificador de portada
+		*/
 		public function actualizarPortada($username,$portada)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -191,6 +250,11 @@
 			return $datos;
 		}
 
+		/**
+		*	Método que se encarga de consultar los datos de un usuario
+		*	@param $username - Username del usuario 
+		*	@return Un array con todos los datos del usuario 
+		*/
 		public function getUsuario($username){
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("SELECT * FROM usuario WHERE username='".$username."'");
@@ -222,6 +286,13 @@
 
 			return $datos;
 		}
+
+		/**
+		*	Método que se encarga de cambiar el password de un usuario
+		*	@param $username - Username del usuario 
+		*	@param $actual - Contraseña actual del usuario
+		*	@param $nueva - Nueva contraseña del usuario
+		*/
 		public function cambiarPassword($usuario, $actual, $nueva)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
@@ -229,13 +300,26 @@
 			$this->desconectar();
 			return $aux;
 		}
+
+		/**
+		*	Método que se encarga de consultar nombre de un usuario a traves de su correo
+		*	@param $correo - Correo del usuario
+		*	@return nombre del usuario
+		*/
 		public function buscarCorreo($correo)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("SELECT nombre FROM usuario WHERE correo='".$correo."'");
 			$this->desconectar();
 			return mysqli_fetch_array($aux)[0];
-		}	
+		}
+
+
+		/**
+		*	Método que se encarga de consultar la contraseña de un usuario a traves de su correo
+		*	@param $correo - Correo del usuario
+		*	@return contraseña encriptada del usuario
+		*/
 		public function buscarps($correo)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
