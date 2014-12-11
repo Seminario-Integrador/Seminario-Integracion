@@ -2,7 +2,11 @@ var espacio;
 var tablero;
 var direccion;
 var valores;
+var alanImagenX=1, alanImagenY=3, alanTableroX, alanTableroY;
+var alanAncho=56;
+var alanAlto=85;
 var pantalla = "inicio";
+var intervaloAvance;
 leerJSON('http://localhost/integrador/Seminario-Integracion/index.php?JSON=1');
 var fondo= {
 	imagenURL: "estatico/img/juego/mapa.png",
@@ -73,7 +77,7 @@ function inicio () {
 	castillos.imagenDesactivo = new Image();
 	castillos.imagenActivo = new Image();
 	castillos.imagenDesactivo.src = castillos.imagenDesactivoURL;
-	castillos.imagenAlan = new image();
+	castillos.imagenAlan = new Image();
 	castillos.imagenAlan.src = castillos.imagenAlanURL;
 	castillos.imagenActivo.src = castillos.imagenActivoURL;
 	castillos.imagenActivo.onload = confirmarCastilloActivo;
@@ -254,7 +258,6 @@ function validarCodigo() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP =
       'if (--window.LoopTrap == 0) throw "Ciclo Infinito.";\n';
     var code = Blockly.JavaScript.workspaceToCode();
-    console.log(code);
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
         eval(code);
@@ -361,6 +364,9 @@ function aumentarLetreros () {
 function dibujarNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
+		alanTableroX = 450;
+	alanTableroY = 240;
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX-1)*alanAncho,(alanImagenY-1)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.font = "bold 22px sans-serif";
 	tablero.fillText("¡Preparate para la lucha!",100,50);
 	tablero.fillText("Después de dos años de exilio",50,80);
@@ -375,32 +381,27 @@ function dibujarNivel1Subnivel1 () {
 function dibujarJuegoNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
-	tablero.drawImage(
-        img,
-        // Source x
-        (step++ % 4) * 32, // Avance sobre el eje x
-        // Source y
-        [52, 0, 104][direction + 1], // Selecciona el frame adecuado
-        // Source width
-        32,
-        // Source height
-        52,
-        // Dest x
-        x,
-        // Dest y
-        y,
-        // Dest width
-        32,
-        // Dest height
-        52
-    );
+	alanTableroX = 450;
+	alanTableroY = 240;
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX-1)*alanAncho,(alanImagenY-1)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Enviar",200,460);
 	var toolbox = '<xml>';
-	toolbox += '  <block type="inicio"></block>';
 	toolbox += '  <block type="avanzar"></block>';
 	toolbox += '  <block type="girar"></block>';
 	toolbox += '</xml>';
 	desplegarBlock();
 	Blockly.inject(document.getElementById('blocklyDiv'),
 		{toolbox: toolbox});
+}
+var intervalo = 0;
+function avanzarIntervalo () {
+	intervalo++;
+	if(intervalo==5){
+		intervalo=0;
+		clearInterval(intervaloAvance);
+	}
+}
+
+function avanzar () {
+	intervaloAvance = setInterval("avanzarIntervalo()", 100);
 }
