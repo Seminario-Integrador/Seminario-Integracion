@@ -730,3 +730,40 @@ Blockly.Blocks['procedures_ifreturn'] = {
     }
   }
 };
+
+Blockly.Blocks['avanzar'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(230);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Avanzar");
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['girar'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(135);
+    this.appendDummyInput()
+        .appendField("Girar")
+        .appendField(new Blockly.FieldDropdown([["derecha", "derecha"], ["izquierda", "izquierda"]]), "direccion");
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['inicio'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(65);
+    this.appendDummyInput()
+        .appendField("Inicio");
+    this.setNextStatement(true, "null");
+    this.setTooltip('');
+  }
+};

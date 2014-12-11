@@ -106,3 +106,16 @@ Blockly.JavaScript['procedures_ifreturn'] = function(block) {
   code += '}\n';
   return code;
 };
+
+Blockly.JavaScript['avanzar'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  console.log("avanzar funciona");
+  return "avanza";
+};
+Blockly.JavaScript['girar'] = function(block) {
+  var dropdown_direccion = block.getFieldValue('direccion');
+  return dropdown_direccion;
+};
+Blockly.JavaScript['inicio'] = function(block) {
+  return inicio;
+};
