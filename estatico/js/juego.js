@@ -12,7 +12,8 @@ var castillos= {
 	imagenDesactivoURL: "estatico/img/juego/castilloDesactivo75x70.png",
 	imagenDesactivoOK: false,
 	imagenActivoURL: "estatico/img/juego/castilloActivo75x70.png",
-	imagenActivoOK: false
+	imagenActivoOK: false,
+	imagenAlanURL: "estatico/img/juego/alan.png"
 }
 var control = {
 	imagenInicialURL: "estatico/img/juego/iniciar.png",
@@ -72,6 +73,8 @@ function inicio () {
 	castillos.imagenDesactivo = new Image();
 	castillos.imagenActivo = new Image();
 	castillos.imagenDesactivo.src = castillos.imagenDesactivoURL;
+	castillos.imagenAlan = new image();
+	castillos.imagenAlan.src = castillos.imagenAlanURL;
 	castillos.imagenActivo.src = castillos.imagenActivoURL;
 	castillos.imagenActivo.onload = confirmarCastilloActivo;
 	castillos.imagenDesactivo.onload = confirmarCastilloDesactivo;
@@ -218,10 +221,16 @@ function clicPrincipal(){
 				}
 			}
 		}else if(pantalla=="nivel1subnivel1"){			
-			if(x>=160 && x<= 240){
-				if(y>=440 && y<=600){
+			if(x>=107 && x<= 355){
+				if(y>=431 && y<=486){
 					dibujarJuego(i);
 					pantalla = "nivel1subnivel1juego";
+				}
+			}
+		}else if(pantalla=="nivel1subnivel1juego"){			
+			if(x>=107 && x<= 355){
+				if(y>=431 && y<=486){
+					validarCodigo();
 				}
 			}
 		}
@@ -240,7 +249,19 @@ function leerJSON (url) {
 	setTimeout(inicio, 200);
 }
 
-
+function validarCodigo() {
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+      'if (--window.LoopTrap == 0) throw "Ciclo Infinito.";\n';
+    var code = Blockly.JavaScript.workspaceToCode();
+    console.log(code);
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code);
+    } catch (e) {
+        alert(e);
+    }
+}
 
 
 
@@ -354,6 +375,25 @@ function dibujarNivel1Subnivel1 () {
 function dibujarJuegoNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.drawImage(
+        img,
+        // Source x
+        (step++ % 4) * 32, // Avance sobre el eje x
+        // Source y
+        [52, 0, 104][direction + 1], // Selecciona el frame adecuado
+        // Source width
+        32,
+        // Source height
+        52,
+        // Dest x
+        x,
+        // Dest y
+        y,
+        // Dest width
+        32,
+        // Dest height
+        52
+    );
 	tablero.fillText("Enviar",200,460);
 	var toolbox = '<xml>';
 	toolbox += '  <block type="inicio"></block>';
