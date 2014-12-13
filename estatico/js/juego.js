@@ -409,10 +409,10 @@ function avanzarIntervalo () {
 			}else if(alanImagenY==1){
 				alanTableroX-=50;
 				alanImagenX = (alanImagenX+1)%4;
-			}else if(alanImagenX==0){
+			}else if(alanImagenY==0){
 				alanTableroY+=50;
 				alanImagenY = (alanImagenY+1)%4;
-			}else if(alanImagenX==2){
+			}else if(alanImagenY==2){
 				alanTableroY-=50;
 				alanImagenY = (alanImagenY+1)%4;
 			}
@@ -435,8 +435,7 @@ function avanzarIntervalo () {
 	}
 }
 function girarIntervalo (direccion) {
-	intervalo++;
-	if(intervalo<=1){
+	if(intervalo<1){
 		setTimeout(function(){
 			if(direccion=="derecha"){
 				alanImagenY = (alanImagenY+1)%4;
@@ -450,6 +449,10 @@ function girarIntervalo (direccion) {
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillText("Reiniciar",200,460);
 			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+			intervalo++;
+			if(alanImagenY==2){
+				avanzarIntervalo();
+			}
 			girarIntervalo(direccion);
 		},250);
 	}else{
@@ -470,11 +473,9 @@ function avanzar () {
 	if(colaAcciones.length==0 && !banderaCola){
 		intervalo=0;
 		banderaCola = true;
-		console.log("arranca");
 		avanzarIntervalo();
 	}else{
 		colaAcciones.push("avanzar");
-		console.log("encola");
 	}
 }
 function girar(direccion){
