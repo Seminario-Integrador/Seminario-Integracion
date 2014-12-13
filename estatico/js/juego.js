@@ -411,10 +411,10 @@ function avanzarIntervalo () {
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==0){
 				alanTableroY+=50;
-				alanImagenY = (alanImagenY+1)%4;
+				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==2){
 				alanTableroY-=50;
-				alanImagenY = (alanImagenY+1)%4;
+				alanImagenX = (alanImagenX+1)%4;
 			}
 			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 			intervalo++;
