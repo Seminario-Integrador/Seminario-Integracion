@@ -113,7 +113,7 @@ Blockly.JavaScript['avanzar'] = function(block) {
 };
 Blockly.JavaScript['girar'] = function(block) {
   var direccion = block.getFieldValue('direccion');
-  var code = "girar("+direccion+")";
+  var code = "girar('"+direccion+"');";
   return code;
 };
 Blockly.JavaScript['inicio'] = function(block) {
