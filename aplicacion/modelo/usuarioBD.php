@@ -116,6 +116,18 @@
 		}
 
 		/**
+		*	Método que se encarga de actualizar el puntaje de un usuario
+		*	@param $username - Username del usuario 
+		*	@param $puntos - Cantidad de puntos nuevos que recibe el usuario
+		*/
+		public function actualizarSubnivel($username, $puntos)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("UPDATE usuario SET subnivel=subnivel+".$subnivel." WHERE username='".$username."'");
+			$this->desconectar();
+		}
+
+		/**
 		*	Método que se encarga de obtener el nivel de un usuario
 		*	@param $username - Username del usuario 
 		*	@return Un string con el nivel del usuario si la consulta se realizo de manera correcta
