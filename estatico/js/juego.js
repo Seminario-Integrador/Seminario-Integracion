@@ -398,27 +398,24 @@ function dibujarJuegoNivel1Subnivel1 () {
 }
 var intervalo = 0;
 function avanzarIntervalo () {
-	intervalo++;
-	if(intervalo<=2){
+	console.log("entra");
+	if(intervalo<2){
 		setTimeout(function(){
 			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillText("Reiniciar",200,460);
 			if(alanDireccion=="derecha"){
-				console.log(alanTableroX);
+				//console.log(alanTableroX+" "+intervalo);
 				alanTableroX+=50;
 				alanImagenX = (alanImagenX+1)%4;
 				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 			}
+			intervalo++;
 			avanzarIntervalo();
 		},250);
 	}else{
 		console.log("muero");
 		intervalo=0;
-
-
-
-		
 		if(colaAcciones.length!=0){
 			var aux = colaAcciones.shift();
 			if(aux=="avanzar"){
