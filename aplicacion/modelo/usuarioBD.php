@@ -120,7 +120,7 @@
 		*	@param $username - Username del usuario 
 		*	@param $puntos - Cantidad de puntos nuevos que recibe el usuario
 		*/
-		public function actualizarSubnivel($username, $puntos)
+		public function actualizarPuntaje($username, $puntos)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
 			$aux=$this->consultar("UPDATE usuario SET subnivel=subnivel+".$subnivel." WHERE username='".$username."'");
