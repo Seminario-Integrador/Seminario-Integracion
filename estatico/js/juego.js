@@ -9,6 +9,7 @@ var alanDireccion;
 var pantalla = "inicio";
 var intervaloAvance;
 var colaAcciones = [];
+var banderaCola= false;
 leerJSON('http://localhost/integrador/Seminario-Integracion/index.php?JSON=1');
 var fondo= {
 	imagenURL: "estatico/img/juego/mapa.png",
@@ -398,14 +399,12 @@ function dibujarJuegoNivel1Subnivel1 () {
 }
 var intervalo = 0;
 function avanzarIntervalo () {
-	console.log("entra");
 	if(intervalo<2){
 		setTimeout(function(){
 			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillText("Reiniciar",200,460);
 			if(alanDireccion=="derecha"){
-				//console.log(alanTableroX+" "+intervalo);
 				alanTableroX+=50;
 				alanImagenX = (alanImagenX+1)%4;
 				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
@@ -423,6 +422,8 @@ function avanzarIntervalo () {
 			}else if(aux=="derecha"){
 				girarIntervalo(aux);
 			}
+		}else{
+			banderaCola=false;
 		}
 	}
 }
@@ -453,16 +454,20 @@ function girarIntervalo (direccion) {
 	}
 }
 function avanzar () {
-	if(colaAcciones.length==0){
+	if(colaAcciones.length==0 && !banderaCola){
 		intervalo=0;
+		banderaCola = true;
+		console.log("arranca");
 		avanzarIntervalo();
 	}else{
 		colaAcciones.push("avanzar");
+		console.log("encola");
 	}
 }
 function girar(direccion){
-	if(colaAcciones.length==0){
+	if(colaAcciones.length==0 && !banderaCola){
 		intervalo=0;
+		banderaCola = true;
 		girarIntervalo(direccion);
 	}else{
 		colaAcciones.push(direccion);
