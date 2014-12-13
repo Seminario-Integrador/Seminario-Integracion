@@ -367,7 +367,7 @@ function dibujarNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	alanTableroX = 450;
-	alanTableroY = 240;
+	alanTableroY = 260;
 	alanDireccion="derecha";
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.font = "bold 22px sans-serif";
@@ -385,7 +385,7 @@ function dibujarJuegoNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	alanTableroX = 450;
-	alanTableroY = 240;
+	alanTableroY = 260;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Enviar",200,460);
 	var toolbox = '<xml>';
@@ -401,14 +401,45 @@ function avanzarIntervalo () {
 	intervalo++;
 	if(intervalo<=2){
 		setTimeout(function(){
-			console.log(intervalo);
 			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillText("Reiniciar",200,460);
 			if(alanDireccion=="derecha"){
-				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+				console.log(alanTableroX);
 				alanTableroX+=50;
 				alanImagenX = (alanImagenX+1)%4;
+				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+			}
+			avanzarIntervalo();
+		},250);
+	}else{
+		console.log("muero");
+		intervalo=0;
+
+
+
+		
+		if(colaAcciones.length!=0){
+			var aux = colaAcciones.shift();
+			if(aux=="avanzar"){
+				avanzarIntervalo();
+			}else if(aux=="derecha"){
+				girarIntervalo(aux);
+			}
+		}
+	}
+}
+function girarIntervalo (direccion) {
+	intervalo++;
+	if(intervalo<=1){
+		setTimeout(function(){
+			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
+			tablero.drawImage(control.imagenInicial,0,0);
+			tablero.fillText("Reiniciar",200,460);
+			if(alanDireccion=="derecha"){
+				alanTableroX+=50;
+				alanImagenX = (alanImagenX+1)%4;
+				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 			}
 			avanzarIntervalo();
 		},250);
@@ -418,11 +449,12 @@ function avanzarIntervalo () {
 			var aux = colaAcciones.shift();
 			if(aux=="avanzar"){
 				avanzar();
+			}else if(aux=="derecha"){
+				girarIntervalo(aux);
 			}
 		}
 	}
 }
-
 function avanzar () {
 	if(colaAcciones.length==0){
 		intervalo=0;
@@ -431,6 +463,11 @@ function avanzar () {
 		colaAcciones.push("avanzar");
 	}
 }
-function girar(){
-
+function girar(direccion){
+	if(colaAcciones.length==0){
+		intervalo=0;
+		girarIntervalo(direccion);
+	}else{
+		colaAcciones.push(direccion);
+	}
 }
