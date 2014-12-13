@@ -222,19 +222,37 @@ function clicPrincipal(){
 					if(y>=inicioYNivel1[i] && y<=finYNivel1[i]+70){
 						if(i<=valores["subnivel"]){
 							dibujarSubnivel(i);
-							pantalla = "nivel1subnivel1";
+							//pantalla = "nivel1subnivel1";
+							if(i==0){
+								pantalla = "nivel1subnivel1";
+							}else if(i==1){
+								pantalla = "nivel1subnivel2";
+							}
 						}
 					}
 				}
 			}
-		}else if(pantalla=="nivel1subnivel1"){			
+		}else if(pantalla=="nivel1subnivel1"){	
 			if(x>=107 && x<= 355){
 				if(y>=431 && y<=486){
 					dibujarJuego(i);
 					pantalla = "nivel1subnivel1juego";
 				}
 			}
+		}else if(pantalla=="nivel1subnivel2"){	
+			if(x>=107 && x<= 355){
+				if(y>=431 && y<=486){
+					dibujarJuego(i);
+					pantalla = "nivel1subnivel2juego";
+				}
+			}
 		}else if(pantalla=="nivel1subnivel1juego"){			
+			if(x>=107 && x<= 355){
+				if(y>=431 && y<=486){
+					validarCodigo();
+				}
+			}
+		}else if(pantalla=="nivel1subnivel2juego"){			
 			if(x>=107 && x<= 355){
 				if(y>=431 && y<=486){
 					validarCodigo();
@@ -498,7 +516,10 @@ function validarFinalSubnivel1(){
 			if(alanTableroX==1050 && alanTableroY==260){
 				alerta("¡Misión cumplida! Continua recorriendo el Reino de Eniac :)");
 				valores["subnivel"]=1;
+				pantalla="nivel1";
 				setTimeout(function(){
+					document.getElementById("blocklyDiv").innerHTML="";
+					document.getElementById("blocklyDiv").style.display='none';
 					dibujarNivel1();
 				}, 1000);
 			}else{
@@ -506,11 +527,18 @@ function validarFinalSubnivel1(){
 				alanImagenY=3;
 				alanImagenX=0;
 				setTimeout(function(){
-					dibujarNivel1Subnivel1();
+					document.getElementById("blocklyDiv").innerHTML="";
+					dibujarJuegoNivel1Subnivel1();
 				}, 1000);
 			}
 }
 
+
+
+//----------------------------------------NIVEL 2--------------------
+function dibujarNivel1Subnivel2(){
+	alert("HI SOY EL SUBNIVEL 2 wiiiiiiiiiii");
+}
 /**
 *	Me traje el alert tuyo para que se viera bonito xD
 */
