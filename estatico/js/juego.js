@@ -450,9 +450,6 @@ function girarIntervalo (direccion) {
 			tablero.fillText("Reiniciar",200,460);
 			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 			intervalo++;
-			if(alanImagenY==2){
-				avanzarIntervalo();
-			}
 			girarIntervalo(direccion);
 		},250);
 	}else{
