@@ -2,9 +2,10 @@ var espacio;
 var tablero;
 var direccion;
 var valores;
-var alanImagenX=1, alanImagenY=3, alanTableroX, alanTableroY;
+var alanImagenX=0, alanImagenY=2, alanTableroX, alanTableroY;
 var alanAncho=56;
 var alanAlto=85;
+var alanDireccion;
 var pantalla = "inicio";
 var intervaloAvance;
 var colaAcciones = [];
@@ -365,9 +366,10 @@ function aumentarLetreros () {
 function dibujarNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
-		alanTableroX = 450;
+	alanTableroX = 450;
 	alanTableroY = 240;
-	tablero.drawImage(castillos.imagenAlan,(alanImagenX-1)*alanAncho,(alanImagenY-1)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+	alanDireccion="derecha";
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.font = "bold 22px sans-serif";
 	tablero.fillText("¡Preparate para la lucha!",100,50);
 	tablero.fillText("Después de dos años de exilio",50,80);
@@ -384,7 +386,7 @@ function dibujarJuegoNivel1Subnivel1 () {
 	tablero.drawImage(control.imagenInicial,0,0);
 	alanTableroX = 450;
 	alanTableroY = 240;
-	tablero.drawImage(castillos.imagenAlan,(alanImagenX-1)*alanAncho,(alanImagenY-1)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Enviar",200,460);
 	var toolbox = '<xml>';
 	toolbox += '  <block type="avanzar"></block>';
@@ -392,20 +394,25 @@ function dibujarJuegoNivel1Subnivel1 () {
 	toolbox += '</xml>';
 	desplegarBlock();
 	Blockly.inject(document.getElementById('blocklyDiv'),
-		{toolbox: toolbox});
+		{maxBlocks:6,toolbox: toolbox});
 }
 var intervalo = 0;
 function avanzarIntervalo () {
 	intervalo++;
-	console.log(intervalo);
-	if(intervalo<=5){
+	if(intervalo<=2){
 		setTimeout(function(){
+			console.log(intervalo);
 			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
+			tablero.fillText("Reiniciar",200,460);
+			if(alanDireccion=="derecha"){
+				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+				alanTableroX+=50;
+				alanImagenX = (alanImagenX+1)%4;
+			}
 			avanzarIntervalo();
-		},100);
+		},250);
 	}else{
-		console.log("murio");
 		intervalo = 0;
 		if(colaAcciones.length!=0){
 			var aux = colaAcciones.shift();
@@ -418,6 +425,7 @@ function avanzarIntervalo () {
 
 function avanzar () {
 	if(colaAcciones.length==0){
+		intervalo=0;
 		avanzarIntervalo();
 	}else{
 		colaAcciones.push("avanzar");
