@@ -28,6 +28,7 @@ var control = {
 var personaje = {
 	
 }
+
 var nivel1 = {
 	imagenURL: "estatico/img/juego/nivel1.png",
 	imagenOK: false,
@@ -396,6 +397,7 @@ function dibujarJuegoNivel1Subnivel1 () {
 	Blockly.inject(document.getElementById('blocklyDiv'),
 		{maxBlocks:6,toolbox: toolbox});
 }
+
 var intervalo = 0;
 function avanzarIntervalo () {
 	if(intervalo<2){
@@ -431,9 +433,12 @@ function avanzarIntervalo () {
 			}
 		}else{
 			banderaCola=false;
+			validarFinalSubnivel1();
 		}
 	}
 }
+
+
 function girarIntervalo (direccion) {
 	if(intervalo<1){
 		setTimeout(function(){
@@ -463,6 +468,7 @@ function girarIntervalo (direccion) {
 			}
 		}else{
 			banderaCola=false;
+			validarFinalSubnivel1();
 		}
 	}
 }
@@ -483,4 +489,51 @@ function girar(direccion){
 	}else{
 		colaAcciones.push(direccion);
 	}
+}
+
+/**
+*	
+*/
+function validarFinalSubnivel1(){
+			if(alanTableroX==1050 && alanTableroY==260){
+				alerta("¡Misión cumplida! Continua recorriendo el Reino de Eniac :)");
+				valores["subnivel"]=1;
+				setTimeout(function(){
+					dibujarNivel1();
+				}, 1000);
+			}else{
+				alerta("No completaste la misión :(, ¡Vuelve a intentarlo!");
+				alanImagenY=3;
+				alanImagenX=0;
+				setTimeout(function(){
+					dibujarNivel1Subnivel1();
+				}, 1000);
+			}
+}
+
+/**
+*	Me traje el alert tuyo para que se viera bonito xD
+*/
+function alerta () {
+
+	var content = "";
+	if(arguments.length >= 2){
+
+		content = "<h3>"+arguments[0]+"</h3><p>"+arguments[1]+"</p>";
+	}else{
+		content= "<p>"+arguments[0]+"</p>";
+	}
+	var div = document.createElement("div");
+	var claseDiv = "alerta ";
+	div.setAttribute("class", claseDiv);
+	div.innerHTML = content;
+	document.body.appendChild(div);
+	setTimeout(function() {
+		div.style.opacity = "0";
+		console.log("si");
+	}, arguments[2] || 10000);
+	setTimeout(function() {
+		document.body.removeChild(div);
+		console.log("aja");
+	}, 3000);
 }
