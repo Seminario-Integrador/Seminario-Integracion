@@ -7,6 +7,7 @@ var alanAncho=56;
 var alanAlto=85;
 var pantalla = "inicio";
 var intervaloAvance;
+var colaAcciones = [];
 leerJSON('http://localhost/integrador/Seminario-Integracion/index.php?JSON=1');
 var fondo= {
 	imagenURL: "estatico/img/juego/mapa.png",
@@ -396,12 +397,32 @@ function dibujarJuegoNivel1Subnivel1 () {
 var intervalo = 0;
 function avanzarIntervalo () {
 	intervalo++;
-	if(intervalo==5){
-		intervalo=0;
-		clearInterval(intervaloAvance);
+	console.log(intervalo);
+	if(intervalo<=5){
+		setTimeout(function(){
+			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
+			tablero.drawImage(control.imagenInicial,0,0);
+			avanzarIntervalo();
+		},100);
+	}else{
+		console.log("murio");
+		intervalo = 0;
+		if(colaAcciones.length!=0){
+			var aux = colaAcciones.shift();
+			if(aux=="avanzar"){
+				avanzar();
+			}
+		}
 	}
 }
 
 function avanzar () {
-	intervaloAvance = setInterval("avanzarIntervalo()", 100);
+	if(colaAcciones.length==0){
+		avanzarIntervalo();
+	}else{
+		colaAcciones.push("avanzar");
+	}
+}
+function girar(){
+
 }
