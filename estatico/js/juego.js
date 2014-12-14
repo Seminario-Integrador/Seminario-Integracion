@@ -44,7 +44,9 @@ var nivel1 = {
 	letrero5I: "estatico/img/juego/letreroInactivo5.png",
 	letreros: 0,
 	subnivel1URL: "estatico/img/juego/subnivel1-1.png",
-	subnivel1OK: false
+	subnivel1OK: false,
+	subnivel2URL: "estatico/img/juego/subnivel1-2.png",
+	subnivel2OK: false
 }
 var posicionCastillos= {
 	castillo1X: 230,
@@ -87,7 +89,7 @@ function inicio () {
 	castillos.imagenDesactivo.onload = confirmarCastilloDesactivo;
 	nivel1.imagen = new Image();
 	nivel1.imagen.src = nivel1.imagenURL;
-	nivel1.imagen.onload = confirmarNivel1;
+	nivel1.imagen.onload = confirmarNivel1();
 	cargarNivel1();
 	clicPrincipal();
 }
@@ -374,15 +376,18 @@ function cargarNivel1 () {
 	nivel1.letrero5IImagen.onload = aumentarLetreros;
 	nivel1.subnivel1Imagen = new Image();
 	nivel1.subnivel1Imagen.src = nivel1.subnivel1URL;
+	nivel1.subnivel2Imagen = new Image();
+	nivel1.subnivel2Imagen.src = nivel1.subnivel2URL;
 	control.imagenInicial = new Image();
 	control.imagenInicial.src = control.imagenInicialURL;
 	control.imagenFinal = new Image();
 	control.imagenFinal.src = control.imagenFinalURL;
-
 }
 function aumentarLetreros () {
 	nivel1.letreros++;
 }
+
+//-----------------------------------Subnivel 1--------------------------------------
 function dibujarNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
@@ -416,6 +421,74 @@ function dibujarJuegoNivel1Subnivel1 () {
 		{maxBlocks:6,toolbox: toolbox});
 }
 
+
+//Modificarlo
+function validarFinalSubnivel1(){
+			if(alanTableroX==1050 && alanTableroY==260){
+				alerta("¡Misión cumplida! Continua recorriendo el Reino de Eniac :)");
+				pantalla="nivel1";
+				setTimeout(function(){
+					document.getElementById("blocklyDiv").innerHTML="";
+					document.getElementById("blocklyDiv").style.display='none';
+					actualizarJSON();
+					dibujarNivel1();
+				}, 1000);
+			}else{
+				alerta("No completaste la misión :(, ¡Vuelve a intentarlo!");
+				alanImagenY=3;
+				alanImagenX=0;
+				setTimeout(function(){
+					document.getElementById("blocklyDiv").innerHTML="";
+					dibujarJuegoNivel1Subnivel1();
+				}, 1000);
+			}
+}
+
+function actualizarJSON(){
+	subNivelActual=1;
+	valores['subnivel']=valores['subnivel']+1;
+	valores['puntaje']=valores["puntaje"]+(subNivelActual*100);
+}
+
+
+//----------------------------------------Subnivel 2--------------------
+function dibujarNivel1Subnivel2(){
+	alert("HI SOY EL SUBNIVEL 2 wiiiiiiiiiii");
+	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
+	tablero.drawImage(control.imagenInicial,0,0);
+	alanTableroX = 450;
+	alanTableroY = 290;
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+	tablero.font = "bold 22px sans-serif";
+	tablero.fillText("¡Busca a tu oponente!",100,50);
+	tablero.fillText("Algunos hechiceros buscan tener",50,80);
+	tablero.fillText("el control de los visitantes",50,110);
+	tablero.fillText("¡Allí esta la casa de uno de ellos!",50,140);
+	tablero.fillText("Tu reto:",180,200);
+	tablero.fillText("Sigue el camino para llegar ",50,230);
+	tablero.fillText("a la entrada.",50,260);
+	tablero.fillText("Jugar",200,460);
+}
+
+function dibujarJuegoNivel1Subnivel2() {
+	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
+	tablero.drawImage(control.imagenInicial,0,0);
+	alanTableroX = 450;
+	alanTableroY = 290;
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+	tablero.fillText("Enviar",200,460);
+	var toolbox = '<xml>';
+	toolbox += '  <block type="avanzar"></block>';
+	toolbox += '  <block type="girar"></block>';
+	toolbox += '</xml>';
+	desplegarBlock();
+	Blockly.inject(document.getElementById('blocklyDiv'),
+		{maxBlocks:10,toolbox: toolbox});
+}
+
+
+
+//-----------------------------------Mover a Alan ---------------------------------
 var intervalo = 0;
 function avanzarIntervalo () {
 	if(intervalo<2){
@@ -456,7 +529,6 @@ function avanzarIntervalo () {
 	}
 }
 
-
 function girarIntervalo (direccion) {
 	if(intervalo<1){
 		setTimeout(function(){
@@ -490,6 +562,7 @@ function girarIntervalo (direccion) {
 		}
 	}
 }
+
 function avanzar () {
 	if(colaAcciones.length==0 && !banderaCola){
 		intervalo=0;
@@ -499,6 +572,7 @@ function avanzar () {
 		colaAcciones.push("avanzar");
 	}
 }
+
 function girar(direccion){
 	if(colaAcciones.length==0 && !banderaCola){
 		intervalo=0;
@@ -509,36 +583,6 @@ function girar(direccion){
 	}
 }
 
-/**
-*	
-*/
-function validarFinalSubnivel1(){
-			if(alanTableroX==1050 && alanTableroY==260){
-				alerta("¡Misión cumplida! Continua recorriendo el Reino de Eniac :)");
-				valores["subnivel"]=1;
-				pantalla="nivel1";
-				setTimeout(function(){
-					document.getElementById("blocklyDiv").innerHTML="";
-					document.getElementById("blocklyDiv").style.display='none';
-					dibujarNivel1();
-				}, 1000);
-			}else{
-				alerta("No completaste la misión :(, ¡Vuelve a intentarlo!");
-				alanImagenY=3;
-				alanImagenX=0;
-				setTimeout(function(){
-					document.getElementById("blocklyDiv").innerHTML="";
-					dibujarJuegoNivel1Subnivel1();
-				}, 1000);
-			}
-}
-
-
-
-//----------------------------------------NIVEL 2--------------------
-function dibujarNivel1Subnivel2(){
-	alert("HI SOY EL SUBNIVEL 2 wiiiiiiiiiii");
-}
 /**
 *	Me traje el alert tuyo para que se viera bonito xD
 */
