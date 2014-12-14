@@ -1,19 +1,3 @@
-/**
- 	* .............................................
- 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
- 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
- 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
- 	*             SAN JOSE DE CUCUTA-2014
-	 * ............................................
-*/
-
-
-/**
-	* Archivo encargado del juego
-	* @author Gerson Yesid Lázaro Carrillo 1150972
-	* @author Angie Melissa Delgado León 1150990
-*/
-
 var espacio;
 var tablero;
 var subnivelActual;
@@ -100,19 +84,15 @@ var espacioNivel1Subnivel1= [
 [false, true, true, true, false, true]
 ];
 var espacioNivel1Subnivel2= [
-[false, false, true, true, true, false],
-[true, false, true, false, true, true],
-[true, true, true, true, true, true],
-[true, true, true, true, false, true],
-[false, true, true, true, false, true]
+[false, true, false, false, false, false, false],
+[true, false, true, true, true, true, true],
+[true, true, true, true, false, false, false],
+[false, false, true, false, true, false, false],
+[false, false, true, false, false, false, false]
 ];
 var finales=[ [830, 215],
 [850,125], [0,0], [0,0], [0,0]];
 
-
-/**
-* Carga todas las imagenes para el funcionamiento del juego
-*/
 function inicio () {
 	espacio = document.getElementById("campo");
 	tablero = espacio.getContext("2d");
@@ -135,9 +115,6 @@ function inicio () {
 	clicPrincipal();
 }
 
-/**
-* Obtiene las coordenadas X, Y ¿?
-*/
 function obtenerCoordenadas () {
 	espacioAux = espacio;
 	espacioX=0;
@@ -148,34 +125,19 @@ function obtenerCoordenadas () {
 		espacioAux = espacioAux.offsetParent;
 	}
 }
-
-/**
-* Confirma que la imagen del fondo hallá sido cargada e invoca al método dibujar.
-*/
 function confirmarFondo(){
 	fondo.imagenOK=true;
 	dibujar();
 }
-
-/**
-* Confirma que la imagen del castillo activo hallá sido cargada e invoca al método dibujar
-*/
 function confirmarCastilloActivo () {
 	castillos.imagenActivoOK = true;
 	dibujar();
 }
-
-/**
-* Confirma que la imagen del castillo inactivo hallá sido cargada e invoca al método dibujar
-*/
 function confirmarCastilloDesactivo () {
 	castillos.imagenDesactivoOK = true;
 	dibujar();
 }
 
-/**
-* Método que se encarga de dibujar el mapa de fondo y los castillos correspondientes dependiendo del nivel del usuario
-*/
 function dibujar(){
 	if(fondo.imagenOK){
 		tablero.drawImage(fondo.imagen, 0, 0);
@@ -240,19 +202,12 @@ function dibujar(){
 		}
 	}
 }
-
-/**
-* Método que realiza el llamado al método que pinta el nivel correspondiente al nivel del usuario.
-*/
 function dibujarNivel (i) {
 	if(i==1){
 		dibujarNivel1();
 	}
 }
 
-/**
-* Método que realiza el llamado al método que pinta el subnivel correspondiente al nivel y al subnivel del usuario.
-*/
 function dibujarSubnivel (i) {
 	if(pantalla=="nivel1"){
 		if(i==0){
@@ -265,9 +220,6 @@ function dibujarSubnivel (i) {
 	}
 }
 
-/**
-* Método que realiza el llamado al método que pintar el juego correspondiente al nivel y al subnivel del usuario.
-*/
 function dibujarJuego () {
 	if(pantalla == "nivel1subnivel1"){
 		dibujarJuegoNivel1Subnivel1();
@@ -278,9 +230,6 @@ function dibujarJuego () {
 	}
 }
 
-/**
-* Método que se encarga de procesar los clics en la pantalla ¿?
-*/
 function clicPrincipal(){
 	espacio.addEventListener("click",function(e){
 		var x = e.clientX-espacioX;
@@ -562,7 +511,6 @@ function dibujarJuegoNivel1Subnivel1 () {
 	Blockly.inject(document.getElementById('blocklyDiv'),
 	{toolbox: toolbox});
 	desplegarBlock();
-
 	Blockly.updateToolbox(toolbox);
 	actualx=1;
     actualy=2;
@@ -653,7 +601,7 @@ function dibujarJuegoNivel1Subnivel3() {
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Reiniciar",90,460);
-	tablero.fillText("Atras",300,460);
+	tablero.fillText("Atrás",300,460);
 	var toolbox = '<xml>';
 	toolbox += '  <block type="avanzar"></block>';
 	toolbox += '  <block type="girar"></block>';
@@ -675,7 +623,7 @@ function pintarTablero3(){
 	tablero.fillText("en la habitación. Toma la espada,",50,230);
 	tablero.fillText("puede servir más adelante.",50,260);
 	tablero.fillText("Jugar",90,460);
-	tablero.fillText("Atras",300,460);
+	tablero.fillText("Atrás",300,460);
 }
 
 
@@ -698,6 +646,9 @@ function avanzarIntervalo () {
 				espacioT = espacioNivel1Subnivel2;
 				pintarTablero3();
 			}
+			tablero.fillStyle = '#999';
+			tablero.fillText("Jugar",90,460);
+			tablero.fillText("Atrás",300,460);
 			if(alanImagenY==3){
 				if(intervalo==0 && actualx+1<espacioT[actualy].length && espacioT[actualy][actualx+1]){
 					actualx++;
@@ -730,7 +681,7 @@ function avanzarIntervalo () {
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==2){
 				if(intervalo==0 && actualy-1>=0 && espacioT[actualy-1][actualx]){
-					actualx--;
+					actualy--;
 					banderaMov=true;
 					alanTableroY-=50;
 				}
@@ -818,7 +769,8 @@ function girarIntervalo (direccion) {
 				tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 			}
 			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillText("Enviar",90,460);
+			tablero.fillStyle = '#999';
+			tablero.fillText("Jugar",90,460);
 			tablero.fillText("Atrás",300,460);
 			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 			intervalo++;
@@ -891,11 +843,11 @@ function validarFinalSubnivel(){
 				alanImagenX=0;
 				setTimeout(function(){
 					if(subnivelActual==0){
-						dibujarJuegoNivel1Subnivel1();	
+						dibujarJuegoNivel1Subnivel1();
 					}else if(subnivelActual==1){
 						dibujarJuegoNivel1Subnivel2();
-					}else if(subnivelActual==1){
-						dibujarJuegoNivel1Subnivel3();
+					}else if(subnivelActual==2){
+						dibujarJuegoNivel1Subnivel2();
 					}
 				}, 1000);
 			}
