@@ -108,7 +108,6 @@ Blockly.JavaScript['procedures_ifreturn'] = function(block) {
 };
 
 Blockly.JavaScript['avanzar'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
   return "avanzar();";
 };
 Blockly.JavaScript['girar'] = function(block) {
@@ -116,7 +115,12 @@ Blockly.JavaScript['girar'] = function(block) {
   var code = "girar('"+direccion+"');";
   return code;
 };
-Blockly.JavaScript['inicio'] = function(block) {
-  alert("avanza");
-  return inicio;
+Blockly.JavaScript['oprimirboton'] = function(block) {
+  return "oprimirBoton();";
+};
+Blockly.JavaScript['saltar'] = function(block) {
+  return "saltar();";
+};
+Blockly.JavaScript['tomarespada'] = function(block) {
+  return "tomarEspada();";
 };

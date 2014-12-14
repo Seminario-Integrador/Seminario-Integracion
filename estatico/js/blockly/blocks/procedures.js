@@ -757,12 +757,36 @@ Blockly.Blocks['girar'] = {
   }
 };
 
-Blockly.Blocks['inicio'] = {
+
+Blockly.Blocks['oprimirboton'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(65);
+    this.setColour(290);
     this.appendDummyInput()
-        .appendField("Inicio");
+        .appendField("oprimirBoton");
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    this.setTooltip('');
+  }
+};
+Blockly.Blocks['saltar'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField("saltar");
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    this.setTooltip('');
+  }
+};
+Blockly.Blocks['tomarespada'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(105);
+    this.appendDummyInput()
+        .appendField("tomarEspada");
+    this.setPreviousStatement(true, "null");
     this.setNextStatement(true, "null");
     this.setTooltip('');
   }
