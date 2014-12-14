@@ -11,6 +11,9 @@ var pantalla = "inicio";
 var intervaloAvance;
 var colaAcciones = [];
 var banderaCola= false;
+var tool = "<xml></xml>";
+Blockly.inject(document.getElementById('blocklyDiv'),
+{toolbox: tool});
 leerJSON('http://localhost/integrador/Seminario-Integracion/index.php?JSON=1');
 var fondo= {
 	imagenURL: "estatico/img/juego/mapa.png",
@@ -434,8 +437,8 @@ function dibujarJuegoNivel1Subnivel1 () {
 	toolbox += '  <block type="girar"></block>';
 	toolbox += '</xml>';
 	desplegarBlock();
-	Blockly.inject(document.getElementById('blocklyDiv'),
-		{toolbox: toolbox});
+
+	Blockly.updateToolbox(toolbox);
 	actualx=1;
     actualy=2;
 }
@@ -475,7 +478,6 @@ function validarFinalSubnivel1(){
 				alanImagenY=3;
 				alanImagenX=0;
 				setTimeout(function(){
-					document.getElementById("blocklyDiv").innerHTML="";
 					dibujarJuegoNivel1Subnivel1();
 				}, 1000);
 			}
