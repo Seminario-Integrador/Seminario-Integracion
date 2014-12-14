@@ -634,7 +634,7 @@ function avanzarIntervaloSubnivel2() {
 		setTimeout(function(){
 			tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillStyle = '999999';
+			tablero.fillStyle = '#999999';
 			tablero.fillText("Enviar",90,460);
 			tablero.fillText("Atras",300,460);
 			if(alanImagenY==3){
