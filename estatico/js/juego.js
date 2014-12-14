@@ -439,6 +439,7 @@ function dibujarJuegoNivel1Subnivel1 () {
 	tablero.drawImage(control.imagenInicial,0,0);
 	alanTableroX = 650;
 	alanTableroY = 225;
+	tablero.fillStyle = '#000';
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Enviar",90,460);
 	tablero.fillText("Atras",300,460);
@@ -459,6 +460,7 @@ function dibujarJuegoNivel1Subnivel1 () {
 function pintarTablero1(){
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.fillStyle = '#000';
 	tablero.font = "bold 22px sans-serif";
 	tablero.fillText("¡Preparate para la lucha!",100,50);
 	tablero.fillText("Después de dos años de exilio",50,80);
@@ -522,6 +524,7 @@ function dibujarJuegoNivel1Subnivel2() {
 	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+	tablero.fillStyle = '#000';
 	tablero.fillText("Reiniciar",90,460);
 	tablero.fillText("Atras",300,460);
 	var toolbox = '<xml>';
@@ -536,6 +539,7 @@ function dibujarJuegoNivel1Subnivel2() {
 function pintarTablero2(){
 	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.fillStyle = '#000';
 	tablero.font = "bold 22px sans-serif";
 	tablero.fillText("¡Busca a tu oponente!",100,50);
 	tablero.fillText("Algunos hechiceros buscan tener",50,80);
@@ -561,7 +565,8 @@ function avanzarIntervalo () {
 		setTimeout(function(){
 			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillText("Reiniciar",90,460);
+			tablero.fillStyle = '#999999';
+			tablero.fillText("Enviar",90,460);
 			tablero.fillText("Atras",300,460);
 			if(alanImagenY==3){
 				if(intervalo==0 && actualx+1<espacioNivel1[actualy].length && espacioNivel1[actualy][actualx+1]){
@@ -629,7 +634,8 @@ function avanzarIntervaloSubnivel2() {
 		setTimeout(function(){
 			tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillText("Reiniciar",90,460);
+			tablero.fillStyle = '999999';
+			tablero.fillText("Enviar",90,460);
 			tablero.fillText("Atras",300,460);
 			if(alanImagenY==3){
 				alanTableroX+=50;
@@ -722,7 +728,7 @@ function girarIntervalo (direccion) {
 				tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 			}
 			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillText("Reiniciar",90,460);
+			tablero.fillText("Enviar",90,460);
 			tablero.fillText("Atras",300,460);
 			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 			intervalo++;
