@@ -224,7 +224,7 @@ hr{
 .left{
 	background-color: #34495e;
 	width: 7rem;
-	bottom:8.8rem;
+	bottom:10.8rem;
 	float: left;
 	position: absolute;
 	top: 0;
@@ -620,7 +620,8 @@ input[type="text"], input[type="number"], input[type="password"]{
 }
 footer{
 	clear: both;
-	padding: .6rem;
+	height: 9rem;
+	padding-bottom: 1rem;
 	text-align: center;
 	color: #FFF;
 	background-color: #3498db;
@@ -629,6 +630,9 @@ footer{
 footer h3, h4{
 	padding-bottom: .3rem;
 	padding-top: .3rem;
+}
+footer img{
+	text-align: center;
 }
 .alerta{
 	position: absolute;

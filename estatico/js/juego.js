@@ -94,7 +94,7 @@ var espacioNivel1Subnivel3= [
 [true, true, false, false, false, true, false],
 [true, true, false, false, true, true, true],
 [true, true, false, true, true, true, true],
-[true, true, false, true, true, false, false] 
+[true, false, false, true, true, false, false] 
 ];
 var finales=[ [830, 215],
 [850,125], [0,0], [0,0], [0,0]];
@@ -606,6 +606,8 @@ function dibujarJuegoNivel1Subnivel3() {
 	tablero.drawImage(nivel1.subnivel31Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.fillStyle = '#000';
+	alanTableroX = 550;
+	alanTableroY = 245;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Enviar",90,460);
 	tablero.fillText("Atrás",300,460);
