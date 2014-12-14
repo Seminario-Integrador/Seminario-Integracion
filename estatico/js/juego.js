@@ -11,9 +11,6 @@ var pantalla = "inicio";
 var intervaloAvance;
 var colaAcciones = [];
 var banderaCola= false;
-var tool = "<xml></xml>";
-Blockly.inject(document.getElementById('blocklyDiv'),
-{toolbox: tool});
 leerJSON('http://localhost/integrador/Seminario-Integracion/index.php?JSON=1');
 var fondo= {
 	imagenURL: "estatico/img/juego/mapa.png",
@@ -449,6 +446,9 @@ function dibujarJuegoNivel1Subnivel1 () {
 	toolbox += '  <block type="avanzar"></block>';
 	toolbox += '  <block type="girar"></block>';
 	toolbox += '</xml>';
+	document.getElementById('blocklyDiv').innerHTML="";
+	Blockly.inject(document.getElementById('blocklyDiv'),
+	{toolbox: toolbox});
 	desplegarBlock();
 
 	Blockly.updateToolbox(toolbox);
