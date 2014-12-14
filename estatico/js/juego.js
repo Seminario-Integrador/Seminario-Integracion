@@ -1,3 +1,19 @@
+/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
+ 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
+ 	*             SAN JOSE DE CUCUTA-2014
+	 * ............................................
+*/
+
+
+/**
+	* Archivo encargado del juego
+	* @author Gerson Yesid Lázaro Carrillo 1150972
+	* @author Angie Melissa Delgado León 1150990
+*/
+
 var espacio;
 var tablero;
 var subnivelActual;
@@ -99,6 +115,9 @@ var espacioNivel1Subnivel3= [
 var finales=[ [830, 215],
 [850,125], [0,0], [0,0], [0,0]];
 
+/**
+* Carga todas las imagenes para el funcionamiento del juego
+*/
 function inicio () {
 	espacio = document.getElementById("campo");
 	tablero = espacio.getContext("2d");
@@ -121,6 +140,9 @@ function inicio () {
 	clicPrincipal();
 }
 
+/**
+* Obtiene las coordenadas X, Y 
+*/
 function obtenerCoordenadas () {
 	espacioAux = espacio;
 	espacioX=0;
@@ -131,19 +153,34 @@ function obtenerCoordenadas () {
 		espacioAux = espacioAux.offsetParent;
 	}
 }
+
+/**
+* Confirma que la imagen del fondo hallá sido cargada e invoca al método dibujar.
+*/
 function confirmarFondo(){
 	fondo.imagenOK=true;
 	dibujar();
 }
+
+/**
+* Confirma que la imagen del castillo activo hallá sido cargada e invoca al método dibujar
+*/
 function confirmarCastilloActivo () {
 	castillos.imagenActivoOK = true;
 	dibujar();
 }
+
+/**
+* Confirma que la imagen del castillo inactivo hallá sido cargada e invoca al método dibujar
+*/
 function confirmarCastilloDesactivo () {
 	castillos.imagenDesactivoOK = true;
 	dibujar();
 }
 
+/**
+* Método que se encarga de dibujar el mapa de fondo y los castillos correspondientes dependiendo del nivel del usuario
+*/
 function dibujar(){
 	if(fondo.imagenOK){
 		tablero.drawImage(fondo.imagen, 0, 0);
@@ -208,12 +245,19 @@ function dibujar(){
 		}
 	}
 }
+
+/**
+* Método que realiza el llamado al método que pinta el nivel correspondiente al nivel del usuario.
+*/
 function dibujarNivel (i) {
 	if(i==1){
 		dibujarNivel1();
 	}
 }
 
+/**
+* Método que realiza el llamado al método que pinta el subnivel correspondiente al nivel y al subnivel del usuario.
+*/
 function dibujarSubnivel (i) {
 	if(pantalla=="nivel1"){
 		if(i==0){
@@ -226,6 +270,9 @@ function dibujarSubnivel (i) {
 	}
 }
 
+/**
+* Método que realiza el llamado al método que pintar el juego correspondiente al nivel y al subnivel del usuario.
+*/
 function dibujarJuego () {
 	if(pantalla == "nivel1subnivel1"){
 		dibujarJuegoNivel1Subnivel1();
@@ -236,6 +283,9 @@ function dibujarJuego () {
 	}
 }
 
+/**
+* Método que se encarga de procesar los clics en la pantalla
+*/
 function clicPrincipal(){
 	espacio.addEventListener("click",function(e){
 		var x = e.clientX-espacioX;
@@ -356,6 +406,10 @@ function clicPrincipal(){
 	});
 }
 
+/**
+* Procesa el archivo JSON obtenido de la base de Datos y lo almacena en valores[]
+* @param {String} url donde se encuentra el JSON
+*/
 function leerJSON (url) {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
@@ -369,6 +423,9 @@ function leerJSON (url) {
 	setTimeout(inicio, 200);
 }
 
+/**
+* Método que verifíca que el coódigo no se encuentre en un bucle infinito
+*/
 function validarCodigo() {
     window.LoopTrap = 1000;
     Blockly.JavaScript.INFINITE_LOOP_TRAP =
@@ -380,17 +437,22 @@ function validarCodigo() {
     } catch (e) {
         alert(e);
     }
-
 }
 
 
 
-//-----------------------------------------NIVEL 1-----------------------------------
+//------------------------------------   NIVEL 1   ------------------------------------//
 
+/**
+* Método que verifíca que la imagen del nivel 1 halla cargado correctamente
+*/
 function confirmarNivel1 () {
 	nivel1.imagenOK = true;
 }
 
+/**
+* Método que dibuja el fondo del nivel 1 y los letreros correspondientes dependiendo del subnivel del usuario
+*/
 function dibujarNivel1 () {
 	tablero.drawImage(nivel1.imagen,0,0);
 	if(nivel1.letreros==10){
@@ -436,6 +498,9 @@ function dibujarNivel1 () {
 	}
 }
 
+/**
+* Método que carga todas las imagenes para el funcionamientos del nivel 1
+*/
 function cargarNivel1 () {
 	nivel1.letrero1AImagen = new Image();
 	nivel1.letrero1AImagen.src = nivel1.letrero1A;
@@ -483,11 +548,18 @@ function cargarNivel1 () {
 	control.imagenFinal.src = control.imagenFinalURL;
 }
 
+/**
+* Método que se encarga de aumentar la cantidad de letreros 
+*/
 function aumentarLetreros () {
 	nivel1.letreros++;
 }
 
-//-----------------------------------Subnivel 1--------------------------------------
+//------------------------------------   Subnivel 1   ------------------------------------//
+
+/**
+* Método que dibuja el canvas correspondiente al subnivel 1 del nivel 1
+*/
 function dibujarNivel1Subnivel1 () {
 	subnivelActual=0;
 	pintarTablero1();
@@ -500,6 +572,9 @@ function dibujarNivel1Subnivel1 () {
 	avanzarAnimado();
 }
 
+/**
+* Método que dibuja el canvas y el blockly correspondiente al subnivel 1 del nivel 1
+*/
 function dibujarJuegoNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
@@ -522,6 +597,9 @@ function dibujarJuegoNivel1Subnivel1 () {
     actualy=2;
 }
 
+/**
+* Método que dibuja las instrucciones correspondientes al subnivel 1 del nivel 1
+*/
 function pintarTablero1(){
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
@@ -539,7 +617,11 @@ function pintarTablero1(){
 }
 
 
-//----------------------------------------Subnivel 2--------------------
+//------------------------------------   Subnivel 2   ------------------------------------//
+
+/**
+* Método que dibuja el canvas correspondiente al subnivel 2 del nivel 1
+*/
 function dibujarNivel1Subnivel2(){
 	subnivelActual=1;
 	pintarTablero2();
@@ -552,6 +634,9 @@ function dibujarNivel1Subnivel2(){
 	avanzarAnimado();
 }
 
+/**
+* Método que dibuja el canvas y el blockly correspondiente al subnivel 2 del nivel 1
+*/
 function dibujarJuegoNivel1Subnivel2() {
 	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
@@ -573,6 +658,9 @@ function dibujarJuegoNivel1Subnivel2() {
     actualy=2;
 }
 
+/**
+* Método que dibuja las instrucciones correspondientes al subnivel 2 del nivel 1
+*/
 function pintarTablero2(){
 	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
@@ -589,7 +677,11 @@ function pintarTablero2(){
 	tablero.fillText("Atrás",300,460);
 }
 
-//----------------------------------------Subnivel 3--------------------
+//------------------------------------   Subnivel 3   ------------------------------------//
+
+/**
+* Método que dibuja el canvas correspondiente al subnivel 3 del nivel 1
+*/
 function dibujarNivel1Subnivel3(){
 	subnivelActual=2;
 	pintarTablero3();
@@ -602,6 +694,9 @@ function dibujarNivel1Subnivel3(){
 	avanzarAnimado();
 }
 
+/**
+* Método que dibuja el canvas y el blockly correspondiente al subnivel 3 del nivel 1
+*/
 function dibujarJuegoNivel1Subnivel3() {
 	tablero.drawImage(nivel1.subnivel31Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
@@ -623,6 +718,9 @@ function dibujarJuegoNivel1Subnivel3() {
     actualy=2;
 }
 
+/**
+* Método que dibuja las instrucciones correspondientes al subnivel 3 del nivel 1
+*/
 function pintarTablero3(){
 	tablero.drawImage(nivel1.subnivel31Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
@@ -640,9 +738,15 @@ function pintarTablero3(){
 }
 
 
-//-----------------------------------Mover a Alan ---------------------------------
+
+//------------------------------------   Mover a Alan   ------------------------------------//
+
 var intervalo = 0;
 var banderaMov = false;
+
+/**
+* Método que se encarga de realizar la acción "AVANZAR" del blockly
+*/
 function avanzarIntervalo () {
 	if(intervalo<2){
 		if(intervalo==0){
@@ -723,6 +827,81 @@ function avanzarIntervalo () {
 	}
 }
 
+/**
+* Método que se encarga de realizar la acción "GIRAR" del blockly
+* @param {String} direccion en la que se realizara el giro
+*/
+function girarIntervalo (direccion) {
+	if(intervalo<1){
+		setTimeout(function(){
+			if(direccion=="derecha"){
+				alanImagenY = (alanImagenY+1)%4;
+			}else{
+				alanImagenY = alanImagenY-1;
+				if(alanImagenY==-1){
+					alanImagenY=3;
+				}
+			}
+			if(subnivelActual==0){
+				tablero.drawImage(nivel1.subnivel1Imagen,0,0);
+			}else if(subnivelActual==1){
+				tablero.drawImage(nivel1.subnivel2Imagen,0,0);
+			}
+			tablero.drawImage(control.imagenInicial,0,0);
+			tablero.fillStyle = '#999';
+			tablero.fillText("Jugar",90,460);
+			tablero.fillText("Atrás",300,460);
+			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+			intervalo++;
+			girarIntervalo(direccion);
+		},250);
+	}else{
+		intervalo=0;
+		if(colaAcciones.length!=0){
+			var aux = colaAcciones.shift();
+			if(aux=="avanzar"){
+				avanzarIntervalo();
+				
+			}else if(aux=="derecha" || aux=="izquierda"){
+				girarIntervalo(aux);
+			}
+		}else{
+			banderaCola=false;
+			validarFinalSubnivel();
+		}
+	}
+}
+
+/**
+* Método que se encarga de encolar las instrucciones avanzar provenientes del Blockly
+*/
+function avanzar () {
+	if(colaAcciones.length==0 && !banderaCola){
+		intervalo=0;
+		banderaCola = true;
+		avanzarIntervalo();
+	}else{
+		colaAcciones.push("avanzar");
+	}
+}
+
+/**
+* Método que se encarga de encolar las instrucciones girar provenientes del Blockly
+* @param {String} direccion en la que se realizara el giro
+*/
+function girar(direccion){
+	if(colaAcciones.length==0 && !banderaCola){
+		intervalo=0;
+		banderaCola = true;
+		girarIntervalo(direccion);
+	}else{
+		colaAcciones.push(direccion);
+	}
+}
+
+/**
+* Método que se encarga de realizar el efecto avanzar de entrada de Alan
+*/
 function avanzarIntervaloAnimado() {
 	if(intervalo<2){
 		setTimeout(function(){
@@ -765,57 +944,9 @@ function avanzarIntervaloAnimado() {
 	}
 }
 
-function girarIntervalo (direccion) {
-	if(intervalo<1){
-		setTimeout(function(){
-			if(direccion=="derecha"){
-				alanImagenY = (alanImagenY+1)%4;
-			}else{
-				alanImagenY = alanImagenY-1;
-				if(alanImagenY==-1){
-					alanImagenY=3;
-				}
-			}
-			if(subnivelActual==0){
-				tablero.drawImage(nivel1.subnivel1Imagen,0,0);
-			}else if(subnivelActual==1){
-				tablero.drawImage(nivel1.subnivel2Imagen,0,0);
-			}
-			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillStyle = '#999';
-			tablero.fillText("Jugar",90,460);
-			tablero.fillText("Atrás",300,460);
-			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
-			intervalo++;
-			girarIntervalo(direccion);
-		},250);
-	}else{
-		intervalo=0;
-		if(colaAcciones.length!=0){
-			var aux = colaAcciones.shift();
-			if(aux=="avanzar"){
-				avanzarIntervalo();
-				
-			}else if(aux=="derecha" || aux=="izquierda"){
-				girarIntervalo(aux);
-			}
-		}else{
-			banderaCola=false;
-			validarFinalSubnivel();
-		}
-	}
-}
-
-function avanzar () {
-	if(colaAcciones.length==0 && !banderaCola){
-		intervalo=0;
-		banderaCola = true;
-		avanzarIntervalo();
-	}else{
-		colaAcciones.push("avanzar");
-	}
-}
-
+/**
+* Método que se encarga de encolar las instrucciones avanzar para el efecto de entrada de Alan
+*/
 function avanzarAnimado () {
 	if(colaAcciones.length==0 && !banderaCola){
 		intervalo=0;
@@ -825,18 +956,10 @@ function avanzarAnimado () {
 		colaAcciones.push("avanzar");
 	}
 }
-function girar(direccion){
-	if(colaAcciones.length==0 && !banderaCola){
-		intervalo=0;
-		banderaCola = true;
-		girarIntervalo(direccion);
-	}else{
-		colaAcciones.push(direccion);
-	}
-}
 
-
-//Modificarlo
+/**
+* Método que se encarga de validar la posición final de Alan
+*/
 function validarFinalSubnivel(){
 	posX=finales[subnivelActual][0];
 	posY=finales[subnivelActual][1];
@@ -866,17 +989,26 @@ function validarFinalSubnivel(){
 			}
 }
 
+/**
+* Método que se encarga de actualizar el JSON cuando el usuario cambia de nivel y obtinene puntaje nuevo
+*/
 function actualizarJSON(){
 	if(valores["nivel"]==1){
-		valores['puntaje']=parseInt(valores['puntaje'])+((subnivelActual+1)*10);
-		valores["subnivel"] = subnivelActual;
+		if(subnivelActual==valores["subnivel"]){
+			valores['puntaje']=parseInt(valores['puntaje'])+((subnivelActual+1)*10);
+			valores["subnivel"] = subnivelActual;
+		}		
 	}
 	enviarAjax();
 }
 
 
-function alerta () {
+//------------------------------------   Generales   ------------------------------------//
 
+/**
+* Método que genera una notificación 
+*/
+function alerta () {
 	var content = "";
 	if(arguments.length >= 2){
 		content = "<h3>"+arguments[0]+"</h3><p>"+arguments[1]+"</p>";
@@ -897,25 +1029,11 @@ function alerta () {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //------------------------------Ajax--------------------------------
+
+/**
+* Crea un objeto Ajax
+*/
 function creaObjetoAjax () { 
     var obj;
     if (window.XMLHttpRequest) {
@@ -925,6 +1043,10 @@ function creaObjetoAjax () {
     }    
     return obj;
 }
+
+/**
+* Método que envia el JSON al PHP a traves de Ajax
+*/
 function enviarAjax() {
 
 	datos = "puntaje="+valores["puntaje"]+"&nivel="+valores["nivel"]+"&subnivel="+valores["subnivel"];
@@ -935,6 +1057,9 @@ function enviarAjax() {
 	objetoAjax.send(datos);
 } 
 
+/**
+* Método que obtiene datos del Ajax
+*/
 function recogeDatos() {
     if (objetoAjax.readyState==4 && objetoAjax.status==200) {
         objetoAjax.responseText;
