@@ -233,7 +233,6 @@ function clicPrincipal(){
 					if(y>=inicioYNivel1[i] && y<=finYNivel1[i]+70){
 						if(i<=valores["subnivel"]){
 							dibujarSubnivel(i);
-							//pantalla = "nivel1subnivel1";
 							if(i==0){
 								pantalla = "nivel1subnivel1";
 							}else if(i==1){
@@ -244,12 +243,18 @@ function clicPrincipal(){
 				}
 			}
 		}else if(pantalla=="nivel1subnivel1"){	
-			if(x>=107 && x<= 355){
+			if(x>=28 && x<= 218){
 				if(y>=431 && y<=486){
 					dibujarJuego(i);
 					pantalla = "nivel1subnivel1juego";
 				}
+			}else if(x>=237 && x<= 422){
+				if(y>=431 && y<=486){
+					dibujarNivel(1);
+					pantalla = "nivel1";
+				}
 			}
+
 		}else if(pantalla=="nivel1subnivel2"){	
 			if(x>=107 && x<= 355){
 				if(y>=431 && y<=486){
@@ -258,9 +263,16 @@ function clicPrincipal(){
 				}
 			}
 		}else if(pantalla=="nivel1subnivel1juego"){			
-			if(x>=107 && x<= 355){
+			if(x>=28 && x<= 218){
 				if(y>=431 && y<=486){
 					validarCodigo();
+				}
+			}else if(x>=237 && x<= 422){
+				if(y>=431 && y<=486){
+					ocultarBlock();
+					pantalla = "nivel1";
+					dibujarSubnivel(0);
+					pantalla = "nivel1subnivel1";
 				}
 			}
 		}else if(pantalla=="nivel1subnivel2juego"){			
@@ -415,14 +427,15 @@ function dibujarJuegoNivel1Subnivel1 () {
 	alanTableroX = 650;
 	alanTableroY = 225;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
-	tablero.fillText("Enviar",200,460);
+	tablero.fillText("Enviar",90,460);
+	tablero.fillText("Atras",300,460);
 	var toolbox = '<xml>';
 	toolbox += '  <block type="avanzar"></block>';
 	toolbox += '  <block type="girar"></block>';
 	toolbox += '</xml>';
 	desplegarBlock();
 	Blockly.inject(document.getElementById('blocklyDiv'),
-		{maxBlocks:6,toolbox: toolbox});
+		{toolbox: toolbox});
 	actualx=1;
     actualy=2;
 }
@@ -438,7 +451,8 @@ function pintarTablero1(){
 	tablero.fillText("Tu reto:",180,200);
 	tablero.fillText("Sigue el camino en linea recta",50,230);
 	tablero.fillText("para entrar al pueblo.",50,260);
-	tablero.fillText("Jugar",200,460);
+	tablero.fillText("Jugar",90,460);
+	tablero.fillText("Atras",300,460);
 }
 
 
@@ -512,7 +526,8 @@ function pintarTablero2(){
 	tablero.fillText("Tu reto:",180,200);
 	tablero.fillText("Sigue el camino para llegar ",50,230);
 	tablero.fillText("a la entrada.",50,260);
-	tablero.fillText("Jugar",200,460);
+	tablero.fillText("Jugar",90,460);
+	tablero.fillText("Atras",300,460);
 }
 
 
@@ -528,7 +543,8 @@ function avanzarIntervalo () {
 		setTimeout(function(){
 			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillText("Reiniciar",200,460);
+			tablero.fillText("Reiniciar",90,460);
+			tablero.fillText("Atras",300,460);
 			if(alanImagenY==3){
 				if(intervalo==0 && actualx+1<espacioNivel1[actualy].length && espacioNivel1[actualy][actualx+1]){
 					actualx++;
