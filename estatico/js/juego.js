@@ -397,7 +397,7 @@ function dibujarNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	alanTableroX = 450;
-	alanTableroY = 260;
+	alanTableroY = 225;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.font = "bold 22px sans-serif";
 	tablero.fillText("¡Preparate para la lucha!",100,50);
@@ -408,13 +408,15 @@ function dibujarNivel1Subnivel1 () {
 	tablero.fillText("Sigue el camino en linea recta",50,230);
 	tablero.fillText("para entrar al pueblo.",50,260);
 	tablero.fillText("Jugar",200,460);
+	avanzarAnimado();
+	avanzarAnimado();
 }
 
 function dibujarJuegoNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
-	alanTableroX = 450;
-	alanTableroY = 260;
+	alanTableroX = 650;
+	alanTableroY = 225;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Enviar",200,460);
 	var toolbox = '<xml>';
@@ -429,7 +431,7 @@ function dibujarJuegoNivel1Subnivel1 () {
 
 //Modificarlo
 function validarFinalSubnivel1(){
-			if(alanTableroX==1050 && alanTableroY==260){
+			if(alanTableroX==850 && alanTableroY==225){
 				alerta("¡Misión cumplida! Continua recorriendo el Reino de Eniac :)");
 				pantalla="nivel1";
 				setTimeout(function(){
@@ -440,7 +442,7 @@ function validarFinalSubnivel1(){
 					dibujarNivel1();
 				}, 1000);
 			}else{
-				alerta("No completaste la misión :(, ¡Vuelve a intentarlo!");
+				alerta("No completaste la misión :( ¡Vuelve a intentarlo!");
 				alanImagenY=3;
 				alanImagenX=0;
 				setTimeout(function(){
@@ -461,7 +463,6 @@ function actualizarJSON(){
 
 //----------------------------------------Subnivel 2--------------------
 function dibujarNivel1Subnivel2(){
-	alert("HI SOY EL SUBNIVEL 2 wiiiiiiiiiii");
 	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	alanTableroX = 450;
@@ -536,7 +537,51 @@ function avanzarIntervalo () {
 		}
 	}
 }
-
+function avanzarIntervaloAnimado () {
+	if(intervalo<2){
+		setTimeout(function(){
+			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
+			tablero.drawImage(control.imagenInicial,0,0);
+			tablero.font = "bold 22px sans-serif";
+			tablero.fillText("¡Preparate para la lucha!",100,50);
+			tablero.fillText("Después de dos años de exilio",50,80);
+			tablero.fillText("por los malvados hechiceros",50,110);
+			tablero.fillText("vuelves al reino.",50,140);
+			tablero.fillText("Tu reto:",180,200);
+			tablero.fillText("Sigue el camino en linea recta",50,230);
+			tablero.fillText("para entrar al pueblo.",50,260);
+			tablero.fillText("Jugar",200,460);
+			if(alanImagenY==3){
+				alanTableroX+=50;
+				alanImagenX = (alanImagenX+1)%4;
+			}else if(alanImagenY==1){
+				alanTableroX-=50;
+				alanImagenX = (alanImagenX+1)%4;
+			}else if(alanImagenY==0){
+				alanTableroY+=50;
+				alanImagenX = (alanImagenX+1)%4;
+			}else if(alanImagenY==2){
+				alanTableroY-=50;
+				alanImagenX = (alanImagenX+1)%4;
+			}
+			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+			intervalo++;
+			avanzarIntervaloAnimado();
+		},250);
+	}else{
+		intervalo=0;
+		if(colaAcciones.length!=0){
+			var aux = colaAcciones.shift();
+			if(aux=="avanzar"){
+				avanzarIntervaloAnimado();
+			}else if(aux=="derecha" || aux=="izquierda"){
+				girarIntervalo(aux);
+			}
+		}else{
+			banderaCola=false;
+		}
+	}
+}
 function girarIntervalo (direccion) {
 	if(intervalo<1){
 		setTimeout(function(){
@@ -581,6 +626,15 @@ function avanzar () {
 	}
 }
 
+function avanzarAnimado () {
+	if(colaAcciones.length==0 && !banderaCola){
+		intervalo=0;
+		banderaCola = true;
+		avanzarIntervaloAnimado();
+	}else{
+		colaAcciones.push("avanzar");
+	}
+}
 function girar(direccion){
 	if(colaAcciones.length==0 && !banderaCola){
 		intervalo=0;
