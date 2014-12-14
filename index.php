@@ -8,7 +8,6 @@
  	*             SAN JOSE DE CUCUTA-2014
 	 * ............................................
  	*/
-
 	session_start();
 	require "aplicacion/controlador/controlador.php";
 	$alan = new controlador();
@@ -47,8 +46,9 @@
 			}
 		}else if(isset($_GET["JSON"]) && isset($_SESSION["username"])){
 			$alan->obtenerJSON();
-		}
-		else{
+		}else if(isset($_POST["nivel"]) && isset($_POST["subnivel"]) && isset($_POST["puntaje"])){
+			$alan->actualizarJuego($_POST["nivel"],$_POST["subnivel"],$_POST["puntaje"]);
+		}else{
 			$alan->inicioValidado();
 		}
 	}else if(isset($_POST["tipo"])){

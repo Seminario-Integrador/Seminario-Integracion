@@ -556,5 +556,12 @@
 			$usuario = new usuarioBD();
 			echo json_encode($usuario->getUsuario($_SESSION["username"]));
 		}
+		public function actualizarJuego($nivel, $subnivel, $puntaje)
+		{
+			$base = new usuarioBD();
+			$base->actualizarNivel($_SESSION["username"],$nivel);
+			$base->actualizarSubnivel($_SESSION["username"],$subnivel);
+			$base->actualizarPuntaje($_SESSION["username"], $puntaje);
+		}
 	}
 ?>

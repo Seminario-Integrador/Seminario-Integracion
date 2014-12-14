@@ -80,11 +80,9 @@ function alerta () {
 	document.body.appendChild(div);
 	setTimeout(function() {
 		div.style.opacity = "0";
-		console.log("si");
 	}, arguments[2] || 10000);
 	setTimeout(function() {
 		document.body.removeChild(div);
-		console.log("aja");
 	}, arguments[2]+1000 ||  11000);
 }
 var block = document.getElementById("blocklyDiv");

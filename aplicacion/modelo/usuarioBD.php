@@ -9,8 +9,8 @@
 	 * ............................................
  	*/
 
-	require_once "aplicacion/modelo/modelo.php";
-	//require_once "modelo.php";
+	include_once "aplicacion/modelo/modelo.php";
+	include_once "modelo.php";
 
 	/**
 	* Clase encargada del manejo de los usuarios no docentes en la base de datos. Recibe llamados desde el controlador.php
@@ -123,7 +123,7 @@
 		public function actualizarPuntaje($username, $puntos)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("UPDATE usuario SET subnivel=subnivel+".$subnivel." WHERE username='".$username."'");
+			$aux=$this->consultar("UPDATE usuario SET puntaje=".$puntos." WHERE username='".$username."'");
 			$this->desconectar();
 		}
 

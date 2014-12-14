@@ -1,5 +1,6 @@
 var espacio;
 var tablero;
+var subnivelActual;
 var direccion;
 var valores;
 var alanImagenX=0, alanImagenY=3, alanTableroX, alanTableroY;
@@ -24,9 +25,6 @@ var castillos= {
 var control = {
 	imagenInicialURL: "estatico/img/juego/iniciar.png",
 	imagenFinalURL:"estatico/img/juego/iniciar2.png"
-}
-var personaje = {
-	
 }
 
 var nivel1 = {
@@ -77,7 +75,7 @@ var espacioNivel1= [
 [true, true, true, true, true, true, true],
 [true, false, true, true, false, false, false],
 [false,false,false,false,false,false,false]
-]
+];
 
 function inicio () {
 	espacio = document.getElementById("campo");
@@ -288,7 +286,6 @@ function validarCodigo() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP =
       'if (--window.LoopTrap == 0) throw "Ciclo Infinito.";\n';
     var code = Blockly.JavaScript.workspaceToCode();
-    console.log(code);
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
         eval(code);
@@ -396,6 +393,7 @@ function aumentarLetreros () {
 
 //-----------------------------------Subnivel 1--------------------------------------
 function dibujarNivel1Subnivel1 () {
+	subnivelActual=0;
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	alanTableroX = 450;
@@ -437,6 +435,7 @@ function validarFinalSubnivel1(){
 				setTimeout(function(){
 					document.getElementById("blocklyDiv").innerHTML="";
 					document.getElementById("blocklyDiv").style.display='none';
+					subnivelActual = 1;
 					actualizarJSON();
 					dibujarNivel1();
 				}, 1000);
@@ -452,9 +451,11 @@ function validarFinalSubnivel1(){
 }
 
 function actualizarJSON(){
-	subNivelActual=1;
-	valores['subnivel']=valores['subnivel']+1;
-	valores['puntaje']=valores["puntaje"]+(subNivelActual*100);
+	if(valores["nivel"]==1){
+		valores['puntaje']=parseInt(valores['puntaje'])+((subnivelActual+1)*10);
+		valores["subnivel"] = subnivelActual;
+	}
+	enviarAjax();
 }
 
 
@@ -590,14 +591,10 @@ function girar(direccion){
 	}
 }
 
-/**
-*	Me traje el alert tuyo para que se viera bonito xD
-*/
 function alerta () {
 
 	var content = "";
 	if(arguments.length >= 2){
-
 		content = "<h3>"+arguments[0]+"</h3><p>"+arguments[1]+"</p>";
 	}else{
 		content= "<p>"+arguments[0]+"</p>";
@@ -609,9 +606,53 @@ function alerta () {
 	document.body.appendChild(div);
 	setTimeout(function() {
 		div.style.opacity = "0";
-		console.log("si");
 	}, arguments[2] || 10000);
 	setTimeout(function() {
 		document.body.removeChild(div);
 	}, 3000);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//------------------------------Ajax--------------------------------
+function creaObjetoAjax () { 
+    var obj;
+    if (window.XMLHttpRequest) {
+        obj=new XMLHttpRequest();
+    }else{
+        obj=new ActiveXObject(Microsoft.XMLHTTP);
+    }    
+    return obj;
+}
+function enviarAjax() {
+
+	datos = "puntaje="+valores["puntaje"]+"&nivel="+valores["nivel"]+"&subnivel="+valores["subnivel"];
+    objetoAjax=creaObjetoAjax();
+    objetoAjax.open("POST","index.php",true);
+    objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    objetoAjax.onreadystatechange=recogeDatos;
+	objetoAjax.send(datos);
+} 
+
+function recogeDatos() {
+    if (objetoAjax.readyState==4 && objetoAjax.status==200) {
+        objetoAjax.responseText;
+    }
 }
