@@ -1,3 +1,19 @@
+/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
+ 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
+ 	*             SAN JOSE DE CUCUTA-2014
+	 * ............................................
+*/
+
+
+/**
+	* Archivo encargado del juego
+	* @author Gerson Yesid Lázaro Carrillo 1150972
+	* @author Angie Melissa Delgado León 1150990
+*/
+
 var espacio;
 var tablero;
 var subnivelActual;
@@ -93,6 +109,10 @@ var espacioNivel1Subnivel2= [
 var finales=[ [830, 215],
 [850,125], [0,0], [0,0], [0,0]];
 
+
+/**
+* Carga todas las imagenes para el funcionamiento del juego
+*/
 function inicio () {
 	espacio = document.getElementById("campo");
 	tablero = espacio.getContext("2d");
@@ -115,6 +135,9 @@ function inicio () {
 	clicPrincipal();
 }
 
+/**
+* Obtiene las coordenadas X, Y ¿?
+*/
 function obtenerCoordenadas () {
 	espacioAux = espacio;
 	espacioX=0;
@@ -125,19 +148,34 @@ function obtenerCoordenadas () {
 		espacioAux = espacioAux.offsetParent;
 	}
 }
+
+/**
+* Confirma que la imagen del fondo hallá sido cargada e invoca al método dibujar.
+*/
 function confirmarFondo(){
 	fondo.imagenOK=true;
 	dibujar();
 }
+
+/**
+* Confirma que la imagen del castillo activo hallá sido cargada e invoca al método dibujar
+*/
 function confirmarCastilloActivo () {
 	castillos.imagenActivoOK = true;
 	dibujar();
 }
+
+/**
+* Confirma que la imagen del castillo inactivo hallá sido cargada e invoca al método dibujar
+*/
 function confirmarCastilloDesactivo () {
 	castillos.imagenDesactivoOK = true;
 	dibujar();
 }
 
+/**
+* Método que se encarga de dibujar el mapa de fondo y los castillos correspondientes dependiendo del nivel del usuario
+*/
 function dibujar(){
 	if(fondo.imagenOK){
 		tablero.drawImage(fondo.imagen, 0, 0);
@@ -202,12 +240,19 @@ function dibujar(){
 		}
 	}
 }
+
+/**
+* Método que realiza el llamado al método que pinta el nivel correspondiente al nivel del usuario.
+*/
 function dibujarNivel (i) {
 	if(i==1){
 		dibujarNivel1();
 	}
 }
 
+/**
+* Método que realiza el llamado al método que pinta el subnivel correspondiente al nivel y al subnivel del usuario.
+*/
 function dibujarSubnivel (i) {
 	if(pantalla=="nivel1"){
 		if(i==0){
@@ -220,6 +265,9 @@ function dibujarSubnivel (i) {
 	}
 }
 
+/**
+* Método que realiza el llamado al método que pintar el juego correspondiente al nivel y al subnivel del usuario.
+*/
 function dibujarJuego () {
 	if(pantalla == "nivel1subnivel1"){
 		dibujarJuegoNivel1Subnivel1();
@@ -230,6 +278,9 @@ function dibujarJuego () {
 	}
 }
 
+/**
+* Método que se encarga de procesar los clics en la pantalla ¿?
+*/
 function clicPrincipal(){
 	espacio.addEventListener("click",function(e){
 		var x = e.clientX-espacioX;
@@ -839,12 +890,12 @@ function validarFinalSubnivel(){
 				alanImagenY=3;
 				alanImagenX=0;
 				setTimeout(function(){
-					if(valores["subnivel"]==0){
-						dibujarJuegoNivel1Subnivel1();
-					}else if(valores["subnivel"]==1){
+					if(subnivelActual==0){
+						dibujarJuegoNivel1Subnivel1();	
+					}else if(subnivelActual==1){
 						dibujarJuegoNivel1Subnivel2();
-					}else if(valores["subnivel"]==2){
-						dibujarJuegoNivel1Subnivel2();
+					}else if(subnivelActual==1){
+						dibujarJuegoNivel1Subnivel3();
 					}
 				}, 1000);
 			}
