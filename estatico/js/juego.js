@@ -3,7 +3,8 @@ var tablero;
 var subnivelActual;
 var direccion;
 var valores;
-var alanImagenX=0, alanImagenY=3, alanTableroX, alanTableroY;
+var actualx, actualy;
+var alanImagenX, alanImagenY, alanTableroX, alanTableroY;
 var alanAncho=56;
 var alanAlto=85;
 var pantalla = "inicio";
@@ -69,12 +70,11 @@ var inicioYNivel1 = [0,87,297,330,214];
 var finXNivel1 = [191,473,193,490,875];
 var finYNivel1 = [158,257,433,489,344];
 var espacioNivel1= [
-[false, false, false, false, false, false, false],
-[true, false, false, true, false, false, false],
-[true, true, true, true, true, true, false],
-[true, true, true, true, true, true, true],
-[true, false, true, true, false, false, false],
-[false,false,false,false,false,false,false]
+[false, false, true, true, true, false],
+[true, false, true, false, true, true],
+[true, true, true, true, true, true],
+[true, true, true, true, false, true],
+[false, true, true, true, false, true]
 ];
 
 function inicio () {
@@ -292,6 +292,7 @@ function validarCodigo() {
     } catch (e) {
         alert(e);
     }
+
 }
 
 
@@ -398,6 +399,8 @@ function dibujarNivel1Subnivel1 () {
 	tablero.drawImage(control.imagenInicial,0,0);
 	alanTableroX = 450;
 	alanTableroY = 225;
+	alanImagenX = 0;
+	alanImagenY = 3;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.font = "bold 22px sans-serif";
 	tablero.fillText("¡Preparate para la lucha!",100,50);
@@ -426,6 +429,8 @@ function dibujarJuegoNivel1Subnivel1 () {
 	desplegarBlock();
 	Blockly.inject(document.getElementById('blocklyDiv'),
 		{maxBlocks:6,toolbox: toolbox});
+	actualx=1;
+    actualy=2;
 }
 
 
@@ -499,23 +504,55 @@ function dibujarJuegoNivel1Subnivel2() {
 
 //-----------------------------------Mover a Alan ---------------------------------
 var intervalo = 0;
+var banderaMov = false;
 function avanzarIntervalo () {
 	if(intervalo<2){
+		if(intervalo==0){
+			banderaMov=false;
+		}
 		setTimeout(function(){
 			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillText("Reiniciar",200,460);
 			if(alanImagenY==3){
-				alanTableroX+=50;
+				if(intervalo==0 && actualx+1<espacioNivel1[actualy].length && espacioNivel1[actualy][actualx+1]){
+					actualx++;
+					banderaMov=true;
+					alanTableroX+=50;
+				}
+				if(intervalo==1 && banderaMov){
+					alanTableroX+=50;
+				}
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==1){
-				alanTableroX-=50;
+				if(intervalo==0 && actualx-1>=0 && espacioNivel1[actualy][actualx-1]){
+					actualx--;
+					banderaMov=true;
+					alanTableroX-=50;
+				}
+				if(intervalo==1 && banderaMov){
+					alanTableroX-=50;
+				}
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==0){
-				alanTableroY+=50;
+				if(intervalo==0 && actualy+1<espacioNivel1.length && espacioNivel1[actualy+1][actualx]){
+					actualy++;
+					banderaMov=true;
+					alanTableroY+=50;
+				}
+				if(intervalo==1 && banderaMov){
+					alanTableroY+=50;
+				}
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==2){
-				alanTableroY-=50;
+				if(intervalo==0 && actualy-1>=0 && espacioNivel1[actualy-1][actualx]){
+					actualx--;
+					banderaMov=true;
+					alanTableroY-=50;
+				}
+				if(intervalo==1 && banderaMov){
+					alanTableroY-=50;
+				}
 				alanImagenX = (alanImagenX+1)%4;
 			}
 			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
