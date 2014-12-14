@@ -969,7 +969,6 @@ function validarFinalSubnivel(){
 				setTimeout(function(){
 					document.getElementById("blocklyDiv").innerHTML="";
 					document.getElementById("blocklyDiv").style.display='none';
-					subnivelActual++;
 					actualizarJSON();
 					dibujarNivel1();
 				}, 1000);
@@ -997,7 +996,8 @@ function actualizarJSON(){
 		if(subnivelActual==valores["subnivel"]){
 			valores['puntaje']=parseInt(valores['puntaje'])+((subnivelActual+1)*10);
 			valores["subnivel"] = subnivelActual;
-		}		
+		}
+		subnivelActual++;		
 	}
 	enviarAjax();
 }
