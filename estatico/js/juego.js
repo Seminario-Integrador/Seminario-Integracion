@@ -1033,9 +1033,9 @@ function actualizarJSON(){
 	if(valores["nivel"]==1){
 		if(subnivelActual==valores["subnivel"]){
 			valores['puntaje']=parseInt(valores['puntaje'])+((subnivelActual+1)*10);
+			subnivelActual++;
 			valores["subnivel"] = subnivelActual;
-		}
-		subnivelActual++;		
+		}		
 	}
 	enviarAjax();
 }
