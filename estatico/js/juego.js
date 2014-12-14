@@ -76,6 +76,8 @@ var espacioNivel1= [
 [true, true, true, true, false, true],
 [false, true, true, true, false, true]
 ];
+var finales=[ [850, 225],
+[0,0], [0,0], [0,0], [0,0]];
 
 function inicio () {
 	espacio = document.getElementById("campo");
@@ -204,6 +206,8 @@ function dibujarSubnivel (i) {
 function dibujarJuego () {
 	if(pantalla == "nivel1subnivel1"){
 		dibujarJuegoNivel1Subnivel1();
+	}else if(pantalla=="nivel1subnivel2"){
+		dibujarJuegoNivel1Subnivel2();
 	}
 }
 
@@ -395,22 +399,12 @@ function aumentarLetreros () {
 //-----------------------------------Subnivel 1--------------------------------------
 function dibujarNivel1Subnivel1 () {
 	subnivelActual=0;
-	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
-	tablero.drawImage(control.imagenInicial,0,0);
+	pintarTablero1();
 	alanTableroX = 450;
 	alanTableroY = 225;
 	alanImagenX = 0;
 	alanImagenY = 3;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
-	tablero.font = "bold 22px sans-serif";
-	tablero.fillText("¡Preparate para la lucha!",100,50);
-	tablero.fillText("Después de dos años de exilio",50,80);
-	tablero.fillText("por los malvados hechiceros",50,110);
-	tablero.fillText("vuelves al reino.",50,140);
-	tablero.fillText("Tu reto:",180,200);
-	tablero.fillText("Sigue el camino en linea recta",50,230);
-	tablero.fillText("para entrar al pueblo.",50,260);
-	tablero.fillText("Jugar",200,460);
 	avanzarAnimado();
 	avanzarAnimado();
 }
@@ -433,10 +427,26 @@ function dibujarJuegoNivel1Subnivel1 () {
     actualy=2;
 }
 
+function pintarTablero1(){
+	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
+	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.font = "bold 22px sans-serif";
+	tablero.fillText("¡Preparate para la lucha!",100,50);
+	tablero.fillText("Después de dos años de exilio",50,80);
+	tablero.fillText("por los malvados hechiceros",50,110);
+	tablero.fillText("vuelves al reino.",50,140);
+	tablero.fillText("Tu reto:",180,200);
+	tablero.fillText("Sigue el camino en linea recta",50,230);
+	tablero.fillText("para entrar al pueblo.",50,260);
+	tablero.fillText("Jugar",200,460);
+}
+
 
 //Modificarlo
 function validarFinalSubnivel1(){
-			if(alanTableroX==850 && alanTableroY==225){
+	posX=finales[subnivelActual][0];
+	posY=finales[subnivelActual][1];
+			if(alanTableroX==posX && alanTableroY==posY){
 				alerta("¡Misión cumplida! Continua recorriendo el Reino de Eniac :)");
 				pantalla="nivel1";
 				setTimeout(function(){
@@ -468,27 +478,18 @@ function actualizarJSON(){
 
 //----------------------------------------Subnivel 2--------------------
 function dibujarNivel1Subnivel2(){
-	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
-	tablero.drawImage(control.imagenInicial,0,0);
+	subnivelActual=1;
+	pintarTablero2();
 	alanTableroX = 450;
 	alanTableroY = 290;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
-	tablero.font = "bold 22px sans-serif";
-	tablero.fillText("¡Busca a tu oponente!",100,50);
-	tablero.fillText("Algunos hechiceros buscan tener",50,80);
-	tablero.fillText("el control de los visitantes",50,110);
-	tablero.fillText("¡Allí esta la casa de uno de ellos!",50,140);
-	tablero.fillText("Tu reto:",180,200);
-	tablero.fillText("Sigue el camino para llegar ",50,230);
-	tablero.fillText("a la entrada.",50,260);
-	tablero.fillText("Jugar",200,460);
+	avanzarAnimado();
+	avanzarAnimado();
 }
 
 function dibujarJuegoNivel1Subnivel2() {
 	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
-	alanTableroX = 450;
-	alanTableroY = 290;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Enviar",200,460);
 	var toolbox = '<xml>';
@@ -498,6 +499,20 @@ function dibujarJuegoNivel1Subnivel2() {
 	desplegarBlock();
 	Blockly.inject(document.getElementById('blocklyDiv'),
 		{maxBlocks:10,toolbox: toolbox});
+}
+
+function pintarTablero2(){
+	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
+	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.font = "bold 22px sans-serif";
+	tablero.fillText("¡Busca a tu oponente!",100,50);
+	tablero.fillText("Algunos hechiceros buscan tener",50,80);
+	tablero.fillText("el control de los visitantes",50,110);
+	tablero.fillText("¡Allí esta la casa de uno de ellos!",50,140);
+	tablero.fillText("Tu reto:",180,200);
+	tablero.fillText("Sigue el camino para llegar ",50,230);
+	tablero.fillText("a la entrada.",50,260);
+	tablero.fillText("Jugar",200,460);
 }
 
 
@@ -574,20 +589,14 @@ function avanzarIntervalo () {
 		}
 	}
 }
-function avanzarIntervaloAnimado () {
+function avanzarIntervaloAnimado() {
 	if(intervalo<2){
 		setTimeout(function(){
-			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
-			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.font = "bold 22px sans-serif";
-			tablero.fillText("¡Preparate para la lucha!",100,50);
-			tablero.fillText("Después de dos años de exilio",50,80);
-			tablero.fillText("por los malvados hechiceros",50,110);
-			tablero.fillText("vuelves al reino.",50,140);
-			tablero.fillText("Tu reto:",180,200);
-			tablero.fillText("Sigue el camino en linea recta",50,230);
-			tablero.fillText("para entrar al pueblo.",50,260);
-			tablero.fillText("Jugar",200,460);
+			if(subnivelActual==0){
+				pintarTablero1();
+			}else if(subnivelActual==1){
+				pintarTablero2();
+			}
 			if(alanImagenY==3){
 				alanTableroX+=50;
 				alanImagenX = (alanImagenX+1)%4;
@@ -619,6 +628,7 @@ function avanzarIntervaloAnimado () {
 		}
 	}
 }
+
 function girarIntervalo (direccion) {
 	if(intervalo<1){
 		setTimeout(function(){
