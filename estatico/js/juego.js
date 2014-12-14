@@ -90,6 +90,12 @@ var espacioNivel1Subnivel2= [
 [false, false, true, false, true, false, false],
 [false, false, true, false, false, false, false]
 ];
+var espacioNivel1Subnivel3= [
+[true, true, false, false, false, true, false],
+[true, true, false, false, true, true, true],
+[true, true, false, true, true, true, true],
+[true, true, false, true, true, false, false] 
+];
 var finales=[ [830, 215],
 [850,125], [0,0], [0,0], [0,0]];
 
@@ -599,22 +605,27 @@ function dibujarNivel1Subnivel3(){
 function dibujarJuegoNivel1Subnivel3() {
 	tablero.drawImage(nivel1.subnivel31Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.fillStyle = '#000';
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
-	tablero.fillText("Reiniciar",90,460);
+	tablero.fillText("Enviar",90,460);
 	tablero.fillText("Atrás",300,460);
 	var toolbox = '<xml>';
 	toolbox += '  <block type="avanzar"></block>';
 	toolbox += '  <block type="girar"></block>';
 	toolbox += '</xml>';
 	desplegarBlock();
+	document.getElementById('blocklyDiv').innerHTML="";
 	Blockly.inject(document.getElementById('blocklyDiv'),
 		{maxBlocks:10,toolbox: toolbox});
+	actualx=1;
+    actualy=2;
 }
 
 function pintarTablero3(){
 	tablero.drawImage(nivel1.subnivel31Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.font = "bold 22px sans-serif";
+	tablero.fillStyle = '#000';
 	tablero.fillText("¡Ten Precaución!",100,50);
 	tablero.fillText("Reto",180,110);
 	tablero.fillText("¿Ves esa puerta? Junto a" ,50,140);
@@ -643,7 +654,7 @@ function avanzarIntervalo () {
 				espacioT = espacioNivel1Subnivel2;
 				pintarTablero2();
 			}else if(subnivelActual==2){
-				espacioT = espacioNivel1Subnivel2;
+				espacioT = espacioNivel1Subnivel3;
 				pintarTablero3();
 			}
 			tablero.fillStyle = '#999';
@@ -847,7 +858,7 @@ function validarFinalSubnivel(){
 					}else if(subnivelActual==1){
 						dibujarJuegoNivel1Subnivel2();
 					}else if(subnivelActual==2){
-						dibujarJuegoNivel1Subnivel2();
+						dibujarJuegoNivel1Subnivel3();
 					}
 				}, 1000);
 			}
