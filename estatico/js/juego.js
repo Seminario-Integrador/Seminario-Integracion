@@ -242,6 +242,12 @@ function clicPrincipal(){
 					}
 				}
 			}
+			if(x>=926 && x<=1072){
+				if(y>=457 && y<=489){
+						dibujar();
+						pantalla = "inicio";
+				}
+			}
 		}else if(pantalla=="nivel1subnivel1"){	
 			if(x>=28 && x<= 218){
 				if(y>=431 && y<=486){
@@ -268,7 +274,7 @@ function clicPrincipal(){
 				}
 			}
 
-		}else if(pantalla=="nivel1subnivel1juego"){			
+		}else if(pantalla=="nivel1subnivel1juego" && !banderaCola){			
 			if(x>=28 && x<= 218){
 				if(y>=431 && y<=486){
 					validarCodigo();
@@ -442,7 +448,7 @@ function dibujarJuegoNivel1Subnivel1 () {
 	tablero.fillStyle = '#000';
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Enviar",90,460);
-	tablero.fillText("Atras",300,460);
+	tablero.fillText("Atrás",300,460);
 	var toolbox = '<xml>';
 	toolbox += '  <block type="avanzar"></block>';
 	toolbox += '  <block type="girar"></block>';
@@ -470,7 +476,7 @@ function pintarTablero1(){
 	tablero.fillText("Sigue el camino en linea recta",50,230);
 	tablero.fillText("para entrar al pueblo.",50,260);
 	tablero.fillText("Jugar",90,460);
-	tablero.fillText("Atras",300,460);
+	tablero.fillText("Atrás",300,460);
 }
 
 
@@ -526,7 +532,7 @@ function dibujarJuegoNivel1Subnivel2() {
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillStyle = '#000';
 	tablero.fillText("Reiniciar",90,460);
-	tablero.fillText("Atras",300,460);
+	tablero.fillText("Atrás",300,460);
 	var toolbox = '<xml>';
 	toolbox += '  <block type="avanzar"></block>';
 	toolbox += '  <block type="girar"></block>';
@@ -549,7 +555,7 @@ function pintarTablero2(){
 	tablero.fillText("Sigue el camino para llegar ",50,230);
 	tablero.fillText("a la entrada.",50,260);
 	tablero.fillText("Jugar",90,460);
-	tablero.fillText("Atras",300,460);
+	tablero.fillText("Atrás",300,460);
 }
 
 
@@ -567,7 +573,7 @@ function avanzarIntervalo () {
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillStyle = '#999999';
 			tablero.fillText("Enviar",90,460);
-			tablero.fillText("Atras",300,460);
+			tablero.fillText("Atrás",300,460);
 			if(alanImagenY==3){
 				if(intervalo==0 && actualx+1<espacioNivel1[actualy].length && espacioNivel1[actualy][actualx+1]){
 					actualx++;
@@ -636,7 +642,7 @@ function avanzarIntervaloSubnivel2() {
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillStyle = '#999999';
 			tablero.fillText("Enviar",90,460);
-			tablero.fillText("Atras",300,460);
+			tablero.fillText("Atrás",300,460);
 			if(alanImagenY==3){
 				alanTableroX+=50;
 				alanImagenX = (alanImagenX+1)%4;
@@ -729,7 +735,7 @@ function girarIntervalo (direccion) {
 			}
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillText("Enviar",90,460);
-			tablero.fillText("Atras",300,460);
+			tablero.fillText("Atrás",300,460);
 			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 			intervalo++;
 			girarIntervalo(direccion);
