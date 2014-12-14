@@ -114,6 +114,7 @@ var espacioNivel1Subnivel3= [
 ];
 var finales=[ [830, 215],
 [850,125], [0,0], [0,0], [0,0]];
+var subnivel13[false, false];
 
 /**
 * Carga todas las imagenes para el funcionamiento del juego
@@ -684,6 +685,8 @@ function pintarTablero2(){
 */
 function dibujarNivel1Subnivel3(){
 	subnivelActual=2;
+	subnivel13[0]=false;
+	subnivel13[1]=false;
 	pintarTablero3();
 	alanTableroX = 350;
 	alanTableroY = 245;
@@ -722,7 +725,16 @@ function dibujarJuegoNivel1Subnivel3() {
 * Método que dibuja las instrucciones correspondientes al subnivel 3 del nivel 1
 */
 function pintarTablero3(){
-	tablero.drawImage(nivel1.subnivel31Imagen,0,0);
+	if(subnivel13[0]){
+		if(subnivel13[1]){
+			tablero.drawImage(nivel1.subnivel32Imagen,0,0);
+		}else{
+			tablero.drawImage(nivel1.subnivel33Imagen,0,0);
+		}
+	}else{
+		tablero.drawImage(nivel1.subnivel31Imagen,0,0);
+	}
+	
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.font = "bold 22px sans-serif";
 	tablero.fillStyle = '#000';
@@ -870,6 +882,32 @@ function girarIntervalo (direccion) {
 			validarFinalSubnivel();
 		}
 	}
+}
+
+function oprimirBotonIntervalo(){
+	setTimeout(function(){
+			subnivel13[0]=true;
+			tablero.drawImage(nivel1.subnivel32Imagen,0,0);
+			tablero.drawImage(control.imagenInicial,0,0);
+			tablero.fillStyle = '#999';
+			tablero.fillText("Jugar",90,460);
+			tablero.fillText("Atrás",300,460);
+			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+	}, 250);
+}
+
+
+//MODIFICARLO, NO VA A ANDAR; AQUI TOCA CAMBIAR LA IMAGEN DE ALAN ^^
+function tomarEspada(){
+	setTimeout(function(){
+			subnivel13[1]=true;
+			tablero.drawImage(nivel1.subnivel32Imagen,0,0);
+			tablero.drawImage(control.imagenInicial,0,0);
+			tablero.fillStyle = '#999';
+			tablero.fillText("Jugar",90,460);
+			tablero.fillText("Atrás",300,460);
+			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
+	}, 250);
 }
 
 /**
