@@ -114,7 +114,7 @@ var espacioNivel1Subnivel3= [
 ];
 var finales=[ [830, 215],
 [850,125], [0,0], [0,0], [0,0]];
-var subnivel13[false, false];
+var subnivel13 = [false, false];
 
 /**
 * Carga todas las imagenes para el funcionamiento del juego
