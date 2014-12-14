@@ -83,7 +83,7 @@ var espacioNivel1= [
 [true, true, true, true, false, true],
 [false, true, true, true, false, true]
 ];
-var finales=[ [850, 225],
+var finales=[ [830, 215],
 [850,125], [0,0], [0,0], [0,0]];
 
 function inicio () {
@@ -478,8 +478,8 @@ function aumentarLetreros () {
 function dibujarNivel1Subnivel1 () {
 	subnivelActual=0;
 	pintarTablero1();
-	alanTableroX = 450;
-	alanTableroY = 225;
+	alanTableroX = 430;
+	alanTableroY = 215;
 	alanImagenX = 0;
 	alanImagenY = 3;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
@@ -490,8 +490,8 @@ function dibujarNivel1Subnivel1 () {
 function dibujarJuegoNivel1Subnivel1 () {
 	tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
-	alanTableroX = 650;
-	alanTableroY = 225;
+	alanTableroX = 630;
+	alanTableroY = 215;
 	tablero.fillStyle = '#000';
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillText("Enviar",90,460);
@@ -545,13 +545,14 @@ function dibujarJuegoNivel1Subnivel2() {
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillStyle = '#000';
-	tablero.fillText("Reiniciar",90,460);
+	tablero.fillText("Enviar",90,460);
 	tablero.fillText("Atrás",300,460);
 	var toolbox = '<xml>';
 	toolbox += '  <block type="avanzar"></block>';
 	toolbox += '  <block type="girar"></block>';
 	toolbox += '</xml>';
 	desplegarBlock();
+	document.getElementById('blocklyDiv').innerHTML="";
 	Blockly.inject(document.getElementById('blocklyDiv'),
 		{maxBlocks:10,toolbox: toolbox});
 }
