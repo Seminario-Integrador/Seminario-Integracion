@@ -70,7 +70,14 @@ var inicioXNivel1 = [0,292,56,325,656];
 var inicioYNivel1 = [0,87,297,330,214];
 var finXNivel1 = [191,473,193,490,875];
 var finYNivel1 = [158,257,433,489,344];
-
+var espacioNivel1= [
+[false, false, false, false, false, false, false],
+[true, false, false, true, false, false, false],
+[true, true, true, true, true, true, false],
+[true, true, true, true, true, true, true],
+[true, false, true, true, false, false, false],
+[false,false,false,false,false,false,false]
+]
 
 function inicio () {
 	espacio = document.getElementById("campo");
@@ -606,6 +613,5 @@ function alerta () {
 	}, arguments[2] || 10000);
 	setTimeout(function() {
 		document.body.removeChild(div);
-		console.log("aja");
 	}, 3000);
 }
