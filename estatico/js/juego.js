@@ -76,7 +76,14 @@ var inicioXNivel1 = [0,292,56,325,656];
 var inicioYNivel1 = [0,87,297,330,214];
 var finXNivel1 = [191,473,193,490,875];
 var finYNivel1 = [158,257,433,489,344];
-var espacioNivel1= [
+var espacioNivel1Subnivel1= [
+[false, false, true, true, true, false],
+[true, false, true, false, true, true],
+[true, true, true, true, true, true],
+[true, true, true, true, false, true],
+[false, true, true, true, false, true]
+];
+var espacioNivel1Subnivel2= [
 [false, false, true, true, true, false],
 [true, false, true, false, true, true],
 [true, true, true, true, true, true],
@@ -543,6 +550,8 @@ function dibujarNivel1Subnivel2(){
 function dibujarJuegoNivel1Subnivel2() {
 	tablero.drawImage(nivel1.subnivel2Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
+	alanTableroX = 650;
+	alanTableroY = 225;
 	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
 	tablero.fillStyle = '#000';
 	tablero.fillText("Enviar",90,460);
@@ -555,6 +564,8 @@ function dibujarJuegoNivel1Subnivel2() {
 	document.getElementById('blocklyDiv').innerHTML="";
 	Blockly.inject(document.getElementById('blocklyDiv'),
 		{maxBlocks:10,toolbox: toolbox});
+	actualx=2;
+    actualy=2;
 }
 
 function pintarTablero2(){
@@ -626,13 +637,18 @@ function avanzarIntervalo () {
 			banderaMov=false;
 		}
 		setTimeout(function(){
-			tablero.drawImage(nivel1.subnivel1Imagen,0,0);
-			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillStyle = '#999999';
-			tablero.fillText("Enviar",90,460);
-			tablero.fillText("Atrás",300,460);
+			if(subnivelActual==0){
+				espacioT = espacioNivel1Subnivel1;
+				pintarTablero1();
+			}else if(subnivelActual==1){
+				espacioT = espacioNivel1Subnivel2;
+				pintarTablero2();
+			}else if(subnivelActual==2){
+				espacioT = espacioNivel1Subnivel2;
+				pintarTablero3();
+			}
 			if(alanImagenY==3){
-				if(intervalo==0 && actualx+1<espacioNivel1[actualy].length && espacioNivel1[actualy][actualx+1]){
+				if(intervalo==0 && actualx+1<espacioT[actualy].length && espacioT[actualy][actualx+1]){
 					actualx++;
 					banderaMov=true;
 					alanTableroX+=50;
@@ -642,7 +658,7 @@ function avanzarIntervalo () {
 				}
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==1){
-				if(intervalo==0 && actualx-1>=0 && espacioNivel1[actualy][actualx-1]){
+				if(intervalo==0 && actualx-1>=0 && espacioT[actualy][actualx-1]){
 					actualx--;
 					banderaMov=true;
 					alanTableroX-=50;
@@ -652,7 +668,7 @@ function avanzarIntervalo () {
 				}
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==0){
-				if(intervalo==0 && actualy+1<espacioNivel1.length && espacioNivel1[actualy+1][actualx]){
+				if(intervalo==0 && actualy+1<espacioT.length && espacioT[actualy+1][actualx]){
 					actualy++;
 					banderaMov=true;
 					alanTableroY+=50;
@@ -662,7 +678,7 @@ function avanzarIntervalo () {
 				}
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==2){
-				if(intervalo==0 && actualy-1>=0 && espacioNivel1[actualy-1][actualx]){
+				if(intervalo==0 && actualy-1>=0 && espacioT[actualy-1][actualx]){
 					actualx--;
 					banderaMov=true;
 					alanTableroY-=50;
@@ -682,48 +698,6 @@ function avanzarIntervalo () {
 			var aux = colaAcciones.shift();
 			if(aux=="avanzar"){
 				avanzarIntervalo();
-			}else if(aux=="derecha" || aux=="izquierda"){
-				girarIntervalo(aux);
-			}
-		}else{
-			banderaCola=false;
-			validarFinalSubnivel();
-		}
-	}
-}
-
-function avanzarIntervaloSubnivel2() {
-	if(intervalo<2){
-		setTimeout(function(){
-			tablero.drawImage(nivel1.subnivel2Imagen,0,0);
-			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillStyle = '#999999';
-			tablero.fillText("Enviar",90,460);
-			tablero.fillText("Atrás",300,460);
-			if(alanImagenY==3){
-				alanTableroX+=50;
-				alanImagenX = (alanImagenX+1)%4;
-			}else if(alanImagenY==1){
-				alanTableroX-=50;
-				alanImagenX = (alanImagenX+1)%4;
-			}else if(alanImagenY==0){
-				alanTableroY+=50;
-				alanImagenX = (alanImagenX+1)%4;
-			}else if(alanImagenY==2){
-				alanTableroY-=50;
-				alanImagenX = (alanImagenX+1)%4;
-			}
-			
-			tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);
-			intervalo++;
-			avanzarIntervaloSubnivel2();
-		},250);
-	}else{
-		intervalo=0;
-		if(colaAcciones.length!=0){
-			var aux = colaAcciones.shift();
-			if(aux=="avanzar"){
-				avanzarIntervaloSubNivel2();
 			}else if(aux=="derecha" || aux=="izquierda"){
 				girarIntervalo(aux);
 			}
@@ -804,11 +778,7 @@ function girarIntervalo (direccion) {
 		if(colaAcciones.length!=0){
 			var aux = colaAcciones.shift();
 			if(aux=="avanzar"){
-				if(subnivelActual==0){
-					avanzarIntervalo();
-				}else if(subnivelActual==1){
-					avanzarIntervaloSubnivel2();
-				}
+				avanzarIntervalo();
 				
 			}else if(aux=="derecha" || aux=="izquierda"){
 				girarIntervalo(aux);
@@ -824,12 +794,7 @@ function avanzar () {
 	if(colaAcciones.length==0 && !banderaCola){
 		intervalo=0;
 		banderaCola = true;
-		//avanzarIntervalo();
-		if(subnivelActual==0){
-			avanzarIntervalo();
-		}else if(subnivelActual==1){
-			avanzarIntervaloSubnivel2();
-		}
+		avanzarIntervalo();
 	}else{
 		colaAcciones.push("avanzar");
 	}
@@ -874,7 +839,13 @@ function validarFinalSubnivel(){
 				alanImagenY=3;
 				alanImagenX=0;
 				setTimeout(function(){
-					dibujarJuegoNivel1Subnivel1();
+					if(valores["subnivel"]==0){
+						dibujarJuegoNivel1Subnivel1();
+					}else if(valores["subnivel"]==1){
+						dibujarJuegoNivel1Subnivel2();
+					}else if(valores["subnivel"]==2){
+						dibujarJuegoNivel1Subnivel2();
+					}
 				}, 1000);
 			}
 }
