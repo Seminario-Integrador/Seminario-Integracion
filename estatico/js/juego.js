@@ -115,6 +115,12 @@ var espacioNivel1Subnivel3= [
 [true, true, false, true, true, true, true],
 [true, false, false, true, true, false, false] 
 ];
+var espacioNivel1Subnivel4= [
+[false, true, false, true, false, true, false],
+[false, true, true, true, false, true, true],
+[true, true, true, false, true, false, true],
+[true, true, false, true, true, false, true] 
+];
 var finales=[ [830, 215],
 [850,125], [850,245], [0,0], [0,0]];
 var subnivel13=[false, false];
@@ -821,7 +827,6 @@ function dibujarNivel1Subnivel4(){
 */
 function dibujarJuegoNivel1Subnivel4() {
 	espada=true;
-	//CAMBIAR IMAGEN
 	tablero.drawImage(nivel1.subnivel4Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.fillStyle = '#000';
@@ -1131,7 +1136,7 @@ function tomarEspadaIntervalo(){
 * Método que se encarga de encolar las instrucciones saltar provenientes del Blockly
 */
 function saltarIntervalo(){
-	//en un futuro cercano hará algo xD
+	//hará algo :$
 }
 
 /**
