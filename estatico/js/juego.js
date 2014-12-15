@@ -115,12 +115,9 @@ var espacioNivel1Subnivel3= [
 ];
 var finales=[ [830, 215],
 [850,125], [0,0], [0,0], [0,0]];
-<<<<<<< HEAD
 var subnivel13=[false, false];
 var espada=false;
-=======
 var subnivel13 = [false, false];
->>>>>>> origin/master
 
 /**
 * Carga todas las imagenes para el funcionamiento del juego
@@ -744,6 +741,8 @@ function dibujarJuegoNivel1Subnivel3() {
 	var toolbox = '<xml>';
 	toolbox += '  <block type="avanzar"></block>';
 	toolbox += '  <block type="girar"></block>';
+	toolbox += '  <block type="tomarespada"></block>';
+	toolbox += '  <block type="oprimirboton"></block>';
 	toolbox += '</xml>';
 	desplegarBlock();
 	document.getElementById('blocklyDiv').innerHTML="";
@@ -936,7 +935,7 @@ function girarIntervalo (direccion) {
 * Método que se encarga de realizar la acción "OPRIMIR BOTON" del blockly
 */
 function oprimirBotonIntervalo(){
-	if(subnivelActual==2 && !subnivel13[1]){
+	if(!subnivel13[1]){
 		setTimeout(function(){
 			subnivel13[0]=true;
 			tablero.drawImage(nivel1.subnivel32Imagen,0,0);
@@ -950,8 +949,22 @@ function oprimirBotonIntervalo(){
 				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
 			}
 		}, 250);
-
 	}
+	if(colaAcciones.length!=0){
+			var aux = colaAcciones.shift();
+			if(aux=="avanzar"){
+				avanzarIntervalo();
+			}else if(aux=="derecha" || aux=="izquierda"){
+				girarIntervalo(aux);
+			}else if(aux=="oprimir"){
+				oprimirBotonIntervalo();
+			}else if(aux=="espada"){
+				tomarEspadaIntervalo();
+			}
+		}else{
+			banderaCola=false;
+			validarFinalSubnivel();
+		}
 	
 }
 
@@ -960,7 +973,7 @@ function oprimirBotonIntervalo(){
 * Método que se encarga de realizar la acción "TOMAR ESPADA" del blockly
 */
 function tomarEspadaIntervalo(){
-	if(subnivelActual==2 && subnivel13[0]){
+	if(subnivel13[0]){
 		setTimeout(function(){
 			subnivel13[1]=true;
 			espada=true;
@@ -976,6 +989,21 @@ function tomarEspadaIntervalo(){
 			}
 		}, 250);
 	}
+	if(colaAcciones.length!=0){
+			var aux = colaAcciones.shift();
+			if(aux=="avanzar"){
+				avanzarIntervalo();
+			}else if(aux=="derecha" || aux=="izquierda"){
+				girarIntervalo(aux);
+			}else if(aux=="oprimir"){
+				oprimirBotonIntervalo();
+			}else if(aux=="espada"){
+				tomarEspadaIntervalo();
+			}
+		}else{
+			banderaCola=false;
+			validarFinalSubnivel();
+		}
 }
 
 /**
