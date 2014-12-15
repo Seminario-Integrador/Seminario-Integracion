@@ -377,7 +377,6 @@ function clicPrincipal(){
 				}
 			}
 		}else if(pantalla=="nivel1subnivel4"){
-			alert("Si estoy cliqueando donde es");	
 			if(x>=28 && x<= 218){
 				if(y>=431 && y<=486){
 					dibujarJuego(i);
@@ -438,7 +437,7 @@ function clicPrincipal(){
 				if(y>=431 && y<=486){
 					ocultarBlock();
 					pantalla = "nivel1";
-					dibujarSubnivel(1);
+					dibujarSubnivel(3);
 					pantalla = "nivel1subnivel4";
 				}
 			}
@@ -852,17 +851,14 @@ function pintarTablero4(){
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.font = "bold 22px sans-serif";
 	tablero.fillStyle = '#000';
-
-	//OJO CAMBIAR ESTO
-	tablero.fillText("¡Ten Precaución!",100,50);
-	tablero.fillText("Reto",180,110);
-	tablero.fillText("¿Ves esa puerta? Junto a" ,50,140);
-	tablero.fillText("ella está el mecanismo que ",50,170);
-	tablero.fillText("la activa. Oprímelo y entra",50,200);
-	tablero.fillText("en la habitación. Toma la espada,",50,230);
-	tablero.fillText("puede servir más adelante.",50,260);
-
-	//CAMBIAAA
+	tablero.fillText("¡Al ataque!",150,50);
+	tablero.fillText("Ahí está la hechicera, ",50,80);
+	tablero.fillText("¡ve por ella! Pero no es tan" ,50,110);
+	tablero.fillText("sencillo hay obstaculos  por",50,140);
+	tablero.fillText("toda la habitación.",50,170);
+	tablero.fillText("Tu reto:",170,230);
+	tablero.fillText("Sortea todos los obstaculos",50,260);
+	tablero.fillText("y logra llegar hasta la hechicera.",50,290);
 	tablero.fillText("Jugar",90,460);
 	tablero.fillText("Atrás",300,460);
 }
@@ -891,6 +887,9 @@ function avanzarIntervalo () {
 			}else if(subnivelActual==2){
 				espacioT = espacioNivel1Subnivel3;
 				pintarTablero3();
+			}else if(subnivelActual==3){
+				espacioT = espacioNivel1Subnivel4;
+				pintarTablero4();
 			}
 			tablero.fillStyle = '#999';
 			tablero.fillText("Jugar",90,460);
@@ -956,6 +955,8 @@ function avanzarIntervalo () {
 				oprimirBotonIntervalo();
 			}else if(aux=="espada"){
 				tomarEspadaIntervalo();
+			}else if(aux=="saltar"){
+				saltarIntervalo();
 			}
 		}else{
 			banderaCola=false;
@@ -993,6 +994,8 @@ function girarIntervalo (direccion) {
 				}else{
 					tablero.drawImage(nivel1.subnivel31Imagen,0,0);
 				}
+			}else if(subnivelActual==3){
+				tablero.drawImage(nivel1.subnivel4Imagen,0,0);
 			}
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillStyle = '#999';
@@ -1019,6 +1022,8 @@ function girarIntervalo (direccion) {
 				oprimirBotonIntervalo();
 			}else if(aux=="espada"){
 				tomarEspadaIntervalo();
+			}else if(aux=="saltar"){
+				saltarIntervalo();
 			}
 		}else{
 			banderaCola=false;
@@ -1064,6 +1069,8 @@ function oprimirBotonIntervalo(){
 				oprimirBotonIntervalo();
 			}else if(aux=="espada"){
 				tomarEspadaIntervalo();
+			}else if(aux=="saltar"){
+				saltarIntervalo();
 			}
 		}else{
 			banderaCola=false;
@@ -1110,12 +1117,21 @@ function tomarEspadaIntervalo(){
 				oprimirBotonIntervalo();
 			}else if(aux=="espada"){
 				tomarEspadaIntervalo();
+			}else if(aux=="saltar"){
+				saltarIntervalo();
 			}
 		}else{
 			banderaCola=false;
 			validarFinalSubnivel();
 		}
 	}
+}
+
+/**
+* Método que se encarga de encolar las instrucciones saltar provenientes del Blockly
+*/
+function saltarIntervalo(){
+	//en un futuro cercano hará algo xD
 }
 
 /**
@@ -1158,6 +1174,19 @@ function tomarEspada() {
 }
 
 /**
+* Método que se encarga de encolar las instrucciones saltar provenientes del Blockly
+*/
+function saltar() {
+	if(colaAcciones.length==0 && !banderaCola){
+		intervalo=0;
+		banderaCola = true;
+		tomarEspadaIntervalo();
+	}else{
+		colaAcciones.push("saltar");
+	}
+}
+
+/**
 * Método que se encarga de encolar las instrucciones girar provenientes del Blockly
 * @param {String} direccion en la que se realizara el giro
 */
@@ -1183,7 +1212,10 @@ function avanzarIntervaloAnimado() {
 				pintarTablero2();
 			}else if(subnivelActual==2){
 				pintarTablero3();
+			}else if(subnivelActual==3){
+				pintarTablero4();
 			}
+
 			if(alanImagenY==3){
 				alanTableroX+=50;
 				alanImagenX = (alanImagenX+1)%4;
