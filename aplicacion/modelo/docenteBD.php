@@ -17,7 +17,7 @@
 	* @author Gerson Yesid Lázaro Carrillo 1150972
 	* @author Angie Melissa Delgado León 1150990
 	*/
-	class UsuarioBD extends Modelo{
+	class DocenteBD extends Modelo{
 
 		/**
 		*	Método que se encarga de crear la consulta para guardar un nuevo docente en la Base de Datos.

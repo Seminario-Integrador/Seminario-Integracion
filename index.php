@@ -63,6 +63,12 @@
 			}else{
 				$alan->acuseCorreoNoValido();
 			}
+		}else if($_POST["tipo"]=="registroDocente"){
+			$alan->registroDocente($_POST["usuario"], $_POST["nombre"] ,$_POST["codigo"], $_POST["email"], $_POST["contrasena"]);
+		}
+	}else if(isset($_GET["perfil"])){
+		if($_GET["perfil"]=="registrarDocente"){
+			$alan->inicioDocente();
 		}
 	}else{
 		$alan->inicio();

@@ -15,13 +15,13 @@
 			<div class="botones">
 				<ul>
 					<li>
-						<div class="login" id="login">
+						<div class="login" id="login" style="display:none">
 							<p>Inicia Sesión</p>
 						</div>
 					</li> 
 					<li>
-						<div class="registro" id="registro">
-							<p>Registrate</p>
+						<div class="registro" id="registro"  style="width:200px">
+							<p>Registro docente</p>
 						</div>
 					</li> 
 				</ul>
@@ -90,15 +90,11 @@
 				<input type="text" placeholder="Nombre" name="nombre" required></div>
 				<div><label>Codigo:</label>
 				<input type="number" placeholder="Codigo" name="codigo" required></div>
-				<div>
-					<label>Curso:</label>
-					{{selectCursos}}
-				</div>
 				<div><label>Email:</label>
 				<input type="email" placeholder="Email" name="email" required></div>
 				<div><label>Contraseña:</label>
 				<input type="password" placeholder="*****" name="contrasena" required></div>
-				<input type="hidden" name="tipo" value="registro">
+				<input type="hidden" name="tipo" value="registroDocente">
 				<div><input type="submit" value="Registrar"></div>
 			</form>
 		</div>
@@ -125,7 +121,7 @@
 			<div class="cerrar">
 				<span id="cerrarPass" class="icon-cancel-circle"></span>
 			</div>
-			<h2>Recordar contraseña</h2>
+			<h2>Iniciar Sesión</h2>
 			<form action="index.php" method="POST">
 				<div><label> Correo:</label>
 				<input type="email" placeholder="email" name="email" required></div>
@@ -152,9 +148,11 @@
 			document.body.appendChild(div);
 			setTimeout(function() {
 				div.style.opacity = "0";
+				console.log("si");
 			}, arguments[2] || 10000);
 			setTimeout(function() {
 				document.body.removeChild(div);
+				console.log("aja");
 			}, arguments[2]+1000 ||  11000);
 		}
 	</script>

@@ -10,6 +10,7 @@
  	*/
 
 	include "aplicacion/modelo/usuarioBD.php";
+	include "aplicacion/modelo/docenteBD.php";
 	include "aplicacion/modelo/CursoBD.php";
 	include "aplicacion/vista/assets.php";
 	
@@ -26,9 +27,18 @@
 		*/
 		public function inicio()
 		{
-			//REEMPLAZAR
 			$inicio = $this->leerPlantilla("aplicacion/vista/splash.html");
 			$inicio = $this->reemplazar($inicio, "{{selectCursos}}", $this->leerCursos());
+			$this->mostrarVista($inicio);
+		}
+
+
+		/**
+		* Metodo que muestra el registro para los docentes
+		*/
+		public function inicioDocente()
+		{
+			$inicio = $this->leerPlantilla("aplicacion/vista/splashDocente.html");
 			$this->mostrarVista($inicio);
 		}
 
@@ -37,7 +47,6 @@
 		*/
 		public function inicioErrorLog()
 		{
-			//REEMPLAZAR
 			$inicio = $this->leerPlantilla("aplicacion/vista/splash.html");
 			$inicio = $this->reemplazar($inicio, "{{selectCursos}}", $this->leerCursos());
 			$inicio = $this->alerta($inicio, "No se ha podido iniciar sesión", "Verifique sus datos e intentelo nuevamente");
@@ -97,10 +106,12 @@
 
 		/**
 		*	Registra un nuevo usuario en la base de datos (esto se realiza desde el modelo)
+		*   @param $nickname - Username (diferente al nombre, este sera su login y no puede contener espacios)
 		*	@param $nombre - Nombre del usuario
 		* 	@param $codigo - codigo del usuario (El codigo en divisist)
 		*	@param $email - Correo electronico del usuario (para validación y cambio de contraseña)
 		*	@param $contrasena - Contraseña elegida por el usuario
+		*   @param $curso - curso del usuario (puede estar vacio)
 		*/
 		public function registro($nickname, $nombre, $codigo, $email, $contrasena, $curso)
 		{
@@ -108,6 +119,23 @@
 			$usuarioBD = new usuarioBD();
 			$usuarioBD->registrar($nickname, $nombre, $codigo, $email, $contrasenaSH, $curso);
 			$this->login($nickname, $contrasena);
+		}
+
+
+		/**
+		*	Registra un nuevo docente en la base de datos (esto se realiza desde el modelo)
+		*   @param $nickname - Username (diferente al nombre, este sera su login y no puede contener espacios)
+		*	@param $nombre - Nombre del usuario
+		* 	@param $codigo - codigo del usuario (El codigo en divisist)
+		*	@param $email - Correo electronico del usuario (para validación y cambio de contraseña)
+		*	@param $contrasena - Contraseña elegida por el usuario
+		*/
+		public function registroDocente($nickname, $nombre, $codigo, $email, $contrasena)
+		{
+			$contrasenaSH = $this->encriptarContrasena($contrasena);
+			$docenteBD = new docenteBD();
+			$docenteBD->registrar($nickname, $nombre, $codigo, $email, $contrasenaSH);
+			//$this->login($nickname, $contrasena);
 		}
 
 		/**
@@ -126,6 +154,7 @@
 				header('Location: index.php');
 				$this->inicioValidado();
 			}else{
+
 				$this->inicioErrorLog();
 			}
 		}

@@ -15,7 +15,7 @@ function abrirPass () {
 		divPass.style.opacity = "1";
 	},200);
 }
-function cerrarPass () {
+function cerrarPassword () {
 	divPass.style.opacity = "0"
 	setTimeout(function () {
 		divPass.style.display = "none";
@@ -50,4 +50,4 @@ registro.addEventListener("click", abrirRegistro);
 cerrarReg.addEventListener("click", cerrarRegistro);
 cerrarLog.addEventListener("click", cerrarLogin);
 pass.addEventListener("click", abrirPass);
-cerrarPass.addEventListener("click", cerrarPass);
+cerrarPass.addEventListener("click", cerrarPassword);
