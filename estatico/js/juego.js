@@ -68,7 +68,9 @@ var nivel1 = {
 	subnivel32URL: "estatico/img/juego/subnivel1-3(2).png",
 	subnivel32OK: false,
 	subnivel33URL: "estatico/img/juego/subnivel1-3(3).png",
-	subnivel33OK: false
+	subnivel33OK: false,
+	subnivel4URL: "estatico/img/juego/subnivel1-4.png",
+	subnivel4OK: false
 }
 
 var posicionCastillos= {
@@ -147,7 +149,7 @@ function inicio () {
 }
 
 /**
-* Obtiene las coordenadas X, Y 
+* Obtiene las coordenadas X, Y de la esquina superior izquierda del canvas donde se muestra el juego 
 */
 function obtenerCoordenadas () {
 	espacioAux = espacio;
@@ -272,6 +274,8 @@ function dibujarSubnivel (i) {
 			dibujarNivel1Subnivel2();
 		}else if(i==2){
 			dibujarNivel1Subnivel3();
+		}else if(i==3){
+			dibujarNivel1Subnivel4();
 		}
 	}
 }
@@ -286,6 +290,8 @@ function dibujarJuego () {
 		dibujarJuegoNivel1Subnivel2();
 	}else if(pantalla=="nivel1subnivel3"){
 		dibujarJuegoNivel1Subnivel3();
+	}else if(pantalla=="nivel1subnivel4"){
+		dibujarJuegoNivel1Subnivel4();
 	}
 }
 
@@ -320,6 +326,8 @@ function clicPrincipal(){
 								pantalla = "nivel1subnivel2";
 							}else if(i==2){
 								pantalla = "nivel1subnivel3";
+							}else if(i==3){
+								pantalla="nivel1subnivel4";
 							}
 						}
 					}
@@ -368,6 +376,19 @@ function clicPrincipal(){
 					pantalla = "nivel1";
 				}
 			}
+		}else if(pantalla=="nivel1subnivel4"){
+			alert("Si estoy cliqueando donde es");	
+			if(x>=28 && x<= 218){
+				if(y>=431 && y<=486){
+					dibujarJuego(i);
+					pantalla = "nivel1subnivel4juego";
+				}
+			}else if(x>=237 && x<= 422){
+				if(y>=431 && y<=486){
+					dibujarNivel(1);
+					pantalla = "nivel1";
+				}
+			}
 
 		}else if(pantalla=="nivel1subnivel1juego" && !banderaCola){			
 			if(x>=28 && x<= 218){
@@ -408,6 +429,19 @@ function clicPrincipal(){
 					pantalla = "nivel1subnivel3";
 				}
 			}
+		}else if(pantalla=="nivel1subnivel4juego"){			
+			if(x>=28 && x<= 218){
+				if(y>=431 && y<=486){
+					validarCodigo();
+				}
+			}else if(x>=237 && x<= 422){
+				if(y>=431 && y<=486){
+					ocultarBlock();
+					pantalla = "nivel1";
+					dibujarSubnivel(1);
+					pantalla = "nivel1subnivel4";
+				}
+			}
 		}
 	});
 }
@@ -426,8 +460,6 @@ function leerJSON (url) {
 	}
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
-
-	//setTimeout(inicio, 200);
 }
 
 /**
@@ -549,6 +581,8 @@ function cargarNivel1 () {
 	nivel1.subnivel32Imagen.src = nivel1.subnivel32URL;
 	nivel1.subnivel33Imagen = new Image();
 	nivel1.subnivel33Imagen.src = nivel1.subnivel33URL;
+	nivel1.subnivel4Imagen = new Image();
+	nivel1.subnivel4Imagen.src = nivel1.subnivel4URL;
 	control.imagenInicial = new Image();
 	control.imagenInicial.src = control.imagenInicialURL;
 	control.imagenFinal = new Image();
@@ -765,6 +799,73 @@ function pintarTablero3(){
 	tablero.fillText("Atrás",300,460);
 }
 
+//------------------------------------   Subnivel 4   ------------------------------------//
+
+/**
+* Método que dibuja el canvas correspondiente al subnivel 4 del nivel 1
+*/
+function dibujarNivel1Subnivel4(){
+	subnivelActual=3;
+	espada=true;
+	pintarTablero4();
+	alanTableroX = 350;
+	alanTableroY = 245;
+	alanImagenX = 0;
+	alanImagenY = 3;
+	tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+	avanzarAnimado();
+	avanzarAnimado();
+}
+
+/**
+* Método que dibuja el canvas y el blockly correspondiente al subnivel 4 del nivel 1
+*/
+function dibujarJuegoNivel1Subnivel4() {
+	espada=true;
+	//CAMBIAR IMAGEN
+	tablero.drawImage(nivel1.subnivel4Imagen,0,0);
+	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.fillStyle = '#000';
+	alanTableroX = 550;
+	alanTableroY = 245;
+	tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+	tablero.fillText("Enviar",90,460);
+	tablero.fillText("Atrás",300,460);
+	var toolbox = '<xml>';
+	toolbox += '  <block type="avanzar"></block>';
+	toolbox += '  <block type="girar"></block>';
+	toolbox += '  <block type="saltar"></block>';
+	toolbox += '</xml>';
+	desplegarBlock();
+	document.getElementById('blocklyDiv').innerHTML="";
+	Blockly.inject(document.getElementById('blocklyDiv'),
+		{toolbox: toolbox});
+	actualx=1;
+    actualy=2;
+}
+
+/**
+* Método que dibuja las instrucciones correspondientes al subnivel 4 del nivel 1
+*/
+function pintarTablero4(){
+	tablero.drawImage(nivel1.subnivel4Imagen,0,0);
+	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.font = "bold 22px sans-serif";
+	tablero.fillStyle = '#000';
+
+	//OJO CAMBIAR ESTO
+	tablero.fillText("¡Ten Precaución!",100,50);
+	tablero.fillText("Reto",180,110);
+	tablero.fillText("¿Ves esa puerta? Junto a" ,50,140);
+	tablero.fillText("ella está el mecanismo que ",50,170);
+	tablero.fillText("la activa. Oprímelo y entra",50,200);
+	tablero.fillText("en la habitación. Toma la espada,",50,230);
+	tablero.fillText("puede servir más adelante.",50,260);
+
+	//CAMBIAAA
+	tablero.fillText("Jugar",90,460);
+	tablero.fillText("Atrás",300,460);
+}
 
 
 //------------------------------------   Mover a Alan   ------------------------------------//
