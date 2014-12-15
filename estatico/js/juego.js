@@ -114,7 +114,7 @@ var espacioNivel1Subnivel3= [
 [true, false, false, true, true, false, false] 
 ];
 var finales=[ [830, 215],
-[850,125], [0,0], [0,0], [0,0]];
+[850,125], [600,245], [0,0], [0,0]];
 var subnivel13=[false, false];
 var espada=false;
 var subnivel13 = [false, false];
@@ -569,6 +569,7 @@ function aumentarLetreros () {
 function dibujarNivel1Subnivel1 () {
 	subnivelActual=0;
 	pintarTablero1();
+	espada=false;
 	alanTableroX = 430;
 	alanTableroY = 215;
 	alanImagenX = 0;
@@ -639,6 +640,7 @@ function pintarTablero1(){
 function dibujarNivel1Subnivel2(){
 	subnivelActual=1;
 	pintarTablero2();
+	espada=false;
 	alanTableroX = 450;
 	alanTableroY = 225;
 	alanImagenX = 0;
@@ -708,6 +710,8 @@ function dibujarNivel1Subnivel3(){
 	subnivelActual=2;
 	subnivel13[0]=false;
 	subnivel13[1]=false;
+	espada=false;
+	espacioNivel1Subnivel3[2][2]=false;
 	pintarTablero3();
 	alanTableroX = 350;
 	alanTableroY = 245;
@@ -791,6 +795,7 @@ var banderaMov = false;
 * Método que se encarga de realizar la acción "AVANZAR" del blockly
 */
 function avanzarIntervalo () {
+	console.log("Avanzar: X  "+alanTableroX+"  Y "+alanTableroY);
 	if(intervalo<2){
 		if(intervalo==0){
 			banderaMov=false;
@@ -897,6 +902,16 @@ function girarIntervalo (direccion) {
 				tablero.drawImage(nivel1.subnivel1Imagen,0,0);
 			}else if(subnivelActual==1){
 				tablero.drawImage(nivel1.subnivel2Imagen,0,0);
+			}else if(subnivelActual==2){
+				if(subnivel13[0]){
+					if(subnivel13[1]){
+						tablero.drawImage(nivel1.subnivel32Imagen,0,0);
+					}else{
+						tablero.drawImage(nivel1.subnivel33Imagen,0,0);
+					}
+				}else{
+					tablero.drawImage(nivel1.subnivel31Imagen,0,0);
+				}
 			}
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillStyle = '#999';
@@ -935,9 +950,11 @@ function girarIntervalo (direccion) {
 * Método que se encarga de realizar la acción "OPRIMIR BOTON" del blockly
 */
 function oprimirBotonIntervalo(){
+	console.log("Boton: X  "+alanTableroX+"  Y "+alanTableroY);
 	if(!subnivel13[1]){
 		setTimeout(function(){
 			subnivel13[0]=true;
+			espacioNivel1Subnivel3[2][2]=true;
 			tablero.drawImage(nivel1.subnivel32Imagen,0,0);
 			tablero.drawImage(control.imagenInicial,0,0);
 			tablero.fillStyle = '#999';
@@ -951,6 +968,7 @@ function oprimirBotonIntervalo(){
 		}, 250);
 	}
 	if(colaAcciones.length!=0){
+		console.log("Holi");
 			var aux = colaAcciones.shift();
 			if(aux=="avanzar"){
 				avanzarIntervalo();
@@ -961,7 +979,7 @@ function oprimirBotonIntervalo(){
 			}else if(aux=="espada"){
 				tomarEspadaIntervalo();
 			}
-		}else{
+	}else{
 			banderaCola=false;
 			validarFinalSubnivel();
 		}
@@ -973,6 +991,7 @@ function oprimirBotonIntervalo(){
 * Método que se encarga de realizar la acción "TOMAR ESPADA" del blockly
 */
 function tomarEspadaIntervalo(){
+	console.log("Tomar espada: X  "+alanTableroX+"  Y "+alanTableroY);
 	if(subnivel13[0]){
 		setTimeout(function(){
 			subnivel13[1]=true;
@@ -1125,6 +1144,7 @@ function avanzarAnimado () {
 * Método que se encarga de validar la posición final de Alan
 */
 function validarFinalSubnivel(){
+	console.log("VALIDANDO: X  "+alanTableroX+"  Y "+alanTableroY);
 	posX=finales[subnivelActual][0];
 	posY=finales[subnivelActual][1];
 			if(alanTableroX==posX && alanTableroY==posY){
@@ -1146,6 +1166,8 @@ function validarFinalSubnivel(){
 					}else if(subnivelActual==1){
 						dibujarJuegoNivel1Subnivel2();
 					}else if(subnivelActual==2){
+						espacioNivel1Subnivel3[2][2]=false;
+						espada=false;
 						dibujarJuegoNivel1Subnivel3();
 					}
 				}, 1000);
