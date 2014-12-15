@@ -421,12 +421,13 @@ function leerJSON (url) {
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 	        valores = JSON.parse(xmlhttp.responseText)[0];
+	        inicio();
 	    }
 	}
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
 
-	setTimeout(inicio, 200);
+	//setTimeout(inicio, 200);
 }
 
 /**
@@ -731,7 +732,7 @@ function dibujarJuegoNivel1Subnivel3() {
 	desplegarBlock();
 	document.getElementById('blocklyDiv').innerHTML="";
 	Blockly.inject(document.getElementById('blocklyDiv'),
-		{maxBlocks:10,toolbox: toolbox});
+		{toolbox: toolbox});
 	actualx=1;
     actualy=2;
 }
@@ -884,9 +885,9 @@ function girarIntervalo (direccion) {
 			}else if(subnivelActual==2){
 				if(subnivel13[0]){
 					if(subnivel13[1]){
-						tablero.drawImage(nivel1.subnivel32Imagen,0,0);
-					}else{
 						tablero.drawImage(nivel1.subnivel33Imagen,0,0);
+					}else{
+						tablero.drawImage(nivel1.subnivel32Imagen,0,0);
 					}
 				}else{
 					tablero.drawImage(nivel1.subnivel31Imagen,0,0);
