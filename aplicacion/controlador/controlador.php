@@ -73,6 +73,26 @@
 			$this->mostrarVista($plantilla);
 		}
 
+
+
+		/**
+		*	Creacion de nuevos cursos por parte del docente
+		*/
+		public function crearNuevoCurso()
+		{
+			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
+			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierdaDocente.html");
+			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["nombre"]);
+			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", "docente.png");
+			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
+			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
+			$barraDer = $this->leerPlantilla("aplicacion/vista/crearCurso.html");
+			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
+			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
+			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
+			$this->mostrarVista($plantilla);
+		}
 		/**
 		* Metodo que carga un archivo de la vista
 		* @param $plantilla - Ruta del archivo a cargar
@@ -135,13 +155,13 @@
 			$contrasenaSH = $this->encriptarContrasena($contrasena);
 			$docenteBD = new docenteBD();
 			$docenteBD->registrar($nickname, $nombre, $codigo, $email, $contrasenaSH);
-			//$this->login($nickname, $contrasena);
+			$this->login($nickname, $contrasena);
 		}
 
 		/**
-		*	Metodo que inicia sesión y crea una clase del tipo usuario
-		*	@param $usuario - Nombre de usuario a verificar
-		*	@param $contrasena - Contrasena del usuario a verificar
+		*	Metodo que inicia sesión y crea una clase del tipo usuario o docente
+		*	@param $usuario - Nombre de usuario o docente a verificar
+		*	@param $contrasena - Contrasena del usuario o docente a verificar
 		*/
 		public function login($usuario, $contrasena)
 		{
@@ -150,12 +170,19 @@
 			$datos = $usuarioBD->login($usuario, $contrasenaSH);
 			if($datos!=false){
 				$_SESSION["nombre"] = $datos;
+				$_SESSION["tipoUsuario"] = "usuario";
 				$this->cargarPerfil($datos);
 				header('Location: index.php');
-				$this->inicioValidado();
 			}else{
-
-				$this->inicioErrorLog();
+				$docenteBD = new docenteBD();
+				$datos2 = $docenteBD->login($usuario, $contrasenaSH);
+					if($datos2!=false){
+						$_SESSION["nombre"] = $datos2;
+						$_SESSION["tipoUsuario"] = "docente";
+						header('Location: index.php');
+					}else{
+						$this->inicioErrorLog();
+					}
 			}
 		}
 

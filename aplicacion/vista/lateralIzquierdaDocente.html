@@ -1,0 +1,38 @@
+<div class="left" id="left">
+			<a href="{{username}}">
+				<div class="superior">
+					<img class="fotoPerfil" src="estatico/img/perfil/{{fotoPerfil}}">
+					<h2>{{username}}</h2>
+					<div class="cuadre"></div>
+				</div>
+			</a>
+			<div class="menu">
+				<a href="crearCurso">
+					<div class="campoMenu">
+						<div class="img">
+							<span class="icon-pencil"></span>
+						</div>
+						<p class="campoP">Crear curso</p>
+					</div>
+				</a>
+				<a href="verCursos">
+					<div class="campoMenu">
+						<div class="img">
+							<span class="icon-stats"></span>
+						</div>
+						<p class="campoP">Ver cursos</p>
+					</div>
+				</a>
+					<div class="campoMenu" id="cerrarSesion">
+						<div class="img">
+							<span class="icon-exit"></span>
+						</div>
+						<p class="campoP">Cerrar Sesión</p>
+						<form class="oculto" name="cerrarS" action="index.php" method="POST">
+							<input type="hidden" name="tipo" value="cerrar">
+							<input type="submit" value="Cerrar Sesion">
+						</form>
+					</div>
+			</div>
+			<div class="cuadre"></div>
+		</div>

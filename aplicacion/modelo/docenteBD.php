@@ -30,7 +30,7 @@
 		public function registrar($username, $nombre, $codigo, $email, $contrasena)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$this->consultar("INSERT INTO docente VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."'");
+			$this->consultar("INSERT INTO docente VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."')");
 			$this->desconectar();
 		}
 
@@ -43,7 +43,7 @@
 		public function login($username, $contrasena)
 		{
 			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("SELECT username FROM docente WHERE username='".$username."' AND contrasenaSH1='".$contrasena."'");
+			$aux=$this->consultar("SELECT usernameD FROM docente WHERE usernameD='".$username."' AND contrasenaSH1='".$contrasena."'");
 			$this->desconectar();
 			$cont=0;
 			$nombre="";
