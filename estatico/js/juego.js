@@ -114,7 +114,7 @@ var espacioNivel1Subnivel3= [
 [true, false, false, true, true, false, false] 
 ];
 var finales=[ [830, 215],
-[850,125], [600,245], [0,0], [0,0]];
+[850,125], [850,245], [0,0], [0,0]];
 var subnivel13=[false, false];
 var espada=false;
 var subnivel13 = [false, false];
@@ -574,11 +574,7 @@ function dibujarNivel1Subnivel1 () {
 	alanTableroY = 215;
 	alanImagenX = 0;
 	alanImagenY = 3;
-	if(espada){
-		tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}else{
-		tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
 	avanzarAnimado();
 	avanzarAnimado();
 }
@@ -592,11 +588,7 @@ function dibujarJuegoNivel1Subnivel1 () {
 	alanTableroX = 630;
 	alanTableroY = 215;
 	tablero.fillStyle = '#000';
-	if(espada){
-		tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}else{
-		tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
 	tablero.fillText("Enviar",90,460);
 	tablero.fillText("Atrás",300,460);
 	var toolbox = '<xml>';
@@ -645,11 +637,7 @@ function dibujarNivel1Subnivel2(){
 	alanTableroY = 225;
 	alanImagenX = 0;
 	alanImagenY = 3;
-	if(espada){
-		tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}else{
-		tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
 	avanzarAnimado();
 	avanzarAnimado();
 }
@@ -662,11 +650,7 @@ function dibujarJuegoNivel1Subnivel2() {
 	tablero.drawImage(control.imagenInicial,0,0);
 	alanTableroX = 650;
 	alanTableroY = 225;
-	if(espada){
-		tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}else{
-		tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
 	tablero.fillStyle = '#000';
 	tablero.fillText("Enviar",90,460);
 	tablero.fillText("Atrás",300,460);
@@ -717,11 +701,7 @@ function dibujarNivel1Subnivel3(){
 	alanTableroY = 245;
 	alanImagenX = 0;
 	alanImagenY = 3;
-	if(espada){
-		tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}else{
-		tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
 	avanzarAnimado();
 	avanzarAnimado();
 }
@@ -730,16 +710,16 @@ function dibujarNivel1Subnivel3(){
 * Método que dibuja el canvas y el blockly correspondiente al subnivel 3 del nivel 1
 */
 function dibujarJuegoNivel1Subnivel3() {
+	subnivel13[0]=false;
+	subnivel13[1]=false;
+	espada=false;
+	espacioNivel1Subnivel3[2][2]=false;
 	tablero.drawImage(nivel1.subnivel31Imagen,0,0);
 	tablero.drawImage(control.imagenInicial,0,0);
 	tablero.fillStyle = '#000';
 	alanTableroX = 550;
 	alanTableroY = 245;
-	if(espada){
-		tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}else{
-		tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-	}
+	tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
 	tablero.fillText("Enviar",90,460);
 	tablero.fillText("Atrás",300,460);
 	var toolbox = '<xml>';
@@ -762,9 +742,9 @@ function dibujarJuegoNivel1Subnivel3() {
 function pintarTablero3(){
 	if(subnivel13[0]){
 		if(subnivel13[1]){
-			tablero.drawImage(nivel1.subnivel32Imagen,0,0);
-		}else{
 			tablero.drawImage(nivel1.subnivel33Imagen,0,0);
+		}else{
+			tablero.drawImage(nivel1.subnivel32Imagen,0,0);
 		}
 	}else{
 		tablero.drawImage(nivel1.subnivel31Imagen,0,0);
@@ -795,7 +775,6 @@ var banderaMov = false;
 * Método que se encarga de realizar la acción "AVANZAR" del blockly
 */
 function avanzarIntervalo () {
-	console.log("Avanzar: X  "+alanTableroX+"  Y "+alanTableroY);
 	if(intervalo<2){
 		if(intervalo==0){
 			banderaMov=false;
@@ -946,69 +925,34 @@ function girarIntervalo (direccion) {
 	}
 }
 
+
 /**
 * Método que se encarga de realizar la acción "OPRIMIR BOTON" del blockly
 */
 function oprimirBotonIntervalo(){
-	console.log("Boton: X  "+alanTableroX+"  Y "+alanTableroY);
-	if(!subnivel13[1]){
-		setTimeout(function(){
-			subnivel13[0]=true;
-			espacioNivel1Subnivel3[2][2]=true;
-			tablero.drawImage(nivel1.subnivel32Imagen,0,0);
-			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillStyle = '#999';
-			tablero.fillText("Jugar",90,460);
-			tablero.fillText("Atrás",300,460);
-			if(espada){
-				tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-			}else{
-				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-			}
-		}, 250);
-	}
-	if(colaAcciones.length!=0){
-		console.log("Holi");
-			var aux = colaAcciones.shift();
-			if(aux=="avanzar"){
-				avanzarIntervalo();
-			}else if(aux=="derecha" || aux=="izquierda"){
-				girarIntervalo(aux);
-			}else if(aux=="oprimir"){
+	if(intervalo<1){
+		if(!subnivel13[0] && !espada){
+			setTimeout(function(){
+				subnivel13[0]=true;
+				espacioNivel1Subnivel3[2][2]=true;
+				tablero.drawImage(nivel1.subnivel32Imagen,0,0);
+				tablero.drawImage(control.imagenInicial,0,0);
+				tablero.fillStyle = '#999';
+				tablero.fillText("Jugar",90,460);
+				tablero.fillText("Atrás",300,460);
+				intervalo++;
+				if(espada){
+					tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+				}else{
+					tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+				}
 				oprimirBotonIntervalo();
-			}else if(aux=="espada"){
-				tomarEspadaIntervalo();
-			}
-	}else{
-			banderaCola=false;
-			validarFinalSubnivel();
+			}, 500);
 		}
-	
-}
-
-
-/**
-* Método que se encarga de realizar la acción "TOMAR ESPADA" del blockly
-*/
-function tomarEspadaIntervalo(){
-	console.log("Tomar espada: X  "+alanTableroX+"  Y "+alanTableroY);
-	if(subnivel13[0]){
-		setTimeout(function(){
-			subnivel13[1]=true;
-			espada=true;
-			tablero.drawImage(nivel1.subnivel32Imagen,0,0);
-			tablero.drawImage(control.imagenInicial,0,0);
-			tablero.fillStyle = '#999';
-			tablero.fillText("Jugar",90,460);
-			tablero.fillText("Atrás",300,460);
-			if(espada){
-				tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-			}else{
-				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
-			}
-		}, 250);
 	}
-	if(colaAcciones.length!=0){
+	else{
+		intervalo=0;
+		if(colaAcciones.length!=0){
 			var aux = colaAcciones.shift();
 			if(aux=="avanzar"){
 				avanzarIntervalo();
@@ -1023,6 +967,53 @@ function tomarEspadaIntervalo(){
 			banderaCola=false;
 			validarFinalSubnivel();
 		}
+	}
+}
+
+/**
+* Método que se encarga de realizar la acción "TOMAR ESPADA" del blockly
+*/
+function tomarEspadaIntervalo(){
+	if(intervalo<1){
+		if(subnivel13[0] && !espada && alanTableroX==finales[subnivelActual][0] && alanTableroY==finales[subnivelActual][1]){
+			setTimeout(function(){
+				subnivel13[1]=true;
+				intervalo++;
+				espada=true;
+				tablero.drawImage(nivel1.subnivel32Imagen,0,0);
+				tablero.drawImage(control.imagenInicial,0,0);
+				tablero.fillStyle = '#999';
+				tablero.fillText("Jugar",90,460);
+				tablero.fillText("Atrás",300,460);
+				if(espada){
+					tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+				}else{
+					tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+				}
+				tomarEspadaIntervalo();
+			}, 500);
+		}else{
+			intervalo++;
+			tomarEspadaIntervalo();
+		}
+	}else{
+		intervalo=0;
+		if(colaAcciones.length!=0){
+			var aux = colaAcciones.shift();
+			if(aux=="avanzar"){
+				avanzarIntervalo();
+			}else if(aux=="derecha" || aux=="izquierda"){
+				girarIntervalo(aux);
+			}else if(aux=="oprimir"){
+				oprimirBotonIntervalo();
+			}else if(aux=="espada"){
+				tomarEspadaIntervalo();
+			}
+		}else{
+			banderaCola=false;
+			validarFinalSubnivel();
+		}
+	}
 }
 
 /**
@@ -1144,9 +1135,10 @@ function avanzarAnimado () {
 * Método que se encarga de validar la posición final de Alan
 */
 function validarFinalSubnivel(){
-	console.log("VALIDANDO: X  "+alanTableroX+"  Y "+alanTableroY);
 	posX=finales[subnivelActual][0];
 	posY=finales[subnivelActual][1];
+
+		if(subnivelActual!=2){
 			if(alanTableroX==posX && alanTableroY==posY){
 				alerta("¡Misión cumplida! Continua recorriendo el Reino de Eniac :)");
 				pantalla="nivel1";
@@ -1157,21 +1149,40 @@ function validarFinalSubnivel(){
 					dibujarNivel1();
 				}, 1000);
 			}else{
-				alerta("No completaste la misión :( ¡Vuelve a intentarlo!");
-				alanImagenY=3;
-				alanImagenX=0;
-				setTimeout(function(){
-					if(subnivelActual==0){
-						dibujarJuegoNivel1Subnivel1();
-					}else if(subnivelActual==1){
-						dibujarJuegoNivel1Subnivel2();
-					}else if(subnivelActual==2){
-						espacioNivel1Subnivel3[2][2]=false;
-						espada=false;
-						dibujarJuegoNivel1Subnivel3();
-					}
-				}, 1000);
+				alertaError();
 			}
+		}else{
+			if(alanTableroX==posX && alanTableroY==posY && espada){
+				alerta("¡Misión cumplida! Continua recorriendo el Reino de Eniac :)");
+				pantalla="nivel1";
+				setTimeout(function(){
+					document.getElementById("blocklyDiv").innerHTML="";
+					document.getElementById("blocklyDiv").style.display='none';
+					actualizarJSON();
+					dibujarNivel1();
+				}, 1000);
+			}else{
+				alertaError();
+			}
+		}
+			
+}
+
+function alertaError(){
+	alerta("No completaste la misión :( ¡Vuelve a intentarlo!");
+	alanImagenY=3;
+	alanImagenX=0;
+	setTimeout(function(){
+		if(subnivelActual==0){
+			dibujarJuegoNivel1Subnivel1();
+		}else if(subnivelActual==1){
+			dibujarJuegoNivel1Subnivel2();
+		}else if(subnivelActual==2){
+			espacioNivel1Subnivel3[2][2]=false;
+			espada=false;
+			dibujarJuegoNivel1Subnivel3();
+		}
+	}, 1000);
 }
 
 /**
