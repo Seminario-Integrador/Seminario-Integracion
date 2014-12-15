@@ -52,7 +52,6 @@
 				return false;
 			}
 		}
-
 		 
 		/**
 		*	Método que permite actualizar el docente que dirige un curso

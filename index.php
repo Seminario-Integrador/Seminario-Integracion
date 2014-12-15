@@ -36,6 +36,12 @@
 						$alan->edicionIncorrecta();
 					}
 				}
+			}else if($_SESSION["tipoUsuario"]=="docente"){
+				if($_POST["tipo"]=="crearCurso"){
+					$alan->crearCurso($_POST["nombreCurso"]);
+					$alan->crearNuevoCurso();
+				}
+
 			}
 		}else if($_SESSION["tipoUsuario"]=="usuario"){
 			if(isset($_GET["perfil"])){
@@ -59,6 +65,8 @@
 			if(isset($_GET["perfil"])){
 				if($_GET["perfil"]=="crearCurso"){
 					$alan->crearNuevoCurso();
+				}else if($_GET["perfil"]=="verCursos"){
+					$alan->listarCursos();
 				}
 			}else{
 				$alan->crearNuevoCurso();

@@ -9,8 +9,9 @@
 			<hr>
 			<p>Crea un nuevo curso:</p>
 			<br>
-			<form>
+			<form action="POST" method="POST">
 				<input type="text" required placeholder="Nombre del curso" name="nombreCurso">
+				<input type="hidden" value="crearCurso" name="tipo">
 				<input type="submit" value="Crear">
 			</form>
 			<hr>

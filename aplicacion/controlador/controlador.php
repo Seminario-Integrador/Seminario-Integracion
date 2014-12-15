@@ -93,6 +93,46 @@
 			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
 			$this->mostrarVista($plantilla);
 		}
+
+		/**
+		* Metodo que crea un curso nuevo en la base de datos
+		* @param curso - Nombre del curso a agregar
+		*/
+		public function crearCurso($curso)
+		{
+			$cursoBD = new cursoBD();
+			$cursoBD->registrar($curso, $_SESSION["nombre"]);
+		}
+
+		
+		/**
+		* Metodo que permite listar los cursos de un docente, con sus alumnos
+		*/
+		public function listarCursos()
+		{
+			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
+			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierdaDocente.html");
+			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["nombre"]);
+			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", "docente.png");
+			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
+			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
+			$barraDer = $this->leerPlantilla("aplicacion/vista/listaCursos.html");
+			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
+			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
+			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
+			$this->mostrarVista($plantilla);
+		}
+
+
+		/**
+		* Metodo que permite ver un curso en especifico, con sus alumnos
+		*/
+		public function verCursos()
+		{
+			
+		}
+
 		/**
 		* Metodo que carga un archivo de la vista
 		* @param $plantilla - Ruta del archivo a cargar
