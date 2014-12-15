@@ -1136,7 +1136,101 @@ function tomarEspadaIntervalo(){
 * Método que se encarga de encolar las instrucciones saltar provenientes del Blockly
 */
 function saltarIntervalo(){
-	//hará algo :$
+	if(intervalo<2){
+		if(intervalo==0){
+			banderaMov=false;
+		}
+		setTimeout(function(){
+			if(subnivelActual==0){
+				espacioT = espacioNivel1Subnivel1;
+				pintarTablero1();
+			}else if(subnivelActual==1){
+				espacioT = espacioNivel1Subnivel2;
+				pintarTablero2();
+			}else if(subnivelActual==2){
+				espacioT = espacioNivel1Subnivel3;
+				pintarTablero3();
+			}else if(subnivelActual==3){
+				espacioT = espacioNivel1Subnivel4;
+				pintarTablero4();
+			}
+			tablero.fillStyle = '#999';
+			tablero.fillText("Jugar",90,460);
+			tablero.fillText("Atrás",300,460);
+			if(alanImagenY==3){
+				if(intervalo==0 && actualx+2<espacioT[actualy].length && espacioT[actualy][actualx+2]){
+					actualx+=2;
+					banderaMov=true;
+					alanTableroX+=100;
+					alanTableroY-=30;
+
+				}
+				if(intervalo==1 && banderaMov){
+					alanTableroX+=100;
+					alanTableroY+=30;
+				}
+				alanImagenX = (alanImagenX+1)%4;
+			}else if(alanImagenY==1){
+				if(intervalo==0 && actualx-2>=0 && espacioT[actualy][actualx-2]){
+					actualx-=2;
+					banderaMov=true;
+					alanTableroX-=100;
+					alanTableroY-=30;
+				}
+				if(intervalo==1 && banderaMov){
+					alanTableroX-=100;
+					alanTableroY+=30;
+				}
+				alanImagenX = (alanImagenX+1)%4;
+			}else if(alanImagenY==0){
+				if(intervalo==0 && actualy+2<espacioT.length && espacioT[actualy+2][actualx]){
+					actualy+=2;
+					banderaMov=true;
+					alanTableroY+=100;
+				}
+				if(intervalo==1 && banderaMov){
+					alanTableroY+=100;
+				}
+				alanImagenX = (alanImagenX+1)%4;
+			}else if(alanImagenY==2){
+				if(intervalo==0 && actualy-2>=0 && espacioT[actualy-2][actualx]){
+					actualy-=2;
+					banderaMov=true;
+					alanTableroY-=100;
+				}
+				if(intervalo==1 && banderaMov){
+					alanTableroY-=100;
+				}
+				alanImagenX = (alanImagenX+1)%4;
+			}
+			if(espada){
+				tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+			}else{
+				tablero.drawImage(castillos.imagenAlan,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+			}
+			intervalo++;
+			saltarIntervalo();
+		},500);
+	}else{
+		intervalo=0;
+		if(colaAcciones.length!=0){
+			var aux = colaAcciones.shift();
+			if(aux=="avanzar"){
+				avanzarIntervalo();
+			}else if(aux=="derecha" || aux=="izquierda"){
+				girarIntervalo(aux);
+			}else if(aux=="oprimir"){
+				oprimirBotonIntervalo();
+			}else if(aux=="espada"){
+				tomarEspadaIntervalo();
+			}else if(aux=="saltar"){
+				saltarIntervalo();
+			}
+		}else{
+			banderaCola=false;
+			validarFinalSubnivel();
+		}
+	}
 }
 
 /**
@@ -1185,7 +1279,7 @@ function saltar() {
 	if(colaAcciones.length==0 && !banderaCola){
 		intervalo=0;
 		banderaCola = true;
-		tomarEspadaIntervalo();
+		saltarIntervalo();
 	}else{
 		colaAcciones.push("saltar");
 	}
