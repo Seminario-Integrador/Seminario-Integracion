@@ -1136,7 +1136,7 @@ function tomarEspadaIntervalo(){
 * Método que se encarga de encolar las instrucciones saltar provenientes del Blockly
 */
 function saltarIntervalo(){
-	if(intervalo<2){
+	if(intervalo<4){
 		if(intervalo==0){
 			banderaMov=false;
 		}
@@ -1161,45 +1161,73 @@ function saltarIntervalo(){
 				if(intervalo==0 && actualx+2<espacioT[actualy].length && espacioT[actualy][actualx+2]){
 					actualx+=2;
 					banderaMov=true;
-					alanTableroX+=100;
-					alanTableroY-=30;
+					alanTableroX+=50;
+					alanTableroY-=25;
 
 				}
 				if(intervalo==1 && banderaMov){
-					alanTableroX+=100;
-					alanTableroY+=30;
+					alanTableroX+=50;
+					alanTableroY-=5;
+				}
+				if(intervalo==2 && banderaMov){
+					alanTableroX+=50;
+					alanTableroY+=5;
+				}
+				if(intervalo==3 && banderaMov){
+					alanTableroX+=50;
+					alanTableroY+=25;
 				}
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==1){
 				if(intervalo==0 && actualx-2>=0 && espacioT[actualy][actualx-2]){
 					actualx-=2;
 					banderaMov=true;
-					alanTableroX-=100;
-					alanTableroY-=30;
+					alanTableroX-=50;
+					alanTableroY-=25;
 				}
 				if(intervalo==1 && banderaMov){
-					alanTableroX-=100;
-					alanTableroY+=30;
+					alanTableroX-=50;
+					alanTableroY-=5;
+				}
+				if(intervalo==2 && banderaMov){
+					alanTableroX-=50;
+					alanTableroY+=5;
+				}
+				if(intervalo==3 && banderaMov){
+					alanTableroX-=50;
+					alanTableroY+=25;
 				}
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==0){
 				if(intervalo==0 && actualy+2<espacioT.length && espacioT[actualy+2][actualx]){
 					actualy+=2;
 					banderaMov=true;
-					alanTableroY+=100;
+					alanTableroY+=50;
 				}
 				if(intervalo==1 && banderaMov){
-					alanTableroY+=100;
+					alanTableroY+=50;
+				}
+				if(intervalo==2 && banderaMov){
+					alanTableroY+=50;
+				}
+				if(intervalo==3 && banderaMov){
+					alanTableroY+=50;
 				}
 				alanImagenX = (alanImagenX+1)%4;
 			}else if(alanImagenY==2){
 				if(intervalo==0 && actualy-2>=0 && espacioT[actualy-2][actualx]){
 					actualy-=2;
 					banderaMov=true;
-					alanTableroY-=100;
+					alanTableroY-=50;
 				}
 				if(intervalo==1 && banderaMov){
-					alanTableroY-=100;
+					alanTableroY-=50;
+				}
+				if(intervalo==2 && banderaMov){
+					alanTableroY-=50;
+				}
+				if(intervalo==3 && banderaMov){
+					alanTableroY-=50;
 				}
 				alanImagenX = (alanImagenX+1)%4;
 			}
