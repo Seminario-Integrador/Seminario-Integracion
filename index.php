@@ -10,6 +10,8 @@
  	*/
 	session_start();
 	require "aplicacion/controlador/controlador.php";
+	require "aplicacion/controlador/usuario.php";
+	require "aplicacion/controlador/docente.php";
 	$alan = new controlador();
 	if(isset($_SESSION["tipoUsuario"])){
 		if(isset($_POST["tipo"])){
@@ -19,36 +21,39 @@
 				session_destroy();
 				header('location:index.php');
 			}else if($_SESSION["tipoUsuario"]=="usuario"){
+				$usuarioAlan = new Usuario();
 				if($_POST["tipo"]=="edicion"){
-					$nombre = $alan->procesarImagen($_FILES['imagen']['tmp_name']);
-					if($alan->editarPerfil($nombre,$_SESSION["username"],$_POST["nombre"],$_POST["descripcion"],$_POST["portada"])){
-						$alan->edicionCorrecta();
+					$nombre = $usuarioAlan->procesarImagen($_FILES['imagen']['tmp_name']);
+					if($usuarioAlan->editarPerfil($nombre,$_SESSION["username"],$_POST["nombre"],$_POST["descripcion"],$_POST["portada"])){
+						$usuarioAlan->edicionCorrecta();
 					}else{
-						$alan->edicionIncorrecta();
+						$usuarioAlan->edicionIncorrecta();
 					}
 				}else if($_POST["tipo"]== "cambiarPass"){
-					$aux = $alan->cambiarPass($_POST["actual"],$_POST["nueva"],$_POST["repetida"]);
+					$aux = $usuarioAlan->cambiarPass($_POST["actual"],$_POST["nueva"],$_POST["repetida"]);
 					if($aux=="diferentes"){
-						$alan->passNoCoinciden();
+						$usuarioAlan->passNoCoinciden();
 					}else if($aux=="cambio"){
-						$alan->edicionCorrecta();
+						$usuarioAlan->edicionCorrecta();
 					}else if($aux=="error"){
-						$alan->edicionIncorrecta();
+						$usuarioAlan->edicionIncorrecta();
 					}
 				}
 			}else if($_SESSION["tipoUsuario"]=="docente"){
+				$docenteAlan = new Docente();
 				if($_POST["tipo"]=="crearCurso"){
-					$alan->crearCurso($_POST["nombreCurso"]);
-					$alan->crearNuevoCurso();
+					$docenteAlan->crearCurso($_POST["nombreCurso"]);
+					$docenteAlan->crearNuevoCurso();
 				}
 
 			}
 		}else if($_SESSION["tipoUsuario"]=="usuario"){
+			$usuarioAlan = new Usuario();
 			if(isset($_GET["perfil"])){
 				if($_GET["perfil"]=="ranking"){
-					$alan->mostrarRanking();
+					$usuarioAlan->mostrarRanking();
 				}else if($_GET["perfil"]=="editar"){
-					$alan->verEditar();
+					$usuarioAlan->verEditar();
 				}else if($alan->validarPerfil($_GET["perfil"])){
 					$alan->mostrarPerfil($_GET["perfil"]);
 				}else{
@@ -59,17 +64,18 @@
 			}else if(isset($_POST["nivel"]) && isset($_POST["subnivel"]) && isset($_POST["puntaje"])){
 				$alan->actualizarJuego($_POST["nivel"],$_POST["subnivel"],$_POST["puntaje"]);
 			}else{
-				$alan->inicioValidado();
+				$usuarioAlan->inicioValidado();
 			}
 		}else if($_SESSION["tipoUsuario"]=="docente"){
+			$docenteAlan = new Docente();
 			if(isset($_GET["perfil"])){
 				if($_GET["perfil"]=="crearCurso"){
-					$alan->crearNuevoCurso();
+					$docenteAlan->crearNuevoCurso();
 				}else if($_GET["perfil"]=="verCursos"){
-					$alan->listarCursos();
+					$docenteAlan->listarCursos();
 				}
 			}else{
-				$alan->crearNuevoCurso();
+				$docenteAlan->crearNuevoCurso();
 			}
 			
 		}
@@ -95,4 +101,5 @@
 	}else{
 		$alan->inicio();
 	}
+	
 ?>
