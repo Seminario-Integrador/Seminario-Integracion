@@ -54,6 +54,8 @@
 					$usuarioAlan->mostrarRanking();
 				}else if($_GET["perfil"]=="editar"){
 					$usuarioAlan->verEditar();
+				}else if($_GET["perfil"]=="guiaDeJuego"){
+					$usuarioAlan->verGuia();
 				}else if($alan->validarPerfil($_GET["perfil"])){
 					$alan->mostrarPerfil($_GET["perfil"]);
 				}else{

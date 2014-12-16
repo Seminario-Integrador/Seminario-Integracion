@@ -195,6 +195,7 @@
 			$valores = $kit->getOptionSelect();
 			$contenido = "";
 			if($arrayOpciones!=false){
+				$contenido .= $this->reemplazar($valores, "{{valor}}", "");
 				foreach ($arrayOpciones as $valor) {
 					$contenido .= $this->reemplazar($valores, "{{valor}}", $valor);
 				}
@@ -422,5 +423,6 @@
 			$base->actualizarSubnivel($_SESSION["username"],$subnivel);
 			$base->actualizarPuntaje($_SESSION["username"], $puntaje);
 		}
+
 	}
 ?>

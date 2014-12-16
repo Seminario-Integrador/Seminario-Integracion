@@ -401,12 +401,38 @@ hr{
 	margin-top: -5.4rem;
 	margin-left: 3rem;
 }
+.h1 span{
+	border: none!Important;
+	padding: 0!Important;
+	margin: 0!Important;
+	border-radius: 0!Important;
+	background: inherit!Important;
+	font-size: inherit!Important;
+	left: inherit!Important;
+}
+.item-activo .h1 span{
+	color: #FFF;
+}
 .datos .nombre{
 	padding-left: 3rem;
 	float: left;
 }
 .datos h2{
 	font-size: 2rem;
+}
+.item-activo, .item-inactivo{
+	padding: 1rem;
+	padding-top: 1.6rem;
+	padding-bottom: 1.6rem;
+	text-align: center;
+}
+.item-activo{
+	background-color: #2980b9!Important;
+	border-color: #FFF!Important;
+}
+.item.inactivo{
+	background-color: #34495e!Important;
+	border-color: #2980b9!Important;
 }
 .datos h3{
 	font-size: 1.5rem;

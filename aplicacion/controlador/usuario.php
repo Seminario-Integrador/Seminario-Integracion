@@ -235,5 +235,21 @@
 			$plantilla = $this->verEditarFun();
 			$this->mostrarVista($plantilla);
 		}
+
+		public function verGuia()
+		{
+			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
+			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
+			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["username"]);
+			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", $_SESSION["fotoPerfil"]);
+			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
+			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioGuias.html");
+			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
+			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
+			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
+			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
+			$this->mostrarVista($plantilla);
+		}
 	}
 ?>
