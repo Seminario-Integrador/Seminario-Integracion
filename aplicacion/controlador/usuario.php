@@ -28,6 +28,7 @@
 		*/
 		public function inicioValidado()
 		{
+			$array = $this->leerPerfil($_SESSION["nombre"]);
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
 			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
 			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["username"]);
@@ -36,6 +37,8 @@
 			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioJuego.html");
 			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
 			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$barraDer = $this->reemplazar($barraDer, "{{puntos}}", $array["puntaje"]);
+			$barraDer = $this->reemplazar($barraDer, "{{nivel}}", $array["nivel"]);
 			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
 			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
 			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
@@ -245,7 +248,62 @@
 			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
 			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioGuias.html");
 			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
+			$itemActivo = $this->leerPlantilla("aplicacion/vista/itemActivo.html");
+			$itemInactivo = $this->leerPlantilla("aplicacion/vista/itemInactivo.html");
 			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
+			$usuario = new usuarioBD();
+			$datos = $usuario->obtenerDatos($_SESSION["nombre"]);
+			$lista = "";
+			$titulosGuia = array();
+			array_push($titulosGuia, "Instrucciones Secuenciales");
+			array_push($titulosGuia, "Repetición de Instrucciones");
+			array_push($titulosGuia, "Ciclos");
+			array_push($titulosGuia, "Tipos de Ciclos");
+			array_push($titulosGuia, "Condicionales");
+			array_push($titulosGuia, "Tipos de condicionales");
+
+			$textosGuia = array();
+			array_push($textosGuia, "Una acción se ejecuta detrás de otra. El flujo del programa coincide con el orden físico en el que se han ido poniendo las instrucciones.");
+			array_push($textosGuia, "Una acción puede repetirse muchas veces manualmente. Mas adelante, aprenderemos a realizarlo automaticamente con los ciclos");
+			array_push($textosGuia, "Sentencia que realiza repetidamente un conjunto de instrucciones");
+			array_push($textosGuia, "Existen varias formas de hacer ciclos: For (hacer para), While (Mientras) y Do while (Hacer mientras)");
+			array_push($textosGuia, "Algunas instrucciones se ejecutan solo si se cumple una condición previa");
+			array_push($textosGuia, "Existen las condicionales if (si), if-else (si, sino), if-else if-else (si, o si, si no) y switch" );
+
+			$nivelesGuia = array();
+			array_push($nivelesGuia, 1);
+			array_push($nivelesGuia, 1);
+			array_push($nivelesGuia, 2);
+			array_push($nivelesGuia, 2);
+			array_push($nivelesGuia, 3);
+			array_push($nivelesGuia, 3);
+
+			$subnivelesGuia = array();
+			array_push($subnivelesGuia, 0);
+			array_push($subnivelesGuia, 2);
+			array_push($subnivelesGuia, 1);
+			array_push($subnivelesGuia, 2);
+			array_push($subnivelesGuia, 1);
+			array_push($subnivelesGuia, 2);
+			for($i=0;$i<sizeof($textosGuia);$i++){
+				if($datos["nivel"]>=$nivelesGuia[$i]){
+					if($datos["subnivel"]>=$subnivelesGuia[$i]){
+						$aux = $itemActivo;
+						$aux = $this->reemplazar($aux, "{{item-titulo}}",$titulosGuia[$i]);
+						$aux = $this->reemplazar($aux, "{{item-texto}}",$textosGuia[$i]);
+					}else{
+						$aux = $itemInactivo;
+						$aux = $this->reemplazar($aux, "{{item-titulo}}",$titulosGuia[$i]);
+						$aux = $this->reemplazar($aux, "{{item-texto}}",$textosGuia[$i]);
+					}
+				}else{
+					$aux = $itemInactivo;
+					$aux = $this->reemplazar($aux, "{{item-titulo}}",$titulosGuia[$i]);
+					$aux = $this->reemplazar($aux, "{{item-texto}}",$textosGuia[$i]);
+				}
+				$lista .= $aux;
+			}
+			$barraDer = $this->reemplazar($barraDer, "{{items}}", $lista);
 			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
 			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
 			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);

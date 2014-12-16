@@ -402,6 +402,7 @@ hr{
 	margin-left: 3rem;
 }
 .h1 span{
+	position: inherit!Important;
 	border: none!Important;
 	padding: 0!Important;
 	margin: 0!Important;
@@ -410,7 +411,15 @@ hr{
 	font-size: inherit!Important;
 	left: inherit!Important;
 }
-.item-activo .h1 span{
+.item-activo, .item-inactivo{
+	height: 14rem!Important;
+}
+.item-activo .h1 span, .item-activo .h1, .item-activo p{
+	margin-bottom: 1rem;
+	color: #FFF;
+}
+.item-inactivo .h1 span, .item-inactivo .h1, .item-inactivo p{
+	margin-bottom: 1rem;
 	color: #FFF;
 }
 .datos .nombre{
@@ -430,7 +439,7 @@ hr{
 	background-color: #2980b9!Important;
 	border-color: #FFF!Important;
 }
-.item.inactivo{
+.item-inactivo{
 	background-color: #34495e!Important;
 	border-color: #2980b9!Important;
 }
