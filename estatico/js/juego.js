@@ -70,7 +70,11 @@ var nivel1 = {
 	subnivel33URL: "estatico/img/juego/subnivel1-3(3).png",
 	subnivel33OK: false,
 	subnivel4URL: "estatico/img/juego/subnivel1-4.png",
-	subnivel4OK: false
+	subnivel4OK: false,
+	subnivel51URL: "estatico/img/juego/subnivel1-5(1).png",
+	subnivel51OK: false,
+	subnivel52URL: "estatico/img/juego/subnivel1-5(2).png",
+	subnivel52OK: false
 }
 
 var posicionCastillos= {
@@ -121,8 +125,14 @@ var espacioNivel1Subnivel4= [
 [true, true, true, false, true, false, true],
 [true, true, false, true, true, false, true] 
 ];
+var espacioNivel1Subnivel5= [
+[false, false, false, true, true, true, false],
+[true, true, true, false, false, false, true],
+[true, true, false, true, false, false, false],
+[true, true, false, false, false, false, false] 
+];
 var finales=[ [830, 215],
-[850,125], [850,245], [0,0], [0,0]];
+[850,125], [850,245], [1050,245], [1050,145]];
 var subnivel13=[false, false];
 var espada=false;
 var subnivel13 = [false, false];
@@ -282,6 +292,8 @@ function dibujarSubnivel (i) {
 			dibujarNivel1Subnivel3();
 		}else if(i==3){
 			dibujarNivel1Subnivel4();
+		}else if(i==4){
+			dibujarNivel1Subnivel5();
 		}
 	}
 }
@@ -298,6 +310,8 @@ function dibujarJuego () {
 		dibujarJuegoNivel1Subnivel3();
 	}else if(pantalla=="nivel1subnivel4"){
 		dibujarJuegoNivel1Subnivel4();
+	}else if(pantalla=="nivel1subnivel5"){
+		dibujarJuegoNivel1Subnivel5();
 	}
 }
 
@@ -334,6 +348,8 @@ function clicPrincipal(){
 								pantalla = "nivel1subnivel3";
 							}else if(i==3){
 								pantalla="nivel1subnivel4";
+							}else if(i==4){
+								pantalla="nivel1subnivel5";
 							}
 						}
 					}
@@ -394,6 +410,18 @@ function clicPrincipal(){
 					pantalla = "nivel1";
 				}
 			}
+		}else if(pantalla=="nivel1subnivel5"){
+			if(x>=28 && x<= 218){
+				if(y>=431 && y<=486){
+					dibujarJuego(i);
+					pantalla = "nivel1subnivel5juego";
+				}
+			}else if(x>=237 && x<= 422){
+				if(y>=431 && y<=486){
+					dibujarNivel(1);
+					pantalla = "nivel1";
+				}
+			}
 
 		}else if(pantalla=="nivel1subnivel1juego" && !banderaCola){			
 			if(x>=28 && x<= 218){
@@ -445,6 +473,19 @@ function clicPrincipal(){
 					pantalla = "nivel1";
 					dibujarSubnivel(3);
 					pantalla = "nivel1subnivel4";
+				}
+			}
+		}else if(pantalla=="nivel1subnivel5juego"){			
+			if(x>=28 && x<= 218){
+				if(y>=431 && y<=486){
+					validarCodigo();
+				}
+			}else if(x>=237 && x<= 422){
+				if(y>=431 && y<=486){
+					ocultarBlock();
+					pantalla = "nivel1";
+					dibujarSubnivel(3);
+					pantalla = "nivel1subnivel5";
 				}
 			}
 		}
@@ -588,6 +629,10 @@ function cargarNivel1 () {
 	nivel1.subnivel33Imagen.src = nivel1.subnivel33URL;
 	nivel1.subnivel4Imagen = new Image();
 	nivel1.subnivel4Imagen.src = nivel1.subnivel4URL;
+	nivel1.subnivel51Imagen = new Image();
+	nivel1.subnivel51Imagen.src = nivel1.subnivel51URL;
+	nivel1.subnivel52Imagen = new Image();
+	nivel1.subnivel52Imagen.src = nivel1.subnivel52URL;
 	control.imagenInicial = new Image();
 	control.imagenInicial.src = control.imagenInicialURL;
 	control.imagenFinal = new Image();
@@ -868,6 +913,84 @@ function pintarTablero4(){
 	tablero.fillText("Atrás",300,460);
 }
 
+//------------------------------------   Subnivel 5   ------------------------------------//
+
+
+var botonOp=false;
+/**
+* Método que dibuja el canvas correspondiente al subnivel 5 del nivel 1
+*/
+function dibujarNivel1Subnivel5(){
+	subnivelActual=4;
+	botonOp=false;
+	espacioNivel1Subnivel5[2][2]=false;
+	espacioNivel1Subnivel5[1][3]=false;
+	espacioNivel1Subnivel5[1][5]=false;
+	espada=true;
+	pintarTablero5();
+	alanTableroX = 350;
+	alanTableroY = 245;
+	alanImagenX = 0;
+	alanImagenY = 3;
+	tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+	avanzarAnimado();
+	avanzarAnimado();
+}
+
+/**
+* Método que dibuja el canvas y el blockly correspondiente al subnivel 5 del nivel 1
+*/
+function dibujarJuegoNivel1Subnivel5() {
+	espada=true;
+	tablero.drawImage(nivel1.subnivel51Imagen,0,0);
+	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.fillStyle = '#000';
+	alanTableroX = 550;
+	alanTableroY = 245;
+	tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+	tablero.fillText("Enviar",90,460);
+	tablero.fillText("Atrás",300,460);
+	var toolbox = '<xml>';
+	toolbox += '  <block type="avanzar"></block>';
+	toolbox += '  <block type="girar"></block>';
+	toolbox += '  <block type="saltar"></block>';
+	toolbox += '  <block type="oprimirboton"></block>';
+	toolbox += '</xml>';
+	desplegarBlock();
+	document.getElementById('blocklyDiv').innerHTML="";
+	Blockly.inject(document.getElementById('blocklyDiv'),
+		{toolbox: toolbox});
+	actualx=1;
+    actualy=2;
+}
+
+/**
+* Método que dibuja las instrucciones correspondientes al subnivel 5 del nivel 1
+*/
+function pintarTablero5(){
+	if(botonOp){
+		tablero.drawImage(nivel1.subnivel52Imagen,0,0);
+	}else{
+		tablero.drawImage(nivel1.subnivel51Imagen,0,0);
+	}	
+	tablero.drawImage(control.imagenInicial,0,0);
+	tablero.font = "bold 22px sans-serif";
+	tablero.fillStyle = '#000';
+	tablero.fillText("¡No todos los hechiceros son malos!",50,50);
+	tablero.fillText("Llegaste hasta ella, ¡Muy bien! ",50,80);
+	tablero.fillText("Su ropa sencilla representa la luz," ,50,110);
+	tablero.fillText("esta hechicera es de las buenas.",50,140);
+	tablero.fillText("Ve en tus ojos el brilo de la verdad",50,170);
+	tablero.fillText("y te entrega la poción, pero como",50,200);
+	tablero.fillText("prueba de tu tenacidad debes llegar",50,230);
+	tablero.fillText("hasta ella.",50,260);
+	tablero.fillText("Tu reto:",170,320);
+	tablero.fillText("Recorre el camino hasta la poción,",50,350);
+	tablero.fillText("ubícate sobre ella y tómala.",50,380);;
+	tablero.fillText("Jugar",90,460);
+	tablero.fillText("Atrás",300,460);
+}
+
 
 //------------------------------------   Mover a Alan   ------------------------------------//
 
@@ -895,6 +1018,9 @@ function avanzarIntervalo () {
 			}else if(subnivelActual==3){
 				espacioT = espacioNivel1Subnivel4;
 				pintarTablero4();
+			}else if(subnivelActual==4){
+				espacioT = espacioNivel1Subnivel5;
+				pintarTablero5();
 			}
 			tablero.fillStyle = '#999';
 			tablero.fillText("Jugar",90,460);
@@ -1043,7 +1169,7 @@ function girarIntervalo (direccion) {
 */
 function oprimirBotonIntervalo(){
 	if(intervalo<1){
-		if(!subnivel13[0] && !espada){
+		if(subnivelActual==2 && !subnivel13[0] && !espada){
 			setTimeout(function(){
 				subnivel13[0]=true;
 				espacioNivel1Subnivel3[2][2]=true;
@@ -1060,6 +1186,22 @@ function oprimirBotonIntervalo(){
 				}
 				oprimirBotonIntervalo();
 			}, 500);
+		}else if(subnivelActual==4 && !botonOp){
+			setTimeout(function(){
+				botonOp=true;
+				espacioNivel1Subnivel5[2][2]=true;
+				espacioNivel1Subnivel5[1][3]=true;
+				espacioNivel1Subnivel5[1][5]=true;				
+				tablero.drawImage(nivel1.subnivel52Imagen,0,0);
+				tablero.drawImage(control.imagenInicial,0,0);
+				tablero.fillStyle = '#999';
+				tablero.fillText("Jugar",90,460);
+				tablero.fillText("Atrás",300,460);
+				intervalo++;
+				tablero.drawImage(castillos.imagenAlanEspada,(alanImagenX)*alanAncho,(alanImagenY)*alanAlto,alanAncho,alanAlto,alanTableroX,alanTableroY,alanAncho, alanAlto);	
+				oprimirBotonIntervalo();
+			}, 500);
+
 		}
 	}
 	else{
@@ -1153,6 +1295,9 @@ function saltarIntervalo(){
 			}else if(subnivelActual==3){
 				espacioT = espacioNivel1Subnivel4;
 				pintarTablero4();
+			}else if(subnivelActual==4){
+				espacioT = espacioNivel1Subnivel5;
+				pintarTablero5();
 			}
 			tablero.fillStyle = '#999';
 			tablero.fillText("Jugar",90,460);
@@ -1238,7 +1383,7 @@ function saltarIntervalo(){
 			}
 			intervalo++;
 			saltarIntervalo();
-		},500);
+		},250);
 	}else{
 		intervalo=0;
 		if(colaAcciones.length!=0){
@@ -1341,6 +1486,8 @@ function avanzarIntervaloAnimado() {
 				pintarTablero3();
 			}else if(subnivelActual==3){
 				pintarTablero4();
+			}else if(subnivelActual==4){
+				pintarTablero5();
 			}
 
 			if(alanImagenY==3){
@@ -1442,6 +1589,10 @@ function alertaError(){
 			espacioNivel1Subnivel3[2][2]=false;
 			espada=false;
 			dibujarJuegoNivel1Subnivel3();
+		}else if(subnivelActual==3){
+			dibujarJuegoNivel1Subnivel4();
+		}else if(subnivelActual==4){
+			dibujarJuegoNivel1Subnivel5();
 		}
 	}, 1000);
 }
@@ -1452,9 +1603,14 @@ function alertaError(){
 function actualizarJSON(){
 	if(valores["nivel"]==1){
 		if(subnivelActual==valores["subnivel"]){
+			if(subnivelActual==4){
+				//valores["subnivel"] = 0;
+				valores["nivel"] = 2;
+			}else{
+				subnivelActual++;
+				valores["subnivel"] = subnivelActual;
+			}
 			valores['puntaje']=parseInt(valores['puntaje'])+((subnivelActual+1)*10);
-			subnivelActual++;
-			valores["subnivel"] = subnivelActual;
 		}		
 	}
 	enviarAjax();
