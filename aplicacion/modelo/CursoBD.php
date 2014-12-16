@@ -31,27 +31,6 @@
 			$this->desconectar();
 		}
 
-
-		/**
-		*	Método que permite listar todos los cursos existentes
-		*	@return un array con el nombre de los cursos existentes o un false en caso de que no hallan cursos registrados
-		*/
-		public function listarCursos()
-		{
-			$this->conectar("localhost", "root", "", "alangame");
-			$aux=$this->consultar("SELECT nombreCurso FROM curso");
-			$this->desconectar();
-			$cursos=array();
-			while($fila=mysqli_fetch_array($aux)){
-				array_push($cursos, $fila[0]);
-			}
-
-			if(count($cursos)>0){
-				return $cursos;
-			}else{
-				return false;
-			}
-		}
 		 
 		/**
 		*	Método que permite actualizar el docente que dirige un curso
@@ -65,6 +44,54 @@
 			$this->desconectar();
 		}
 
+		/**
+		* Método que se encarga de listar los cursos que el docente ha creado
+		* @param username - nombre del docente del que se listan los cursos
+		* @return vector de cursos
+		*/
+		public function listarCursos($username)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux = $this->consultar("SELECT nombreCurso FROM curso WHERE usernameD='".$username."'");
+			$retorno = array();
+			while($fila=mysqli_fetch_array($aux)){
+				array_push($retorno, $fila["nombreCurso"]);
+			}
+			$this->desconectar();
+			return $retorno;
+		}
+
+		/**
+		* Método que obtiene todos los alumnos en un curso
+		*/
+		public function obtenerAlumnos($curso)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux = $this->consultar("SELECT u.nombre, u.nivel, u.subnivel, u.puntaje FROM usuario u, curso c WHERE c.nombreCurso='".$curso."' AND c.nombreCurso=u.nombreCurso");
+			$retorno = array();
+			while($fila=mysqli_fetch_array($aux)){
+				array_push($retorno, $fila);
+			}
+			$this->desconectar();
+			return $retorno;
+		}
+
+
+		public function listaDeCursos()
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT nombreCurso FROM curso");
+			$cursos=array();
+			while($fila=mysqli_fetch_array($aux)){
+				array_push($cursos, $fila[0]);
+			}
+			$this->desconectar();
+			if(count($cursos)>0){
+				return $cursos;
+			}else{
+				return false;
+			}
+		}
 	}
 	
 ?>
