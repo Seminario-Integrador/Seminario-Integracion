@@ -330,75 +330,81 @@
 
 
 		/**
-		*	Método que se encarga de enviar un correo electronico recordar la contraseña del usuario
+		*	Método que se encarga de enviar un correo electronico para reestablecer la contraseña del usuario
 		*	@param   $correo - correo del usuario al cual se le enviaran los pasos a seguir
 		*	@param   $user - nombre del usuario al cual se le enviará el correo
 		*	@param   $enlace - enlace a traves del cual podrá recuperar la contraseña
 		*/
-		public function enviarVerificacion($correo, $user, $enlace)
-		{	$link= "http://localhost/integrador/Seminario-Integracion/index.php?recuperar="+sha1($enlace);
-			$asunto = "Recuperar Contraseña - Alan y el reino de Eniac";
-			//$mensaje = "Hola ".$user." ¿Como va todo? \n Enviamos este mensaje porque has solicitado cambiar tu contraseña en Alan y el reino 
-			//de Eniac. Si realmente solicitaste este cambio haz clic en el siguiente link o copialo y pegalo en tu navegador. De lo contrario, elimina este mensaje. \n".$link."
-			//\n Att. El equipo De Alan \n Gerson Lazaro-Melissa Delgado \n Ingenieria de Sistemas UFPS";
-			$mensaje = "holiwis"; 
-			$vari = mail($correo, $asunto, $mensaje);
-			if($vari){
-				echo "se envio";
+		public function enviarVerificacion($correo, $user, $enlace){
+			header('Location: http://alanyeniac.esy.es/recordarPassword.php?correo='.$correo.'&user='.$user.'&enlace='.$enlace);
+		}
+
+		/**
+		* Valida el link enviado por correo, y si es correcto permite cambiar la contraseña
+		* @param correo - Correo electronico de la cuenta a cambiar
+		* @param validacion - clave secretra generada por SHA al correo.
+		*/
+		public function reestablecerPassword($correo, $validacion)
+		{
+			$modeloBD = new usuarioBD();
+			$user = $modeloBD->buscarCorreo($correo);
+			if($user!=false){
+				$pass = $modeloBD->buscarps($correo);
+				$pass = sha1($pass);
+				if($pass==$validacion){
+					$inicio = $this->leerPlantilla("aplicacion/vista/splash2.html");
+					$inicio = $this->reemplazar($inicio, "{{correo}}", $correo);
+					$inicio = $this->reemplazar($inicio, "{{validacion}}", $validacion);
+					$this->mostrarVista($inicio);
+				}else{
+					$this->acuse("Revise el link", "Su correo y clave secreta no coinciden, o la contraseña ya fué reestablecida.");
+				}
 			}else{
-				echo "no se envio";
+				$this->acuse("Revise el link", "El correo suministrado no existe");
 			}
-
 		}
 
 
-		/**
-		* NO SE SABE xD 
-		*/
-		public function enviarVerificacio($value='')
+		public function reestablecerContra($pass, $pass2, $correo, $validacion)
 		{
-			# code...
+			$modeloBD = new usuarioBD();
+			$user = $modeloBD->buscarCorreo($correo);
+			if($user!=false){
+				$passw = $modeloBD->buscarps($correo);
+				$passw2 = sha1($passw);
+				if($passw2==$validacion){
+					if($pass==$pass2){
+						$aux = $modeloBD->cambiarPassword($modeloBD->buscarUsername($correo), $passw, sha1($pass));
+						if($aux){
+							$this->inicio();
+							$this->acuse("Contraseña cambiada con exito", "Ahora puedes iniciar sesión");
+						}else{
+							$this->acuse("Ha ocurrido un error", "Intentalo de nuevo");
+						}
+					}else{
+						$this->reestablecerPassword($correo, $validacion);
+						$this->acuse("Las contraseñas no coinciden", "Intentalo de nuevo");
+					}
+				}else{
+					$this->acuse("Revise el link", "Su correo y enlace no coinciden, o la contraseña ya fué reestablecida.");
+				}
+			}else{
+				$this->acuse("Revise el link", "El correo suministrado no existe");
+			}
 		}
 
 
 		/**
-		*	Método que se encargá de mostrar una alerta si el correo electrónico fue enviado exitosamente
+		*	Método que se encargá de mostrar una alerta
 		*/
-		public function acuseCorreoEnviado()
+		public function acuse($titulo, $texto)
 		{
 			$inicio = $this->leerPlantilla("aplicacion/vista/splash.html");
 			$inicio = $this->reemplazar($inicio, "{{selectCursos}}", $this->leerCursos());
-			$inicio = $this->alerta($inicio, "Revise su correo", "Se ha enviado un correo a su buzón con las instrucciones");
+			$inicio = $this->alerta($inicio, $titulo, $texto);
 			$this->mostrarVista($inicio);
 		}
 
-
-		/**
-		*	Método que se encargá de mostrar una alerta si el correo electrónico no fue enviado 
-		*/
-		public function acuseCorreoNoValido()
-		{
-			$inicio = $this->leerPlantilla("aplicacion/vista/splash.html");
-			$inicio = $this->reemplazar($inicio, "{{selectCursos}}", $this->leerCursos());
-			$inicio = $this->alerta($inicio, "Verifique sus datos", "El correo suministrado no se encuentra en nuestra base");
-			$this->mostrarVista($inicio);
-		}
-
-
-		/**
-		*	Método que se encargá de generar una nueva contraseña temporal para ser reestablecida
-		*/
-		function generarPassword (){
-		  $string = "";
-		  $posible = "0123456789abcdfghjkmnpqrstvwxyz";
-		  $i = 0;
-		  while ($i < 8) {
-		    $char = substr($posible, mt_rand(0, strlen($posible)-1), 1);
-		    $string .= $char;
-		    $i++;
-		  }
-		  return $string;
-		}
 
 
 		/**

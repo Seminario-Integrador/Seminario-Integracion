@@ -328,6 +328,19 @@
 
 
 		/**
+		*	Método que se encarga de consultar username de un usuario a traves de su correo
+		*	@param $correo - Correo del usuario
+		*	@return nombre del usuario
+		*/
+		public function buscarUsername($correo)
+		{
+			$this->conectar("localhost", "root", "", "alangame");
+			$aux=$this->consultar("SELECT username FROM usuario WHERE correo='".$correo."'");
+			$this->desconectar();
+			return mysqli_fetch_array($aux)[0];
+		}
+
+		/**
 		*	Método que se encarga de consultar la contraseña de un usuario a traves de su correo
 		*	@param $correo - Correo del usuario
 		*	@return contraseña encriptada del usuario

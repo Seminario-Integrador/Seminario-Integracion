@@ -57,7 +57,7 @@
 				}else if($alan->validarPerfil($_GET["perfil"])){
 					$alan->mostrarPerfil($_GET["perfil"]);
 				}else{
-					header('location:index.php');
+					$usuarioAlan->inicioValidado();
 				}
 			}else if(isset($_GET["JSON"]) && isset($_SESSION["username"])){
 				$alan->obtenerJSON();
@@ -87,17 +87,30 @@
 		}else if($_POST["tipo"]=="recordarPass"){
 			$registro = $alan->recordarPass($_POST["email"]);
 			if($registro){
-				$alan->acuseCorreoEnviado();
+				$alan->acuse("Revise su correo", "Se ha enviado un correo a su buzón con las instrucciones");
 			}else{
-				$alan->acuseCorreoNoValido();
+				$alan->acuse("Verifique sus datos", "El correo suministrado no se encuentra en nuestra base");
 			}
 		}else if($_POST["tipo"]=="registroDocente"){
 			$alan->registroDocente($_POST["usuario"], $_POST["nombre"] ,$_POST["codigo"], $_POST["email"], $_POST["contrasena"]);
+		}else if($_POST["tipo"]=="reestablecerPass"){
+			$alan->reestablecerContra($_POST["pass"], $_POST["passRepetida"], $_POST["correo"], $_POST["validacion"]);
 		}
 	}else if(isset($_GET["perfil"])){
 		if($_GET["perfil"]=="registrarDocente"){
 			$alan->inicioDocente();
+		}else{
+			$alan->inicio();
 		}
+	}else if(isset($_GET["recuperado"])){
+		if($_GET["recuperado"]=="si"){
+			$alan->acuse("Revise su correo", "Se ha enviado un correo a su buzón con las instrucciones");
+		}else{
+			$alan->acuse("Verifique sus datos", "El correo suministrado no se encuentra en nuestra base");
+		}
+
+	}else if(isset($_GET["correo"]) && isset($_GET["recuperar"])){
+		$alan->reestablecerPassword($_GET["correo"], $_GET["recuperar"]);
 	}else{
 		$alan->inicio();
 	}
