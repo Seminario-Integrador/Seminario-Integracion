@@ -28,7 +28,6 @@
 		*/
 		public function inicioValidado()
 		{
-			$array = $this->leerPerfil($_SESSION["nombre"]);
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
 			$barraIzq = $this->leerPlantilla("aplicacion/vista/lateralIzquierda.html");
 			$barraIzq = $this->reemplazar($barraIzq, "{{username}}", $_SESSION["username"]);
@@ -37,8 +36,6 @@
 			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioJuego.html");
 			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
 			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
-			$barraDer = $this->reemplazar($barraDer, "{{puntos}}", $array["puntaje"]);
-			$barraDer = $this->reemplazar($barraDer, "{{nivel}}", $array["nivel"]);
 			$footer = $this->leerPlantilla("aplicacion/vista/footer.html");
 			$plantilla = $this->reemplazar($plantilla, "{{lateralDerecha}}", $barraDer);
 			$plantilla = $this->reemplazar($plantilla, "{{footer}}", $footer);
@@ -175,6 +172,7 @@
 		*/
 		public function mostrarRanking()
 		{
+			$social = $this->leerPerfil($_SESSION["nombre"]);
 			$ranking = new Modelo();
 			$array = $ranking->obtenerRanking();
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");
@@ -183,6 +181,8 @@
 			$barraIzq = $this->reemplazar($barraIzq, "{{fotoPerfil}}", $_SESSION["fotoPerfil"]);
 			$plantilla = $this->reemplazar($plantilla, "{{lateralIzquierda}}", $barraIzq);
 			$barraDer = $this->leerPlantilla("aplicacion/vista/espacioRanking.html");
+			$barraDer = $this->reemplazar($barraDer, "{{puntos}}", $social["puntaje"]);
+			$barraDer = $this->reemplazar($barraDer, "{{nivel}}", $social["nivel"]);
 			$superiorDer = $this->leerPlantilla("aplicacion/vista/superiorDerecho.html");
 			$barraDer = $this->reemplazar($barraDer, "{{superior}}", $superiorDer);
 			$posicion = $this->leerPlantilla("aplicacion/vista/personaRanking.html");
