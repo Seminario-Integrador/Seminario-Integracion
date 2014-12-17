@@ -1,3 +1,20 @@
+ 	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
+ 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
+ 	*             SAN JOSE DE CUCUTA-2014
+	 * ............................................
+ 	*/
+
+	/**
+	*	Estilos en cascada solo para la pagina de inicio, reestablecimiento de contraseña y registroDocente
+	*	Estas paginas ademas tienen estilos disponibles en styles.css
+	 *	@author - Gerson Yesid Lázaro 
+ 	*	@author - Angie Melissa Delgado
+	*/
+/******************************DISPOSICIONES GENERALES*************************************/	
+
 h1{
 	font-size: 2.2rem;
 }
@@ -10,6 +27,9 @@ h1{
 .logo{
 	margin-left: 5%;
 }
+
+
+/*************************************BOTONES********************************************/
 .botones{
 	float: right;
 }
@@ -43,6 +63,9 @@ h1{
 	background-color: #2980b9;
 	color #FFF; 
 }
+
+
+/*********************************DÍSPOSICIÓN DE CONTENIDO***************************************/
 .contenido{
 	background-color: #ecf0f1;
 	padding: 3rem;

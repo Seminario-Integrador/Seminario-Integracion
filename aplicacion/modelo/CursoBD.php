@@ -19,6 +19,7 @@
 	*/
 	class CursoBD extends Modelo{
 
+
 		/**
 		*	Método que se encarga de crear la consulta para guardar un nuevo curso en la Base de Datos.
 		*	@param $nombreCurso - Nombre del curso a registrar
@@ -44,6 +45,7 @@
 			$this->desconectar();
 		}
 
+
 		/**
 		* Método que se encarga de listar los cursos que el docente ha creado
 		* @param username - nombre del docente del que se listan los cursos
@@ -61,8 +63,11 @@
 			return $retorno;
 		}
 
+
 		/**
-		* Método que obtiene todos los alumnos en un curso
+		* 	Método que obtiene todos los alumnos en un curso
+		*	@param $curso - Curso del cual se verán los alumnos
+		*	@return Un array con los datos de los alumnos del curso. Este contiene su nombre, nivel, subnivel y puntaje
 		*/
 		public function obtenerAlumnos($curso)
 		{
@@ -76,6 +81,11 @@
 			return $retorno;
 		}
 
+
+		/**
+		*	Lista todos los cursos existentes en la plataforma, para usarse en el registro
+		*	@return Un array con los cursos
+		*/
 
 		public function listaDeCursos()
 		{

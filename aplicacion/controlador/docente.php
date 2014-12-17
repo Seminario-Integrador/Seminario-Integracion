@@ -56,7 +56,7 @@
 
 
 		/**
-		* Metodo que permite listar los cursos de un docente, con sus alumnos
+		* 	Metodo que permite listar los cursos de un docente, con sus alumnos
 		*/
 		public function listarCursos()
 		{

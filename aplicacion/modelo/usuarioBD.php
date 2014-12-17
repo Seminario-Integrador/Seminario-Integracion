@@ -20,6 +20,7 @@
 	*/
 	class UsuarioBD extends Modelo{
 
+
 		/**
 		*	Método que se encarga de crear la consulta para guardar un nuevo usuario en la Base de Datos.
 		*	@param $username - Username del usuario a registrar
@@ -39,6 +40,7 @@
 			}
 			$this->desconectar();
 		}
+
 
 		/**
 		*	Método que se encarga de crear la consulta para loguear un usuario en la Aplicación
@@ -66,6 +68,7 @@
 			}
 		}
 
+
 		/**
 		*	Método que se encarga de consultar los datos de un usuario
 		*	@param $username - Username del usuario 
@@ -91,6 +94,7 @@
 			}
 		}
 
+
 		/**
 		*	Método que se encarga de actualizar el nivel de un usuario
 		*	@param $username - Username del usuario 
@@ -102,6 +106,7 @@
 			$aux=$this->consultar("UPDATE usuario SET nivel='".$nivel."' WHERE username='".$username."'");
 			$this->desconectar();
 		}
+
 
 		/**
 		*	Método que se encarga de actualizar el subnivel de un usuario
@@ -115,6 +120,7 @@
 			$this->desconectar();
 		}
 
+
 		/**
 		*	Método que se encarga de actualizar el puntaje de un usuario
 		*	@param $username - Username del usuario 
@@ -126,6 +132,7 @@
 			$aux=$this->consultar("UPDATE usuario SET puntaje=".$puntos." WHERE username='".$username."'");
 			$this->desconectar();
 		}
+
 
 		/**
 		*	Método que se encarga de obtener el nivel de un usuario
@@ -145,6 +152,7 @@
 			return $nivel;
 		}
 
+
 		/**
 		*	Método que se encarga de obtener el subnivel de un usuario
 		*	@param $username - Username del usuario 
@@ -163,6 +171,7 @@
 			return $subnivel;
 		}
 
+
 		/**
 		*	Método que se encarga de actualizar el nombre de un usuario
 		*	@param $username - Username del usuario 
@@ -175,6 +184,7 @@
 			$this->desconectar();
 			return $aux;
 		}
+
 
 		/**
 		*	Método que se encarga de actualizar la descripcion de un usuario
@@ -189,6 +199,7 @@
 			return $aux;
 		}
 
+
 		/**
 		*	Método que se encarga de actualizar la imagen de perfil de un usuario
 		*	@param $username - Username del usuario 
@@ -201,6 +212,7 @@
 			$this->desconectar();
 			return $aux;
 		}
+
 
 		/**
 		*	Método que se encarga de actualizar la imagen de portada de un usuario
@@ -215,6 +227,7 @@
 			return $aux;
 		}
 		
+
 		/**
 		*	Método que se encarga de actualizar los datos de un usuario
 		*	@param $username - Username del usuario 
@@ -232,6 +245,7 @@
 			$this->desconectar();
 		}
 
+
 		/**
 		*	Método que se encarga de registrar las medallas que halla ganado un usuario
 		*	@param $username - Username del usuario 
@@ -243,6 +257,7 @@
 			$this->consultar("INSERT INTO usuario-medalla VALUES('".$username."','".$logro."')");
 			$this->desconectar();
 		}
+
 
 		/**
 		*	Método que lista todas las medallas que puede ganar un usuario
@@ -262,6 +277,7 @@
 			return $datos;
 		}
 
+
 		/**
 		*	Método que se encarga de consultar los datos de un usuario
 		*	@param $username - Username del usuario 
@@ -279,6 +295,7 @@
 
 			return $datos;
 		}
+
 
 		/**
 		*	Método que lista todas las medallas que tiene un usuario
@@ -299,6 +316,7 @@
 			return $datos;
 		}
 
+
 		/**
 		*	Método que se encarga de cambiar el password de un usuario
 		*	@param $username - Username del usuario 
@@ -312,6 +330,7 @@
 			$this->desconectar();
 			return $aux;
 		}
+
 
 		/**
 		*	Método que se encarga de consultar nombre de un usuario a traves de su correo
@@ -339,6 +358,7 @@
 			$this->desconectar();
 			return mysqli_fetch_array($aux)[0];
 		}
+
 
 		/**
 		*	Método que se encarga de consultar la contraseña de un usuario a traves de su correo

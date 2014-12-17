@@ -25,7 +25,7 @@
 
 
 		/**
-		* Metodo que toma el archivo estatico de la pagina inicial y lo carga 
+		* Metodo que toma el archivo estatico de la pagina inicial y lo carga en pantalla
 		*/
 		public function inicio()
 		{
@@ -261,6 +261,7 @@
 
 		/**
 		*	Método que se encarga de mostrar el perfil del Usuario
+		*	@param $nombre - username del usuario del cual se desea ver perfil
 		*/
 		public function mostrarPerfil($nombre)
 		{
@@ -365,7 +366,15 @@
 			}
 		}
 
-
+		/**
+		*	Metodo que se encarga de guardar en la base de datos una contraseña nueva
+		*	Cuando el usuario la ha olvidado.
+		*	Este metodo solo puede ser accedido desde el mensaje recibido en el correo
+		*	@param $pass - Nueva contraseña
+		*	@param $pass2 - Nueva contraseña (el usuario debe escribiarla dos veces para verificar que esté bien escrita)
+		*	@param $correo - Correo electronico del usuario que cambia la contraseña
+		*	@param $validacion - Valor aleatorio para verificar que el usuario realmente recibió el correo
+		*/
 		public function reestablecerContra($pass, $pass2, $correo, $validacion)
 		{
 			$modeloBD = new usuarioBD();
@@ -396,7 +405,9 @@
 
 
 		/**
-		*	Método que se encargá de mostrar una alerta
+		*	Método que se encargá de mostrar una alerta modal en html utilizando javascript
+		*	@param $titulo - Titulo de la alerta
+		* 	@param $texto - Mensaje de la alerta
 		*/
 		public function acuse($titulo, $texto)
 		{
@@ -416,6 +427,14 @@
 			$usuario = new usuarioBD();
 			echo json_encode($usuario->getUsuario($_SESSION["username"]));
 		}
+
+		/**
+		*	Metodo que actualiza el avance del usuario en el juego
+		*	Este metodo se activará desde el javascript via Ajax cuando un usuario supera un nivel
+		* 	@param $nivel - Nuevo nivel del usuario
+		* 	@param $subnivel - Nuevo subnivel del usuario
+		*	@param $puntaje - Nuevo puntaje del usuario
+		*/
 		public function actualizarJuego($nivel, $subnivel, $puntaje)
 		{
 			$base = new usuarioBD();

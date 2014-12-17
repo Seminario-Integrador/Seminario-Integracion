@@ -14,6 +14,8 @@
 	* @author Angie Melissa Delgado León 1150990
 */
 
+
+//Declaración de variables para la fisica del juego
 var espacio;
 var tablero;
 var subnivelActual;
@@ -271,7 +273,8 @@ function dibujar(){
 }
 
 /**
-* Método que realiza el llamado al método que pinta el nivel correspondiente al nivel del usuario.
+*	Método que realiza el llamado al método que pinta el nivel correspondiente al nivel del usuario.
+*	@param i - Nivel a dibujar
 */
 function dibujarNivel (i) {
 	if(i==1){
@@ -280,7 +283,8 @@ function dibujarNivel (i) {
 }
 
 /**
-* Método que realiza el llamado al método que pinta el subnivel correspondiente al nivel y al subnivel del usuario.
+*	Método que realiza el llamado al método que pinta el subnivel correspondiente al nivel y al subnivel del usuario.
+*	@param i - Subnivel a dibujar
 */
 function dibujarSubnivel (i) {
 	if(pantalla=="nivel1"){

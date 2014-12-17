@@ -49,6 +49,10 @@
 			return mysqli_query($this->conexion,$sql);
 		}
 
+		/**
+		*	Metodo que devuelve el ranking de mejores alumnos en la plataforma
+		*	@return Los valires (username, nivel y puntaje) de los 10 mejores estudiantes
+		*/
 		public function obtenerRanking()
 		{
 			$this->conectar("localhost", "root", "", "alangame");

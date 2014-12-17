@@ -1,7 +1,29 @@
+	/**
+ 	* .............................................
+ 	* UNIVERSIDAD  FRANCISCO  DE  PAULA  SANTANDER
+ 	*    PROGRAMA  DE  INGENIERIA  DE  SISTEMAS
+ 	*      ALAN Y EL MISTERIOSO REINO DE ENIAC
+ 	*             SAN JOSE DE CUCUTA-2014
+	 * ............................................
+ 	*/
+
+
+ 	/**
+ 	*	Archivo encargado de controlar el desplazamiento del menu, su ocultamiento,
+	* 	Las ventanas modales, y otras disposiciones del diseño web
+ 	*	@author - Gerson Yesid Lázaro 
+ 	*	@author - Angie Melissa Delgado
+ 	*/
+
 var activo = false;
 var left = document.getElementById('left');
 var right = document.getElementById('right');
 var sesion = document.getElementById("cerrarSesion");
+
+
+/**
+*	Controla el movimiento del menu. Si esta oculto lo despliega en pantalla y viceversa
+*/
 function desplegar () {
 	if(activo){
 		if(window.innerWidth>=1200){
@@ -29,6 +51,11 @@ function desplegar () {
 	setTimeout(obtenerCoordenadas,300);
 	activo = !activo;
 }
+
+/**
+*	Muestra el menú si esta oculto
+*	Realiza ajuste en pantallas pequeñas
+*/
 function mostrar () {
 	if(!activo){
 		if(window.innerWidth>=768){
@@ -39,6 +66,11 @@ function mostrar () {
 		}
 	}
 }
+
+/**
+*	Oculta el menú si esta activo
+*	Realiza ajuste en pantallas pequeñas
+*/
 function ocultar () {
 	if(!activo){
 		if(window.innerWidth>=1200){
@@ -55,6 +87,10 @@ function ocultar () {
 		}
 	}
 }
+
+/**
+*	Activa el formulario cerrarSesion desde el boton
+*/
 function cerrarSesion() {
 	document.cerrarS.submit();
 }
@@ -63,7 +99,9 @@ left.addEventListener("mouseout", ocultar);
 left.addEventListener("click", desplegar);
 sesion.addEventListener("click", cerrarSesion);
 
-
+/**
+*	Genera alertas modales
+*/
 function alerta () {
 
 	var content = "";
@@ -86,12 +124,20 @@ function alerta () {
 	}, arguments[2]+1000 ||  11000);
 }
 var block = document.getElementById("blocklyDiv");
+
+/**
+*	Muestra el bloque del API Blockly
+*/
 function desplegarBlock () {
 	block.style.display = "block";
 	setTimeout(function () {
 		block.style.opacity = "1";
 	},150);
 }
+
+/**
+*	Oculta el bloque del API Blockly
+*/
 function ocultarBlock () {
 	block.style.opacity=0;
 	setTimeout(function () {

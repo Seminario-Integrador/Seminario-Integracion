@@ -207,6 +207,7 @@
 
 		/**
 		*	Método que se encarga de personalizar la página con los datos del usuario
+		*	@return $plantilla - Retorna la plantilla de edición del usuario
 		*/
 		public function verEditarFun()
 		{
@@ -238,7 +239,10 @@
 			$plantilla = $this->verEditarFun();
 			$this->mostrarVista($plantilla);
 		}
-
+		/**
+		*	Metodo que se encarga de mostrar en pantalla las guias activas e inactivas del usuario
+		*	según su nivel actual.
+		*/
 		public function verGuia()
 		{
 			$plantilla = $this->leerPlantilla("aplicacion/vista/index.html");

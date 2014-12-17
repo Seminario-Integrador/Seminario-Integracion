@@ -8,20 +8,38 @@
  	*             SAN JOSE DE CUCUTA-2014
 	 * ............................................
  	*/
+
+
+ 	/**
+ 	*	Enrutador
+ 	* 	Este archivo se encarga de detectar las peticiones (interacciones) que realiza el usuario
+ 	*	Y llamar al controlador correspondiente a llevar a cabo la acción solicitada
+ 	*	@author - Gerson Yesid Lázaro 
+ 	*	@author - Angie Melissa Delgado
+ 	*/
 	session_start();
 	require "aplicacion/controlador/controlador.php";
 	require "aplicacion/controlador/usuario.php";
 	require "aplicacion/controlador/docente.php";
 	$alan = new controlador();
+
+	//Si la variable de sesión "tipoUsuario" existe, el usuario está logueado
 	if(isset($_SESSION["tipoUsuario"])){
+		//Si la variable de post "tipo" existe, el usuario ha enviado un formulario
 		if(isset($_POST["tipo"])){
+			//Si la variable tipo tiene el valor cerrar, el usuario ha pedido cerrar sesión.
+			//En este caso, se borran las variables de sesión, y se destruye dicha sesión.
+			//Tanto en docentes como en alumnos aplica por igual
 			if($_POST["tipo"]=="cerrar"){
 				$_SESSION["nombre"] = false;
 				$_SESSION["tipoUsuario"] = false;
 				session_destroy();
 				header('location:index.php');
-			}else if($_SESSION["tipoUsuario"]=="usuario"){
+			}
+			//Acciones POST que solo puede realizar un usuario estudiante
+			else if($_SESSION["tipoUsuario"]=="usuario"){
 				$usuarioAlan = new Usuario();
+				//Envia ediciones de datos del perfil a la aplicación
 				if($_POST["tipo"]=="edicion"){
 					$nombre = $usuarioAlan->procesarImagen($_FILES['imagen']['tmp_name']);
 					if($usuarioAlan->editarPerfil($nombre,$_SESSION["username"],$_POST["nombre"],$_POST["descripcion"],$_POST["portada"])){
@@ -29,7 +47,9 @@
 					}else{
 						$usuarioAlan->edicionIncorrecta();
 					}
-				}else if($_POST["tipo"]== "cambiarPass"){
+				}
+				//El usuario solicita un cambio de contraseña
+				else if($_POST["tipo"]== "cambiarPass"){
 					$aux = $usuarioAlan->cambiarPass($_POST["actual"],$_POST["nueva"],$_POST["repetida"]);
 					if($aux=="diferentes"){
 						$usuarioAlan->passNoCoinciden();
@@ -39,16 +59,22 @@
 						$usuarioAlan->edicionIncorrecta();
 					}
 				}
-			}else if($_SESSION["tipoUsuario"]=="docente"){
+			}
+			//Acciones que solo pueden realizarse por un docente
+			else if($_SESSION["tipoUsuario"]=="docente"){
 				$docenteAlan = new Docente();
+				//Se ejecuta si el usuario crea un nuevo curso
 				if($_POST["tipo"]=="crearCurso"){
 					$docenteAlan->crearCurso($_POST["nombreCurso"]);
 					$docenteAlan->crearNuevoCurso();
 				}
 
 			}
-		}else if($_SESSION["tipoUsuario"]=="usuario"){
+		}
+		//Acciones que solo puede realizar un usuario, y han sido enviadas por GET
+		else if($_SESSION["tipoUsuario"]=="usuario"){
 			$usuarioAlan = new Usuario();
+			//Se ejecuta cuando un usuario desea ver su perfil o el de alguien mas
 			if(isset($_GET["perfil"])){
 				if($_GET["perfil"]=="ranking"){
 					$usuarioAlan->mostrarRanking();
@@ -61,15 +87,24 @@
 				}else{
 					$usuarioAlan->inicioValidado();
 				}
-			}else if(isset($_GET["JSON"]) && isset($_SESSION["username"])){
+			}
+			//Envia los datos via JSON para ser accedidos por el javascript del juego
+			else if(isset($_GET["JSON"]) && isset($_SESSION["username"])){
 				$alan->obtenerJSON();
-			}else if(isset($_POST["nivel"]) && isset($_POST["subnivel"]) && isset($_POST["puntaje"])){
+			}
+			//Actualiza los valores de juego del usuario
+			else if(isset($_POST["nivel"]) && isset($_POST["subnivel"]) && isset($_POST["puntaje"])){
 				$alan->actualizarJuego($_POST["nivel"],$_POST["subnivel"],$_POST["puntaje"]);
-			}else{
+			}
+			//Entra al inicio (juego)
+			else{
 				$usuarioAlan->inicioValidado();
 			}
-		}else if($_SESSION["tipoUsuario"]=="docente"){
+		}
+		//Acciones que solo puede realizar un docente, y han sido enviadas por GET
+		else if($_SESSION["tipoUsuario"]=="docente"){
 			$docenteAlan = new Docente();
+			//Crea un curso nuevo o lista los ya existentes
 			if(isset($_GET["perfil"])){
 				if($_GET["perfil"]=="crearCurso"){
 					$docenteAlan->crearNuevoCurso();
@@ -81,39 +116,58 @@
 			}
 			
 		}
-	}else if(isset($_POST["tipo"])){
+	}
+	//Acciones para usuarios no logueados
+	else if(isset($_POST["tipo"])){
+		//Registra un nuevo usuario
 		if($_POST["tipo"]=="registro"){
 			$alan->registro($_POST["usuario"], $_POST["nombre"] ,$_POST["codigo"], $_POST["email"], $_POST["contrasena"], $_POST["curso"]);
-		}else if($_POST["tipo"]=="login"){
+		}
+		//Un usuario (docente o estudiante) inicia sesión
+		else if($_POST["tipo"]=="login"){
 			$alan->login($_POST["usuario"], $_POST["contrasena"]);
-		}else if($_POST["tipo"]=="recordarPass"){
+		}
+		//Un usuario estudiante pide reestablecimiento de su contraseña
+		else if($_POST["tipo"]=="recordarPass"){
 			$registro = $alan->recordarPass($_POST["email"]);
 			if($registro){
 				$alan->acuse("Revise su correo", "Se ha enviado un correo a su buzón con las instrucciones");
 			}else{
 				$alan->acuse("Verifique sus datos", "El correo suministrado no se encuentra en nuestra base");
 			}
-		}else if($_POST["tipo"]=="registroDocente"){
+		}
+		//Un docente se registra
+		else if($_POST["tipo"]=="registroDocente"){
 			$alan->registroDocente($_POST["usuario"], $_POST["nombre"] ,$_POST["codigo"], $_POST["email"], $_POST["contrasena"]);
-		}else if($_POST["tipo"]=="reestablecerPass"){
+		}
+		//Reestablece la contraseña luego de recibir el correo
+		else if($_POST["tipo"]=="reestablecerPass"){
 			$alan->reestablecerContra($_POST["pass"], $_POST["passRepetida"], $_POST["correo"], $_POST["validacion"]);
 		}
-	}else if(isset($_GET["perfil"])){
+	}
+	//Muestra el formulario de registro docente
+	else if(isset($_GET["perfil"])){
 		if($_GET["perfil"]=="registrarDocente"){
 			$alan->inicioDocente();
 		}else{
 			$alan->inicio();
 		}
-	}else if(isset($_GET["recuperado"])){
+	}
+	//Verifica el envio del correo al recuperar contraseña
+	else if(isset($_GET["recuperado"])){
 		if($_GET["recuperado"]=="si"){
 			$alan->acuse("Revise su correo", "Se ha enviado un correo a su buzón con las instrucciones");
 		}else{
 			$alan->acuse("Verifique sus datos", "El correo suministrado no se encuentra en nuestra base");
 		}
 
-	}else if(isset($_GET["correo"]) && isset($_GET["recuperar"])){
+	}
+	//Muestra el campo para reestablecimiento de contraseña
+	else if(isset($_GET["correo"]) && isset($_GET["recuperar"])){
 		$alan->reestablecerPassword($_GET["correo"], $_GET["recuperar"]);
-	}else{
+	}
+	//Muestra el inicio del juego
+	else{
 		$alan->inicio();
 	}
 	
