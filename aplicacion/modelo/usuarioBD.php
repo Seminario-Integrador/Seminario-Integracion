@@ -32,7 +32,7 @@
 		*/
 		public function registrar($username, $nombre, $codigo, $email, $contrasena, $curso)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			if($curso==""){
 				$this->consultar("INSERT INTO usuario VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."',NULL,'','0','1','0','perfil.jpg', '1')");		
 			}else{
@@ -50,7 +50,7 @@
 		*/
 		public function login($username, $contrasena)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT username FROM usuario WHERE username='".$username."' AND contrasenaSH1='".$contrasena."'");
 			$this->desconectar();
 			$cont=0;
@@ -76,7 +76,7 @@
 		*/
 		public function obtenerDatos($username)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT * FROM usuario WHERE username='".$username."'");
 			$this->desconectar();
 			$cont=0;
@@ -102,7 +102,7 @@
 		*/
 		public function actualizarNivel($username,$nivel)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE usuario SET nivel='".$nivel."' WHERE username='".$username."'");
 			$this->desconectar();
 		}
@@ -115,7 +115,7 @@
 		*/
 		public function actualizarSubnivel($username,$subnivel)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE usuario SET subnivel='".$subnivel."' WHERE username='".$username."'");
 			$this->desconectar();
 		}
@@ -128,7 +128,7 @@
 		*/
 		public function actualizarPuntaje($username, $puntos)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE usuario SET puntaje=".$puntos." WHERE username='".$username."'");
 			$this->desconectar();
 		}
@@ -141,7 +141,7 @@
 		*/
 		public function getNivel($username)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT nivel FROM usuario WHERE username='".$username."'");
 			$this->desconectar();
 			$nivel="";
@@ -160,7 +160,7 @@
 		*/
 		public function getSubnivel($username)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT subnivel FROM usuario WHERE username='".$username."'");
 			$this->desconectar();
 			$subnivel="";
@@ -179,7 +179,7 @@
 		*/
 		public function actualizarNombre($username,$nombre)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."' WHERE username='".$username."'");
 			$this->desconectar();
 			return $aux;
@@ -193,7 +193,7 @@
 		*/
 		public function actualizarDescripcion($username,$descripcion)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE usuario SET descripcion='".$descripcion."' WHERE username='".$username."'");
 			$this->desconectar();
 			return $aux;
@@ -207,7 +207,7 @@
 		*/
 		public function actualizarImagen($username,$rutaImagen)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE usuario SET fotoPerfil='".$rutaImagen."' WHERE username='".$username."'");
 			$this->desconectar();
 			return $aux;
@@ -221,7 +221,7 @@
 		*/
 		public function actualizarPortada($username,$portada)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE usuario SET fotoPortada='".$portada."' WHERE username='".$username."'");
 			$this->desconectar();
 			return $aux;
@@ -240,7 +240,7 @@
 		*/
 		public function actualizarDatos($username, $nombre, $descripcion, $rutaImagen, $portada)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE usuario SET nombre='".$nombre."',  descripcion='".$descripcion."', fotoPerfil='".$rutaimagen."', fotoPortada='".$portada."' WHERE username='".$username."'");
 			$this->desconectar();
 		}
@@ -253,7 +253,7 @@
 		*/
 		public function registrarMedalla($username, $logro)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$this->consultar("INSERT INTO usuario-medalla VALUES('".$username."','".$logro."')");
 			$this->desconectar();
 		}
@@ -265,7 +265,7 @@
 		*/
 		public function listarMedallas()
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT * FROM medalla");
 			$this->desconectar();
 			$datos=array();
@@ -284,7 +284,7 @@
 		*	@return Un array con todos los datos del usuario 
 		*/
 		public function getUsuario($username){
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT * FROM usuario WHERE username='".$username."'");
 			$this->desconectar();
 			$datos=array();
@@ -304,7 +304,7 @@
 		*/
 		public function listarMedallasUsuario($username)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT medalla.logro, medalla.tipo FROM medalla, usuarioMedalla WHERE usuarioMedalla.username='".$username."' AND medalla.logro = usuarioMedalla.logro");
 			$this->desconectar();
 			$datos=array();
@@ -325,7 +325,7 @@
 		*/
 		public function cambiarPassword($usuario, $actual, $nueva)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE usuario SET contrasenaSH1='".$nueva."' WHERE username='".$usuario."' AND contrasenaSH1='".$actual."'");
 			$this->desconectar();
 			return $aux;
@@ -339,7 +339,7 @@
 		*/
 		public function buscarCorreo($correo)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT nombre FROM usuario WHERE correo='".$correo."'");
 			$this->desconectar();
 			return mysqli_fetch_array($aux)[0];
@@ -353,7 +353,7 @@
 		*/
 		public function buscarUsername($correo)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT username FROM usuario WHERE correo='".$correo."'");
 			$this->desconectar();
 			return mysqli_fetch_array($aux)[0];
@@ -367,7 +367,7 @@
 		*/
 		public function buscarps($correo)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT contrasenaSH1 FROM usuario WHERE correo='".$correo."'");
 			$this->desconectar();
 			return mysqli_fetch_array($aux)[0];

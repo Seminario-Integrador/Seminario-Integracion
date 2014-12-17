@@ -29,7 +29,7 @@
 		*/
 		public function registrar($username, $nombre, $codigo, $email, $contrasena)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$this->consultar("INSERT INTO docente VALUES('".$nombre."','".$username."','".$email."','".$contrasena."','".$codigo."')");
 			$this->desconectar();
 		}
@@ -42,7 +42,7 @@
 		*/
 		public function login($username, $contrasena)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT usernameD FROM docente WHERE usernameD='".$username."' AND contrasenaSH1='".$contrasena."'");
 			$this->desconectar();
 			$cont=0;
@@ -67,7 +67,7 @@
 		*/
 		public function obtenerDatos($username)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT * FROM docente WHERE $username='".$username."'");
 			$this->desconectar();
 			$cont=0;
@@ -95,7 +95,7 @@
 		*/
 		public function actualizarDatos($username, $nombre, $contrasena)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE docente SET nombre='".$nombre."', contrasenaSH1='".$contrasena."' WHERE username='".$username."'");
 			$this->desconectar();
 		}
@@ -108,7 +108,7 @@
 		*/
 		public function listarEstudiantes($username)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT codigoUsario e, nivel e, subnivel e, puntaje e FROM usuario e, curso c WHERE c.username='".$username."' AND e.nombreCurso=c.nombreCurso");
 			$this->desconectar();
 			$cont=0;

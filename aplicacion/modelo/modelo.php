@@ -26,9 +26,9 @@
 		*	@param $contrasena - Contraseña del usuario root
 		*	@param $base - Nombre de la base de datos
 		*/
-		public function conectar($host, $usuario, $contrasena, $base)
+		public function conectar()
 		{
-			$this->conexion = mysqli_connect($host,$usuario,$contrasena,$base) or die(mysql_error($conexion));
+			$this->conexion = mysqli_connect("localhost","root","","alangame") or die(mysql_error($conexion));
 		}
 
 		/**
@@ -55,7 +55,7 @@
 		*/
 		public function obtenerRanking()
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT username, nivel, puntaje FROM usuario ORDER BY puntaje DESC LIMIT 10");
 			$this->desconectar();
 

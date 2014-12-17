@@ -27,7 +27,7 @@
 		*/
 		public function registrar($nombreCurso, $username)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$this->consultar("INSERT INTO curso VALUES('".$nombreCurso."','".$username."')");
 			$this->desconectar();
 		}
@@ -40,7 +40,7 @@
 		*/
 		public function actualizarDatos($username, $nombreCurso)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("UPDATE curso SET usernameD='".$username."' WHERE nombreCurso='".$nombreCurso."'");
 			$this->desconectar();
 		}
@@ -53,7 +53,7 @@
 		*/
 		public function listarCursos($username)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux = $this->consultar("SELECT nombreCurso FROM curso WHERE usernameD='".$username."'");
 			$retorno = array();
 			while($fila=mysqli_fetch_array($aux)){
@@ -71,7 +71,7 @@
 		*/
 		public function obtenerAlumnos($curso)
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux = $this->consultar("SELECT u.nombre, u.nivel, u.subnivel, u.puntaje FROM usuario u, curso c WHERE c.nombreCurso='".$curso."' AND c.nombreCurso=u.nombreCurso");
 			$retorno = array();
 			while($fila=mysqli_fetch_array($aux)){
@@ -89,7 +89,7 @@
 
 		public function listaDeCursos()
 		{
-			$this->conectar("localhost", "root", "", "alangame");
+			$this->conectar();
 			$aux=$this->consultar("SELECT nombreCurso FROM curso");
 			$cursos=array();
 			while($fila=mysqli_fetch_array($aux)){
