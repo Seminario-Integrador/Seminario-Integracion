@@ -19,9 +19,9 @@
 	$crearBase="CREATE DATABASE alangame";
 	$result = mysqli_query($conexion, $crearBase);
 	if($result){
-		echo "La base de Datos ha sido creada exitosamente :3<br>";
+		echo "La base de Datos ha sido creada exitosamente.<br>";
 	}else{
-		echo "Algo ha fallado. Intentalo de nuevo :(<br>";
+		echo "Algo ha fallado. Intentalo de nuevo.<br>";
 	}
 
 	mysqli_close($conexion);
